@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advansells - AI for Dental Autonomy</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for premium feel and subtle animations */
+        :root {
+            --primary-dark: #0f172a; /* Slate 900 */
+            --accent-teal: #14b8a6; /* Teal 500 */
+            --text-light: #f8fafc; /* Slate 50 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .premium-card {
+            background-color: #1e293b; /* Slate 800 */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #334155; /* Slate 700 */
+        }
+        .premium-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subtle underline hover effect for menu items */
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Animation for section reveal (clever hinting) */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dropdown transition */
+        .dropdown-content {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .dropdown-content.open {
+            max-height: 300px; /* Sufficient height for content */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Newsletter Modal UI (Hidden by default) -->
+    <div id="newsletterModal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4" onclick="closeModal(event)">
+        <div class="premium-card p-8 w-full max-w-md" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">Access Advan Intelligence</h3>
+                <button onclick="document.getElementById('newsletterModal').classList.add('hidden')" class="text-slate-400 hover:text-white transition duration-300">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <p class="text-slate-300 mb-6">Enroll in our private intelligence briefings. Optimized strategies delivered to your inbox.</p>
+            <form onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" id="emailInput" placeholder="Enter your high-value email..." required class="w-full p-3 mb-4 bg-slate-900 border border-slate-700 rounded-lg text-white focus:ring-teal-500 focus:border-teal-500 transition">
+                <button type="submit" class="w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-slate-900 font-bold py-3 rounded-lg hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-lg">
+                    Secure Enrollment
+                </button>
+            </form>
+            <p id="enrollmentMessage" class="text-center mt-4 text-sm text-green-400 hidden"></p>
+        </div>
+    </div>
+
+
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-primary-dark/95 backdrop-blur-md shadow-lg border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo/Agency Name (Symmetry Focus) -->
+            <div class="flex items-center space-x-2">
+                <i data-lucide="brain" class="w-8 h-8 text-accent-teal"></i>
+                <span class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
+                    Advansells
+                </span>
+            </div>
+
+            <!-- Navigation Links (Hidden on mobile, uses dropdown) -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#vision" class="nav-link text-slate-300 hover:text-white transition">The Vision</a>
+                <a href="#protocol" class="nav-link text-slate-300 hover:text-white transition">Protocol</a>
+                <a href="#scale" class="nav-link text-slate-300 hover:text-white transition">Scale</a>
+                <button onclick="openModal()" class="text-slate-300 hover:text-white transition p-2 rounded-full hover:bg-slate-800">
+                    <i data-lucide="mail-plus" class="w-6 h-6"></i>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu and Newsletter Icon -->
+            <div class="flex items-center md:hidden space-x-4">
+                 <!-- Newsletter Icon -->
+                <button onclick="openModal()" class="text-slate-300 hover:text-white transition p-2 rounded-full hover:bg-slate-800">
+                    <i data-lucide="mail-plus" class="w-6 h-6"></i>
+                </button>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="mobile-menu-button" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white transition p-2 rounded-lg hover:bg-slate-800">
+                    <i id="menu-icon-open" data-lucide="menu" class="w-6 h-6"></i>
+                    <i id="menu-icon-close" data-lucide="x" class="w-6 h-6 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown Content -->
+        <div id="mobile-menu-content" class="md:hidden dropdown-content bg-primary-dark border-t border-slate-800">
+            <a href="#vision" onclick="closeMobileMenu()" class="block px-4 py-3 text-slate-300 hover:bg-slate-800 transition">The Vision</a>
+            <a href="#protocol" onclick="closeMobileMenu()" class="block px-4 py-3 text-slate-300 hover:bg-slate-800 transition">Protocol</a>
+            <a href="#scale" onclick="closeMobileMenu()" class="block px-4 py-3 text-slate-300 hover:bg-slate-800 transition">Scale</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section (Centering and Symmetry) -->
+        <section class="min-h-[80vh] flex items-center justify-center text-center p-8 border-b border-slate-800">
+            <div class="max-w-4xl mx-auto reveal-up">
+                <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">The Next Level of Practice Management</p>
+                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-6">
+                    <span class="text-white block">The Advan of Dental</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Autonomy.</span>
+                </h1>
+                <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                    We architect the invisible infrastructure for predictable, exponential growth. Stop managing your practice; let the system manage your success.
+                </p>
+                <a href="#protocol" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
+                    See the Protocol
+                    <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Feature Grid: Precision, Autonomy, Scale (Symmetry and Clever Hinting) -->
+        <section id="vision" class="py-20 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">The Three Pillars of Intelligence</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    We don't offer services; we integrate a system where every variable is optimized for peak performance.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12 reveal-up">
+                <!-- Pillar 1: Precision -->
+                <div class="premium-card p-6 lg:p-10 text-center">
+                    <i data-lucide="bar-chart-3" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Predictive Precision</h3>
+                    <p class="text-slate-400">
+                        Leverage proprietary models to foresee patient flow, optimize scheduling gaps, and ensure resource allocation is non-negotiable. **(Hint: Data-driven decision making, cutting admin waste)**
+                    </p>
+                </div>
+
+                <!-- Pillar 2: Autonomy -->
+                <div class="premium-card p-6 lg:p-10 text-center">
+                    <i data-lucide="layers" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Operational Autonomy</h3>
+                    <p class="text-slate-400">
+                        Delegate repetitive cognitive tasks to an intelligent digital workforce. Your focus returns exclusively to clinical excellence and patient care. **(Hint: Outsourcing/Automation)**
+                    </p>
+                </div>
+
+                <!-- Pillar 3: Scale -->
+                <div class="premium-card p-6 lg:p-10 text-center">
+                    <i data-lucide="trending-up" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                    <h3 class="2xl font-bold mb-3">Exponential Scale</h3>
+                    <p class="text-slate-400">
+                        Implement a scalable acquisition framework that converts untapped demand into high-value patient relationships, consistently and predictably. **(Hint: Lead Generation)**
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Protocol Section (Detailed Dropdowns/Accordions) -->
+        <section id="protocol" class="py-20 lg:py-32 bg-slate-900 border-t border-b border-slate-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal-up">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold mb-4 text-white">The Advansells Protocol: Step-by-Step</h2>
+                    <p class="text-xl text-slate-400">
+                        The framework that turns your practice from functional to phenomenal. The inner workings are complex; the results are simple.
+                    </p>
+                </div>
+
+                <!-- Dropdown 1: Analysis (Clever wording) -->
+                <div class="mb-4 reveal-up">
+                    <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
+                        <span class="text-xl font-semibold text-accent-teal">01. Deep-State Diagnostic & System Mapping</span>
+                        <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                    </button>
+                    <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                        We begin with an exhaustive, non-invasive analysis of your current operational data. Every bottleneck, inefficiency, and missed opportunity is quantified into a proprietary 'Practice Friction Score.' This maps the terrain for autonomous optimization.
+                    </div>
+                </div>
+
+                <!-- Dropdown 2: Integration (Clever wording) -->
+                <div class="mb-4 reveal-up">
+                    <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(2)">
+                        <span class="text-xl font-semibold text-accent-teal">02. Intelligent Framework Deployment</span>
+                        <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                    </button>
+                    <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                        Our core engine connects to the validated friction points, deploying specialized digital agents that handle everything from qualifying inbound interest to follow-up protocols. This is the moment your practice begins to run itself.
+                    </div>
+                </div>
+
+                <!-- Dropdown 3: Optimization (Clever wording) -->
+                <div class="mb-4 reveal-up">
+                    <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
+                        <span class="text-xl font-semibold text-accent-teal">03. Continuous Predictive Loop (The Growth Engine)</span>
+                        <i id="icon-3" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                    </button>
+                    <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                        The system never stops learning. It refines patient acquisition funnels and operational workflows in real-time, ensuring that your patient roster and revenue are always trending upward, without manual oversight.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scale Section (Call to Action/Centering) -->
+        <section id="scale" class="py-20 lg:py-32 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto reveal-up">
+                <h2 class="text-4xl sm:text-5xl font-extrabold mb-6">Scale Your Capacity. Sustain Your Legacy.</h2>
+                <p class="text-xl text-slate-400 mb-8">
+                    The difference between a busy practice and a thriving enterprise is the capacity to scale without adding complexity. This is the Advansells Promise.
+                </p>
+                <a href="mailto:contact@advansells.co.uk" class="inline-flex items-center justify-center px-10 py-4 border-4 border-teal-500 text-lg font-bold rounded-xl text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05] shadow-lg shadow-teal-500/30">
+                    Initiate Consultation
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Symmetry and Clean Layout) -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>&copy; 2025 Advansells. Operational Intelligence for the Modern Dentist.</p>
+            <p class="mt-2">Designed with Precision & Perfect Alignment.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Dropdown/Accordion Functionality
+        const toggleDropdown = (id) => {
+            const content = document.getElementById(`dropdown-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+
+            // Close all other dropdowns
+            for (let i = 1; i <= 3; i++) {
+                if (i !== id) {
+                    const otherContent = document.getElementById(`dropdown-${i}`);
+                    const otherIcon = document.getElementById(`icon-${i}`);
+                    otherContent.classList.remove('open');
+                    otherIcon.classList.remove('rotate-180');
+                }
+            }
+
+            // Toggle the clicked dropdown
+            content.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+        };
+
+        // 2. Mobile Menu Functionality
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        const toggleMobileMenu = () => {
+            mobileMenuContent.classList.toggle('open');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        };
+
+        const closeMobileMenu = () => {
+            mobileMenuContent.classList.remove('open');
+            menuIconOpen.classList.remove('hidden');
+            menuIconClose.classList.add('hidden');
+        };
+
+        // 3. Newsletter Modal Functionality
+        const openModal = () => {
+            document.getElementById('newsletterModal').classList.remove('hidden');
+            document.getElementById('emailInput').value = '';
+            document.getElementById('enrollmentMessage').classList.add('hidden');
+        };
+
+        const closeModal = (event) => {
+             // Close modal only if clicking outside the modal content (on the backdrop)
+            if (event.target.id === 'newsletterModal') {
+                document.getElementById('newsletterModal').classList.add('hidden');
+            }
+        };
+
+        const handleNewsletterSubmit = (event) => {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const messageElement = document.getElementById('enrollmentMessage');
+
+            // Simulate the "self-enrollment" process
+            console.log(`Self-enrolling email: ${email}`);
+
+            messageElement.textContent = `Success! ${email} is now receiving Advan Intelligence briefings.`;
+            messageElement.classList.remove('hidden');
+            document.getElementById('emailInput').value = '';
+
+            // Optional: Close modal after a delay
+            setTimeout(() => {
+                document.getElementById('newsletterModal').classList.add('hidden');
+            }, 3000);
+        };
+
+        // 4. Scroll Animation (For Modern Look)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        document.querySelectorAll('.reveal-up').forEach(element => {
+            observer.observe(element);
+        });
+
+    </script>
+</body>
+</html>
