@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advansells - Launchpad Hub</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for premium feel and subtle animations */
+        :root {
+            --primary-dark: #0f172a; /* Slate 900 */
+            --accent-teal: #14b8a6; /* Teal 500 */
+            --subtle-violet: #8b5cf6; /* Violet 500 */
+            --text-light: #f8fafc; /* Slate 50 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Global Component Styles --- */
+        .premium-card {
+            background-color: #1e293b; /* Slate 800 */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #334155; /* Slate 700 */
+        }
+        .premium-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Dropdown transition (used in Protocol section) */
+        .dropdown-content {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .dropdown-content.open {
+            max-height: 300px; /* Sufficient height for content */
+            opacity: 1;
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Section Hiding/Transition Logic --- */
+        .content-section {
+            display: none; /* Default hidden state for content sections */
+        }
+        
+        /* Funnel Transition Styles */
+        #qualifier-stage-1, #qualifier-stage-2 {
+            transition: opacity 1.0s ease-in-out;
+        }
+        
+        /* FIX: Use visibility and absolute positioning for smooth, reliable stage hiding */
+        .hidden-stage {
+            /* Hides content and removes it from layout flow */
+            position: absolute; 
+            top: -9999px; 
+            visibility: hidden;
+            opacity: 0 !important; /* Ensure it is fully transparent */
+        }
+
+        /* Animation for scroll reveal */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Specific styling for the embedded logo in the Launchpad card */
+        .launchpad-logo-container {
+            width: 144px; /* w-36 */
+            height: 144px; /* h-36 */
+            border-radius: 9999px; /* rounded-full */
+            margin: 0 auto 1.5rem; /* mx-auto mb-6 */
+            background-color: #0f172a; /* Dark background to ensure border stands out */
+            /* Removed internal padding to allow logo to fill the frame */
+            border: 4px solid var(--accent-teal); /* border-4 border-teal-500 */
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.5); /* Soft teal glow */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .launchpad-logo {
+            width: 100%;
+            height: 100%;
+            /* Use object-fit: cover and scale up slightly to ensure background fill, 
+               but rely primarily on removing container padding for visual dominance. */
+            object-fit: cover; 
+            transform: scale(1.05); /* Slight scale to ensure edges touch the border */
+        }
+
+        /* --- Phone Container Styles --- */
+        .phone-mockup {
+            background: #000;
+            border: 8px solid #333;
+            border-radius: 36px;
+            padding: 12px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.8);
+            max-width: 400px; /* Constrain size to resemble a phone */
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .phone-screen {
+            background-color: #111;
+            border-radius: 24px;
+            /* Removed fixed aspect-ratio to allow video to dictate size */
+            overflow: hidden;
+            position: relative;
+            display: flex; /* Flex container for correct object-fit */
+            align-items: center;
+            justify-content: center;
+        }
+        .phone-screen video {
+            width: 100%;
+            /* Corrected: Use object-fit: contain to show the entire video. 
+               The phone-screen container will naturally adopt the video's aspect ratio. */
+            object-fit: contain; 
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35%;
+            height: 25px;
+            background: #000;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 10;
+        }
+        .phone-social-bar {
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-around;
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation Bar (Used across all views) -->
+    <header class="sticky top-0 z-40 bg-primary-dark/95 backdrop-blur-md shadow-lg border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo/Agency Name (Clickable to return to Launchpad) -->
+            <button onclick="showLaunchpad()" class="flex items-center space-x-2 group">
+                <!-- Reverted to Brain icon for small header logo -->
+                <i data-lucide="brain" class="w-8 h-8 text-accent-teal group-hover:text-cyan-500 transition"></i>
+                <span class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
+                    Advansells
+                </span>
+            </button>
+            
+            <!-- Consultation Button (Visible everywhere) -->
+            <button onclick="openConsultationModal()" class="inline-flex items-center px-4 py-2 border border-teal-500 text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300">
+                <i data-lucide="mail-plus" class="w-4 h-4 mr-2"></i>
+                Secure Contact
+            </button>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        
+        <!-- ============================================== -->
+        <!-- 1. LAUNCHPAD HUB (Default View) -->
+        <!-- ============================================== -->
+        <section id="launchpad-section" class="min-h-[85vh] flex items-center justify-center p-8 bg-slate-900">
+            <div class="max-w-2xl mx-auto text-center reveal-up">
+                
+                <!-- Profile Card -->
+                <div class="premium-card p-8 sm:p-12 mb-10 border-2 border-violet-500/50">
+                    
+                    <!-- UPDATED LOGO IMPLEMENTATION (External Reference) -->
+                    <div class="launchpad-logo-container">
+                        <img src="ADVANSELLS LOGO.png" 
+                             alt="Advansells Logo" 
+                             class="launchpad-logo"
+                             onerror="this.onerror=null;this.src='https://placehold.co/144x144/1e293b/14b8a6?text=Advansells';">
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-4xl font-extrabold mb-2">
+                        Welcome to Advansells.
+                    </h1>
+                    <p class="text-lg text-slate-400 max-w-sm mx-auto mb-8">
+                        Our expertise is dedicated to eliminating the friction costing your premium practice its high-value patients.
+                    </p>
+                    
+                    <!-- Choice Pills -->
+                    <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
+                        <button onclick="showContent('protocol-content')" 
+                                class="flex-1 px-6 py-3 font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
+                            <i data-lucide="layout-grid" class="w-5 h-5 inline mr-2"></i> The Full Protocol
+                        </button>
+                        
+                        <button onclick="showContent('funnel-content')" 
+                                class="flex-1 px-6 py-3 font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
+                            <i data-lucide="unlock" class="w-5 h-5 inline mr-2"></i> The Zero-Friction Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 2. CONTENT SECTION: THE FULL PROTOCOL (index.html content) -->
+        <!-- ============================================== -->
+        <section id="protocol-content" class="content-section">
+            <div class="main-content-wrapper">
+                
+                <!-- Hero Section (Centering and Symmetry) -->
+                <section class="min-h-[80vh] flex items-center justify-center text-center p-8 border-b border-slate-800">
+                    <div class="max-w-4xl mx-auto reveal-up">
+                        <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Precision-Engineered Operational Excellence</p>
+                        <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-6">
+                            <span class="text-white block">Eliminate Patient</span>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Friction.</span>
+                        </h1>
+                        <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                            Luxury clinics lose high-value patients through small operational delays. We architect the invisible infrastructure to <span class="text-teal-300 font-semibold">eliminate that friction</span> and preserve the integrity of the patient journey.
+                        </p>
+                        <a href="#protocol-details" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
+                            See the Frictionless Protocol
+                            <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Feature Grid: Precision, Autonomy, Scale (Symmetry and Clever Hinting) -->
+                <section id="vision" class="py-20 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16 reveal-up">
+                        <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">The Three Pillars of Frictionless Excellence</h2>
+                        <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                            We don't manage; **we integrate** a system that removes every point of potential leakage in your high-value pipeline.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8 lg:gap-12 reveal-up">
+                        <!-- Pillar 1: Precision (Targeting Delays) -->
+                        <div class="premium-card p-6 lg:p-10 text-center">
+                            <i data-lucide="bar-chart-3" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-3">Predictive Precision</h3>
+                            <p class="text-slate-400">
+                                **We deploy** <span class="text-teal-300 font-semibold">validated frameworks</span> to detect and eliminate the sub-optimal operational loops that lead to patient dropout, ensuring zero friction from inquiry to invoice.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 2: Autonomy (Targeting Admin Waste) -->
+                        <div class="premium-card p-6 lg:p-10 text-center">
+                            <i data-lucide="layers" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                            <h3 class="2xl font-bold mb-3">Operational Autonomy</h3>
+                            <p class="text-slate-400">
+                                Delegate repetitive administrative tasks to an <span class="text-teal-300 font-semibold">intelligent digital workforce</span>. This frees your highly-paid staff to focus only on patient experience and clinical delivery.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 3: Scale (Targeting High-Value Acquisition) -->
+                        <div class="premium-card p-6 lg:p-10 text-center">
+                            <i data-lucide="trending-up" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
+                            <h3 class="2xl font-bold mb-3">Sustained Scale</h3>
+                            <p class="text-slate-400">
+                                **We implement** an acquisition framework that consistently attracts and converts high-ticket patients, ensuring your growth is <span class="text-teal-300 font-semibold">predictable, reliable, and friction-free</span>.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- The Protocol Section (Detailed Dropdowns/Accordions) -->
+                <section id="protocol-details" class="py-20 lg:py-32 bg-slate-900 border-t border-b border-slate-800">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-16 reveal-up">
+                            <h2 class="text-4xl sm:text-5xl font-extrabold mb-4 text-white">The Advansells Frictionless Protocol</h2>
+                            <p class="text-xl text-slate-400">
+                                The framework designed exclusively for luxury practices where perfection in service delivery is the only standard.
+                            </p>
+                        </div>
+
+                        <!-- Dropdown 1: Analysis (Focus on Lead Leakage and Response Time) -->
+                        <div class="mb-4 reveal-up">
+                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
+                                <span class="text-xl font-semibold text-accent-teal">01. Zero-Latency Lead Qualification</span>
+                                <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                            </button>
+                            <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                                **We neutralize** the drain caused by <span class="text-teal-300 font-semibold">Slow Response Time</span> and the waste from <span class="text-teal-300 font-semibold">Unqualified Leads</span>. **Our system** ensures instantaneous engagement and rigorous pre-qualification of all inbound high-value interest, guaranteeing staff time is spent only on pre-vetted opportunities.
+                            </div>
+                        </div>
+
+                        <!-- Dropdown 2: Integration (Focus on Digital Touchpoints and Prep) -->
+                        <div class="mb-4 reveal-up">
+                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(2)">
+                                <span class="text-xl font-semibold text-accent-teal">02. Optimized Pre-Consult Flow</span>
+                                <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                            </button>
+                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                                **We dismantle** the friction created by <span class="text-teal-300 font-semibold">Disorganized Digital Touchpoints</span> and <span class="text-teal-300 font-semibold">Poor Pre-Appointment Prep</span>. The system automates and standardizes all patient materials, consent forms, and reminders, ensuring every high-value patient arrives fully prepared for a successful, high-trust consultation.
+                            </div>
+                        </div>
+
+                        <!-- Dropdown 3: Optimization (Focus on Conversion Path) -->
+                        <div class="mb-4 reveal-up">
+                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
+                                <span class="text-xl font-semibold text-accent-teal">03. Secure Conversion Pathway</span>
+                                <i id="icon-3" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                            </button>
+                            <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
+                                **We solve** the final friction point: <span class="text-teal-300 font-semibold">Patients getting lost between enquiry → consult → treatment</span>. **Our platform** implements a guided, automated pipeline that ensures seamless transitions and zero dropped high-value patients, resulting in predictable conversion rates.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Scale Section (Call to Action/Centering) -->
+                <section id="scale" class="py-20 lg:py-32 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto reveal-up">
+                        <h2 class="text-4xl sm:text-5xl font-extrabold mb-6">Scale Your Capacity. Sustain Your Legacy.</h2>
+                        <p class="text-xl text-slate-400 mb-8">
+                            The difference between a busy practice and a thriving enterprise is the capacity to scale without adding complexity. This is the Advansells Promise.
+                        </p>
+                        <button onclick="openConsultationModal()" class="inline-flex items-center justify-center px-10 py-4 border-4 border-teal-500 text-lg font-bold rounded-xl text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05] shadow-lg shadow-teal-500/30">
+                            Secure Your Growth Pipeline
+                        </button>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 3. CONTENT SECTION: ZERO-FRICTION ASSESSMENT (Funnel content) -->
+        <!-- ============================================== -->
+        <section id="funnel-content" class="content-section">
+            <div class="main-content-wrapper">
+                
+                <!-- STAGE 1: THE QUALIFIER SURVEY -->
+                <section id="qualifier-stage-1" class="min-h-screen flex items-center justify-center p-8">
+                    <div class="max-w-xl mx-auto text-center video-panel-container p-8 sm:p-12">
+                        <i data-lucide="shield-check" class="w-12 h-12 mx-auto text-violet-500 mb-6"></i>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold leading-snug mb-4">
+                            Verify Your Elite Status
+                        </h2>
+                        <p class="text-lg text-slate-400 mb-10">
+                            To unlock the exclusive Zero-Friction Mandate, please confirm your operational profile.
+                        </p>
+
+                        <form id="qualifier-form" class="space-y-6 text-left">
+                            <!-- Question 1: Targeting High-Value Patients -->
+                            <div>
+                                <label class="block text-slate-200 font-semibold mb-2">1. What percentage of your annual revenue is generated by high-value treatments (e.g., implants, full-mouth reconstructions, cosmetic dentistry)?</label>
+                                <select id="q1" class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:border-violet-500 focus:ring-violet-500 transition">
+                                    <option value="">Select an option...</option>
+                                    <option value="1">Less than 30%</option>
+                                    <option value="2">30% - 60%</option>
+                                    <option value="3">Over 60%</option>
+                                </select>
+                            </div>
+
+                            <!-- Question 2: Targeting Operational Delays/Friction -->
+                            <div>
+                                <label class="block text-slate-200 font-semibold mb-2">2. How often do administrative delays (scheduling errors, follow-up gaps) result in confirmed patient appointments being lost or delayed?</label>
+                                <select id="q2" class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:border-violet-500 focus:ring-violet-500 transition">
+                                    <option value="">Select an option...</option>
+                                    <option value="1">Rarely (Less than 1 per month)</option>
+                                    <option value="2">Occasionally (1-3 per month)</option>
+                                    <option value="3">Frequently (4+ per month)</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Question 3: Targeting Current Manual Overhead (Subtle Hint at Outsourcing) -->
+                            <div>
+                                <label class="block text-slate-200 font-semibold mb-2">3. How many unique software tools or manual touchpoints are involved between a new lead submitting an inquiry and being seated in the exam chair?</label>
+                                <select id="q3" class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:border-violet-500 focus:ring-violet-500 transition">
+                                    <option value="">Select an option...</option>
+                                    <option value="1">2 or less (Highly optimized)</option>
+                                    <option value="2">3 - 5 (Moderate friction)</option>
+                                    <option value="3">6 or more (High friction risk)</option>
+                                </select>
+                            </div>
+
+                            <button type="button" onclick="submitQualifier()" class="w-full px-8 py-4 border-4 border-transparent text-lg font-bold rounded-xl text-slate-900 bg-gradient-to-r from-violet-500 to-fuchsia-600 hover:from-violet-400 hover:to-fuchsia-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
+                                Unlock Video Insight
+                            </button>
+                        </form>
+                        <p id="error-message" class="text-red-400 mt-4 hidden">Please answer all three questions to unlock the content.</p>
+                    </div>
+                </section>
+
+                <!-- STAGE 2: VIDEO LANDING PAGE CONTENT (Initially Hidden within the funnel) -->
+                <section id="qualifier-stage-2" class="hidden-stage">
+                    
+                    <!-- Hero Panel: Video Input Area -->
+                    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20">
+                        <div class="text-center mb-12 reveal-down">
+                            <h1 class="text-5xl sm:text-6xl font-extrabold leading-snug mb-4">
+                                The <span class="text-violet-500">Zero-Friction</span> Mandate.
+                            </h1>
+                            <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                                The exclusive insight into eliminating operational friction for high-value dental clinics.
+                            </p>
+                        </div>
+
+                        <div class="video-panel-container p-4 sm:p-8 reveal-up">
+                            <!-- Phone Mockup Container for Video -->
+                            <div class="phone-mockup">
+                                <div class="phone-notch"></div>
+                                <div class="phone-screen">
+                                    <!-- Embedded Video Element (advansellsAD.mp4) -->
+                                    <!-- Muted, loop, and playsinline are used to satisfy compliant autoplay standards -->
+                                    <video id="advansells-video" controls autoplay muted loop playsinline>
+                                        <source src="advansellsAD.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <!-- Static Like/Comment Bar -->
+                                <div class="phone-social-bar">
+                                    <div class="flex items-center space-x-2 cursor-pointer text-red-500 hover:text-red-400 transition">
+                                        <i data-lucide="heart" class="w-6 h-6 fill-red-500 stroke-red-500"></i>
+                                        <span class="text-lg font-semibold">4.8k</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 cursor-pointer hover:text-white transition">
+                                        <i data-lucide="message-square" class="w-6 h-6"></i>
+                                        <span class="text-lg font-semibold">124</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 cursor-pointer hover:text-white transition">
+                                        <i data-lucide="send" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Phone Mockup -->
+                        </div>
+                    </section>
+
+                    <!-- Description Area (Scrollable Content Below Video) -->
+                    <section class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="reveal-up">
+                            <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-violet-500">
+                                The Imperative of Operational Integrity
+                            </h2>
+                            <div class="space-y-6 text-slate-300 leading-relaxed text-lg">
+                                <p>
+                                    In the sphere of luxury dental care, the patient experience is the product. Every administrative delay, every missed follow-up, and every moment of confusion acts as a point of <span class="text-violet-400 font-semibold">friction</span> that erodes trust and justifies seeking alternatives. High-value patients expect—and demand—a seamless, invisible flow of service.
+                                </p>
+                                <p>
+                                    Advansells specializes in <span class="text-violet-400 font-semibold">architecting the capacity for flawlessness</span>. **We deploy** validated, intelligent systems to manage the complex logistics that traditionally consume staff bandwidth. This strategic outsourcing ensures that your team’s focus remains entirely on clinical excellence and patient relationship building, where **our true value** lies.
+                                </p>
+                                <p class="border-l-4 border-violet-500 pl-4 py-2 bg-slate-800/50 rounded-md">
+                                    **Our framework** translates operational precision into market reputation. When high-value patients feel the difference—the zero-latency scheduling, the effortless intake, the perfect communication—your practice gains an unassailable competitive advantage. <span class="text-violet-400 font-semibold">Watch the video above</span> for a breakdown of the Advansells methodology and how **we ensure** your legacy is one of frictionless, sustainable growth.
+                                </p>
+                                <p>
+                                    Ready to secure the elite experience your patients deserve? Click the link below to initiate a strategic capacity review.
+                                </p>
+                            </div>
+                            
+                            <div class="text-center mt-12">
+                                 <button onclick="openConsultationModal()" class="inline-flex items-center justify-center px-10 py-4 border-4 border-violet-500 text-lg font-bold rounded-xl text-violet-500 hover:bg-violet-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05] shadow-lg shadow-violet-500/30">
+                                    Secure Your Growth Pipeline
+                                </button>
+                                <button onclick="showLaunchpad()" class="block mt-4 text-sm text-slate-500 hover:text-white transition">
+                                    — Return to Advansells Hub.
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="min-h-12"></div>
+                </section>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 4. FOOTER AND MODAL STRUCTURE -->
+        <!-- ============================================== -->
+        
+        <!-- Email Confirmation Modal -->
+        <div id="confirmation-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+            <div class="bg-slate-800 p-8 rounded-xl max-w-sm mx-4 shadow-2xl border border-teal-500/50 transform scale-100 transition-transform duration-300">
+                <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                    <i data-lucide="mail" class="w-6 h-6 mr-2 text-teal-400"></i>
+                    Confirm Outreach
+                </h3>
+                <p class="text-slate-300 mb-6">
+                    Are you ready to be redirected to your default email client to send a secure message to <span class="text-teal-400 font-semibold">advansells.mind@gmail.com</span>?
+                </p>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeConsultationModal()" class="px-5 py-2 text-sm font-semibold rounded-lg text-slate-300 hover:bg-slate-700 transition">
+                        Cancel
+                    </button>
+                    <a href="mailto:advansells.mind@gmail.com" id="confirm-email-link" class="px-5 py-2 text-sm font-bold rounded-lg bg-teal-500 text-slate-900 hover:bg-teal-400 transition" onclick="closeConsultationModal()">
+                        Proceed
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer (Symmetry and Clean Layout) -->
+        <footer class="bg-slate-900 border-t border-slate-800 py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+                <p>&copy; 2025 Advansells. Operational Intelligence for the Modern Dentist.</p>
+                <p class="mt-2">Deployed with Precision & Perfect Alignment.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- 
+        1. FIREBASE MODULE SCRIPT (Isolated and static-safe)
+        This must be 'type="module"' to support imports, but all Firebase
+        logic is self-contained to avoid polluting the global scope or
+        relying on Canvas environment variables that break static hosts.
+    -->
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        // Placeholder for Firebase configuration (Static-Safe)
+        const STATIC_FIREBASE_CONFIG = {
+            // Note: In a live environment, this object would contain real credentials.
+            // For a static environment, we use a minimal structure to allow initialization.
+            apiKey: "AIzaSy", 
+            authDomain: "example-project.firebaseapp.com",
+            projectId: "example-project-123",
+            storageBucket: "example-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:23456789:web:abcdef123456"
+        };
+
+        let firebaseApp, storage;
+
+        try {
+            // Initialize Firebase App
+            firebaseApp = initializeApp(STATIC_FIREBASE_CONFIG);
+            // Initialize Firebase Storage
+            storage = getStorage(firebaseApp);
+            console.log("Firebase SDKs initialized successfully (Storage ready).");
+        } catch (e) {
+            console.error("Firebase Initialization Error:", e);
+        }
+        
+        // This script block ensures Firebase is ready without creating console errors
+        // or breaking the global navigation scope.
+    </script>
+
+
+    <!-- 
+        2. GLOBAL SCRIPT (Standard script block)
+        Contains all functions called via inline 'onclick' handlers. 
+    -->
+    <script>
+        // Initialize Lucide Icons
+        // This must run after the DOM content is loaded or after the icons are added.
+        window.onload = () => {
+             lucide.createIcons();
+        };
+
+        // --- GLOBAL DOM REFERENCES ---
+        const LAUNCHPAD = document.getElementById('launchpad-section');
+        const PROTOCOL_CONTENT = document.getElementById('protocol-content');
+        const FUNNEL_CONTENT = document.getElementById('funnel-content');
+        const MODAL = document.getElementById('confirmation-modal');
+        const qualifierStage1 = document.getElementById('qualifier-stage-1');
+        const qualifierStage2 = document.getElementById('qualifier-stage-2');
+        const errorMessage = document.getElementById('error-message');
+
+
+        // --- MAIN PAGE NAVIGATION LOGIC ---
+        const hideAllContent = () => {
+            LAUNCHPAD.style.display = 'none';
+            PROTOCOL_CONTENT.style.display = 'none';
+            FUNNEL_CONTENT.style.display = 'none';
+            window.scrollTo(0, 0); // Always start at the top
+        };
+
+        const showLaunchpad = () => {
+            hideAllContent();
+            LAUNCHPAD.style.display = 'flex';
+            // Reset funnel state if returning from assessment
+            qualifierStage1.classList.remove('hidden-stage');
+            qualifierStage2.classList.add('hidden-stage');
+            qualifierStage1.style.opacity = '1';
+        };
+
+        const showContent = (contentId) => {
+            hideAllContent();
+            const target = document.getElementById(contentId);
+            target.style.display = 'block';
+            window.scrollTo(0, 0); 
+            // Reset scroll observers for initial reveal
+            document.querySelectorAll('.reveal-up').forEach(el => el.classList.remove('active'));
+        };
+
+
+        // --- MODAL LOGIC ---
+        const openConsultationModal = () => {
+            MODAL.classList.remove('hidden');
+        };
+
+        const closeConsultationModal = () => {
+            MODAL.classList.add('hidden');
+        };
+
+
+        // --- PROTOCOL DROPDOWN LOGIC ---
+        const toggleDropdown = (id) => {
+            const content = document.getElementById(`dropdown-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+
+            // Close all other dropdowns
+            for (let i = 1; i <= 3; i++) {
+                if (i !== id) {
+                    const otherContent = document.getElementById(`dropdown-${i}`);
+                    const otherIcon = document.getElementById(`icon-${i}`);
+                    if (otherContent) otherContent.classList.remove('open');
+                    if (otherIcon) otherIcon.classList.remove('rotate-180');
+                }
+            }
+
+            // Toggle the clicked dropdown
+            if (content) content.classList.toggle('open');
+            if (icon) icon.classList.toggle('rotate-180');
+        };
+
+
+        // --- FUNNEL LOGIC ---
+        const submitQualifier = () => {
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const q3 = document.getElementById('q3').value;
+
+            // Check if all questions have been answered
+            if (q1 === "" || q2 === "" || q3 === "") {
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            errorMessage.classList.add('hidden');
+            
+            // 1. Fade out the qualifier section
+            qualifierStage1.style.opacity = '0';
+            
+            setTimeout(() => {
+                // 2. Hide the section completely using the fixed CSS class
+                qualifierStage1.classList.add('hidden-stage');
+                
+                // 3. Prepare the video content section to be visible
+                qualifierStage2.classList.remove('hidden-stage');
+                qualifierStage2.style.opacity = '0'; 
+
+                // Ensure content is at the top of the viewport
+                window.scrollTo(0, 0); 
+                
+                // 4. Fade in the video content
+                setTimeout(() => {
+                    qualifierStage2.style.opacity = '1';
+                    lucide.createIcons(); // Re-initialize icons for new content
+                }, 50); // Small delay to ensure browser recognizes the opacity change
+
+            }, 1000); // Wait for the fade-out duration (1.0s in CSS)
+        };
+
+        // --- SCROLL ANIMATION LOGIC ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Initialize observers and default view on DOM content load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe ALL reveal elements once
+            document.querySelectorAll('.reveal-up, .reveal-down').forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Set initial state to Launchpad
+            showLaunchpad();
+        });
+    </script>
+</body>
+</html>
