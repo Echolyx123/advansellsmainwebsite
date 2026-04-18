@@ -101,7 +101,7 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .phone-mockup:hover {
-            transform: scale(1.05) rotate(1deg);
+            transform: scale(1.02) translateY(-5px);
             border-color: var(--accent-teal);
         }
         .phone-screen {
@@ -130,6 +130,20 @@
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
             z-index: 10;
+        }
+
+        /* --- New Description Box Styles --- */
+        .asset-description-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 0.75rem;
+            backdrop-blur: sm;
+            text-align: center;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -375,19 +389,19 @@
                 try {
                     const res = await listAll(listRef);
                     if (res.items.length === 0) {
-                        // Fallback message if storage is empty
                         videoGrid.innerHTML = '<p class="text-slate-500 col-span-full">Awaiting fresh generations...</p>';
                         return;
                     }
 
                     for (const itemRef of res.items) {
                         const url = await getDownloadURL(itemRef);
-                        injectVideoMockup(url);
+                        // Clean up filename for the description (e.g. "My_Video.mp4" -> "My Video")
+                        const fileName = itemRef.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' ');
+                        injectVideoMockup(url, fileName);
                     }
                 } catch (error) {
                     console.error("Error listing gallery from Firebase:", error);
-                    // Critical fallback if permissions/config fail
-                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae");
+                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Demo Prototype");
                 }
             };
 
@@ -395,10 +409,10 @@
             console.error("Firebase Initialization Error:", e);
         }
 
-        function injectVideoMockup(url) {
+        function injectVideoMockup(url, description) {
             const videoGrid = document.getElementById('video-grid');
             const div = document.createElement('div');
-            div.className = 'reveal-up active'; 
+            div.className = 'reveal-up active flex flex-col items-center'; 
             div.innerHTML = `
                 <div class="phone-mockup">
                     <div class="phone-notch"></div>
@@ -407,6 +421,11 @@
                             <source src="${url}" type="video/mp4">
                         </video>
                     </div>
+                </div>
+                <!-- Description Box -->
+                <div class="asset-description-box w-full">
+                    <h4 class="text-accent-teal font-bold text-sm uppercase tracking-wider mb-1">Asset ID</h4>
+                    <p class="text-white text-base font-medium">${description}</p>
                 </div>
             `;
             videoGrid.appendChild(div);
@@ -440,10 +459,8 @@
             const target = document.getElementById(contentId);
             target.style.display = 'block';
             
-            // Re-trigger scroll reveal animations
             document.querySelectorAll('.reveal-up').forEach(el => el.classList.remove('active'));
             
-            // If gallery, fetch fresh from Storage
             if (contentId === 'gallery-content') {
                 if (window.loadGallery) window.loadGallery();
             }
