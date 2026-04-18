@@ -98,7 +98,8 @@
             max-width: 280px;
             margin: 0 auto;
             position: relative;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+            cursor: pointer;
         }
         .phone-mockup:hover {
             transform: scale(1.02) translateY(-5px);
@@ -132,18 +133,31 @@
             z-index: 10;
         }
 
-        /* --- New Description Box Styles --- */
+        /* --- Refined Description Box Styles --- */
         .asset-description-box {
             margin-top: 1.5rem;
             padding: 1rem;
             background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(51, 65, 85, 0.3);
             border-radius: 0.75rem;
-            backdrop-blur: sm;
+            backdrop-filter: blur(8px);
             text-align: center;
+            width: 100%;
             max-width: 280px;
             margin-left: auto;
             margin-right: auto;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .asset-description-box p {
+            font-size: 0.875rem; /* Smaller font */
+            line-height: 1.25rem;
+            overflow-wrap: break-word; /* Wrap long text */
+            word-wrap: break-word;
+            hyphens: auto;
         }
     </style>
 </head>
@@ -395,13 +409,13 @@
 
                     for (const itemRef of res.items) {
                         const url = await getDownloadURL(itemRef);
-                        // Clean up filename for the description (e.g. "My_Video.mp4" -> "My Video")
+                        // Clean up filename for the description
                         const fileName = itemRef.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' ');
                         injectVideoMockup(url, fileName);
                     }
                 } catch (error) {
                     console.error("Error listing gallery from Firebase:", error);
-                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Demo Prototype");
+                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Elite Demo Protocol");
                 }
             };
 
@@ -409,12 +423,24 @@
             console.error("Firebase Initialization Error:", e);
         }
 
+        // Logic for Audio-on-Hover
+        window.handleAssetHover = (element, isEnter) => {
+            const video = element.querySelector('video');
+            if (video) {
+                video.muted = !isEnter;
+                // Ensure audio actually plays on hover even if autoplay started muted
+                if (isEnter && video.paused) video.play();
+            }
+        };
+
         function injectVideoMockup(url, description) {
             const videoGrid = document.getElementById('video-grid');
-            const div = document.createElement('div');
-            div.className = 'reveal-up active flex flex-col items-center'; 
-            div.innerHTML = `
-                <div class="phone-mockup">
+            const container = document.createElement('div');
+            container.className = 'reveal-up active flex flex-col items-center'; 
+            
+            // On mouseenter un-mute, on mouseleave mute
+            container.innerHTML = `
+                <div class="phone-mockup" onmouseenter="handleAssetHover(this, true)" onmouseleave="handleAssetHover(this, false)">
                     <div class="phone-notch"></div>
                     <div class="phone-screen">
                         <video autoplay muted loop playsinline>
@@ -423,12 +449,12 @@
                     </div>
                 </div>
                 <!-- Description Box -->
-                <div class="asset-description-box w-full">
-                    <h4 class="text-accent-teal font-bold text-sm uppercase tracking-wider mb-1">Asset ID</h4>
-                    <p class="text-white text-base font-medium">${description}</p>
+                <div class="asset-description-box">
+                    <h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">Asset Identity</h4>
+                    <p class="text-white font-medium">${description}</p>
                 </div>
             `;
-            videoGrid.appendChild(div);
+            videoGrid.appendChild(container);
         }
     </script>
 
