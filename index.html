@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advansells - AI Video Launchpad</title>
+    <title>Advansells - AI IGC Launchpad</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons -->
@@ -136,7 +136,7 @@
         /* --- Refined Description Box Styles --- */
         .asset-description-box {
             margin-top: 1.5rem;
-            padding: 1rem;
+            padding: 1.25rem;
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(51, 65, 85, 0.3);
             border-radius: 0.75rem;
@@ -159,6 +159,22 @@
             word-wrap: break-word;
             hyphens: auto;
         }
+
+        /* Mobile Adjustments for "less tight" feel */
+        @media (max-width: 640px) {
+            .launchpad-hub-container {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            .protocol-section-padding {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .mobile-spacing-y {
+                margin-top: 2.5rem;
+                margin-bottom: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -166,8 +182,7 @@
     <!-- Header / Navigation Bar -->
     <header class="sticky top-0 z-40 bg-primary-dark/95 backdrop-blur-md shadow-lg border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <button onclick="showLaunchpad()" class="flex items-center space-x-2 group">
-                <i data-lucide="brain" class="w-8 h-8 text-accent-teal group-hover:text-cyan-500 transition"></i>
+            <button onclick="showLaunchpad()" class="flex items-center group">
                 <span class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
                     Advansells
                 </span>
@@ -175,7 +190,7 @@
             
             <button onclick="openConsultationModal()" class="inline-flex items-center px-4 py-2 border border-teal-500 text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300">
                 <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                Deploy AI Assets
+                Custom Briefing
             </button>
         </div>
     </header>
@@ -183,8 +198,8 @@
     <main class="min-h-screen">
         
         <!-- 1. LAUNCHPAD HUB (Default View) -->
-        <section id="launchpad-section" class="min-h-[85vh] flex items-center justify-center p-8 bg-slate-900">
-            <div class="max-w-2xl mx-auto text-center reveal-up">
+        <section id="launchpad-section" class="min-h-[85vh] flex items-center justify-center p-6 sm:p-8 bg-slate-900">
+            <div class="max-w-2xl mx-auto text-center reveal-up launchpad-hub-container">
                 
                 <div class="premium-card p-8 sm:p-12 mb-10 border-2 border-violet-500/50">
                     
@@ -195,22 +210,26 @@
                              onerror="this.onerror=null;this.src='https://placehold.co/144x144/1e293b/14b8a6?text=Advansells';">
                     </div>
                     
-                    <h1 class="text-3xl sm:text-5xl font-extrabold mb-4">
-                        Elite AI Presence. <br><span class="text-teal-400">Anywhere. Anytime.</span>
+                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-violet-400 uppercase bg-violet-500/10 border border-violet-500/20 rounded-full">
+                        Only 10 Custom Slots Remaining
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-extrabold mb-6 sm:mb-4">
+                        Elite AI IGC Realism. <br><span class="text-teal-400">Low-Fi. High-Trust.</span>
                     </h1>
-                    <p class="text-lg text-slate-400 max-w-sm mx-auto mb-8">
-                        Ultra-high quality AI generation for businesses that refuse to compromise. Video, Voice, FX, and beyond.
+                    <p class="text-lg text-slate-400 max-w-sm mx-auto mb-10 sm:mb-8">
+                        Human-equivalent digital creators for brands needing high-volume, high-retention content that feels authentic.
                     </p>
                     
-                    <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
+                    <div class="space-y-5 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
                         <button onclick="showContent('protocol-content')" 
-                                class="flex-1 px-6 py-3 font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
-                            <i data-lucide="cpu" class="w-5 h-5 inline mr-2"></i> The Generation Strategy
+                                class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
+                            <i data-lucide="cpu" class="w-5 h-5 inline mr-2"></i> Strategy Protocol
                         </button>
                         
                         <button onclick="showContent('gallery-content')" 
-                                class="flex-1 px-6 py-3 font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
-                            <i data-lucide="play-circle" class="w-5 h-5 inline mr-2"></i> Content Gallery
+                                class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
+                            <i data-lucide="play-circle" class="w-5 h-5 inline mr-2"></i> Realism Showcase
                         </button>
                     </div>
                 </div>
@@ -222,99 +241,121 @@
         <section id="protocol-content" class="content-section">
             <div class="main-content-wrapper">
                 
-                <section class="min-h-[70vh] flex items-center justify-center text-center p-8 border-b border-slate-800">
+                <section class="min-h-[70vh] flex items-center justify-center text-center p-6 sm:p-8 border-b border-slate-800">
                     <div class="max-w-4xl mx-auto reveal-up">
-                        <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Artisanal AI Craftsmanship</p>
-                        <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-6">
-                            <span class="text-white block">Absolute Visual</span>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Perfection.</span>
+                        <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Bio-Organic Prompt Engineering</p>
+                        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-8 sm:mb-6">
+                            <span class="text-white block">Human Equivalent</span>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Digital IGC.</span>
                         </h1>
                         <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                            We bridge the gap between AI possibility and professional reality. No artifacts, no shortcuts—just pure, high-fidelity generation refined by experts.
+                            We don't just generate video; we architect personas. Using asymmetrical movement, elided speech, and saccadic eye micro-movements to reach total realism.
                         </p>
                         <a href="#protocol-details" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
-                            The Generation Framework
+                            View Commission Tiers
                             <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
                         </a>
                     </div>
                 </section>
 
-                <section id="vision" class="py-20 lg:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-3 gap-8 lg:gap-12 reveal-up">
-                        <div class="premium-card p-6 lg:p-10 text-center">
-                            <i data-lucide="film" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
-                            <h3 class="text-2xl font-bold mb-3">Cinema-Grade Video</h3>
+                <section id="vision" class="py-24 lg:py-32 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-3 gap-10 lg:gap-12 reveal-up">
+                        <div class="premium-card p-8 lg:p-10 text-center">
+                            <i data-lucide="user-check" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
+                            <h3 class="text-2xl font-bold mb-4">Authentic Realism</h3>
                             <p class="text-slate-400">
-                                Beyond the uncanny valley. We generate <span class="text-teal-300 font-semibold">4K video and custom FX</span> that integrate seamlessly with your brand identity.
+                                Asymmetrical slouching and limb timing. We create <span class="text-teal-300 font-semibold">Low-Fi Authenticity</span> that breaks the uncanny valley for higher trust.
                             </p>
                         </div>
 
-                        <div class="premium-card p-6 lg:p-10 text-center">
-                            <i data-lucide="mic-2" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
-                            <h3 class="2xl font-bold mb-3">Sonic Identity</h3>
+                        <div class="premium-card p-8 lg:p-10 text-center border-teal-500/30">
+                            <i data-lucide="building-2" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
+                            <h3 class="2xl font-bold mb-4">Agency Partnership</h3>
                             <p class="text-slate-400">
-                                High-fidelity voice synthesis and sound design. Be <span class="text-teal-300 font-semibold">anywhere, anytime</span>, with a consistent auditory presence.
+                                Dedicated high-volume fulfillment for agencies. We act as your <span class="text-teal-300 font-semibold">behind-the-scenes IGC engine</span>. Contact for custom terms.
                             </p>
                         </div>
 
-                        <div class="premium-card p-6 lg:p-10 text-center">
-                            <i data-lucide="sparkles" class="w-12 h-12 text-accent-teal mx-auto mb-4"></i>
-                            <h3 class="2xl font-bold mb-3">Utmost Quality</h3>
+                        <div class="premium-card p-8 lg:p-10 text-center">
+                            <i data-lucide="zap" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
+                            <h3 class="2xl font-bold mb-4">Hyper-Retention</h3>
                             <p class="text-slate-400">
-                                We don't automate until it's perfect. Our team manually refines <span class="text-teal-300 font-semibold">every frame and frequency</span> until it is "just right."
+                                Handheld POV jitters and elided speech delivery. Our assets are <span class="text-teal-300 font-semibold">engineered to stop the scroll</span> and hold attention.
                             </p>
                         </div>
                     </div>
                 </section>
 
-                <section id="protocol-details" class="py-20 bg-slate-900 border-t border-b border-slate-800">
-                    <div class="max-w-4xl mx-auto px-4">
+                <!-- NEW: COMMISSION TIERS SECTION -->
+                <section id="protocol-details" class="py-24 bg-slate-900 border-t border-b border-slate-800">
+                    <div class="max-w-4xl mx-auto px-6">
                         <div class="text-center mb-16 reveal-up">
-                            <h2 class="text-4xl font-extrabold mb-4 text-white">The Generation Protocol</h2>
-                            <p class="text-slate-400">Where technical precision meets creative intuition.</p>
+                            <h2 class="text-4xl font-extrabold mb-4 text-white">Custom Commission Protocol</h2>
+                            <p class="text-slate-400">Limited availability for precision-crafted IGC assets.</p>
+                            <div class="inline-block mt-4 px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-lg text-teal-400 font-bold text-sm">
+                                10 Slots Available - Briefing Required
+                            </div>
                         </div>
 
-                        <!-- Step 01 -->
-                        <div class="mb-4 reveal-up">
+                        <!-- Single Video Tier -->
+                        <div class="mb-6 reveal-up">
                             <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
-                                <span class="text-xl font-semibold text-accent-teal">01. Multi-Modal Identity Synthesis</span>
-                                <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-semibold text-accent-teal">The Single Asset</span>
+                                    <span class="text-sm text-slate-400">1x 10-15 Second High-Retention Video</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-2xl font-bold text-white mr-4">$75</span>
+                                    <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
+                                </div>
                             </button>
-                            <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">We begin by architecting your business's core AI assets. This isn't just a single model; it's a synthesis of voice cloning, visual persona mapping, and stylistic image generation.</p>
-                                <p>Whether you need a digital representative or a specific visual language, we create a persistent asset library that serves as the foundation for all future content, ensuring your brand is instantly recognizable across all mediums.</p>
+                            <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
+                                <p class="mb-3">A precision-crafted IGC asset using our Bio-Organic logic. Includes custom persona architecture, handheld camera jitters, and elided speech delivery for total realism.</p>
+                                <p class="text-teal-400 font-bold">Perfect for: High-conversion hooks or brand representative introductions.</p>
                             </div>
                         </div>
 
-                        <!-- Step 02 -->
-                        <div class="mb-4 reveal-up">
-                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(2)">
-                                <span class="text-xl font-semibold text-accent-teal">02. Artisanal Refinement Phase</span>
-                                <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                        <!-- Starter Pack Tier -->
+                        <div class="mb-6 reveal-up">
+                            <button class="w-full premium-card p-6 flex justify-between items-center text-left border-violet-500/40" onclick="toggleDropdown(2)">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-semibold text-violet-400">IGC Starter Pack</span>
+                                    <span class="text-sm text-slate-400">3x 10-15 Second High-Retention Videos</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-2xl font-bold text-white mr-4">$180 <span class="text-sm text-slate-500">($60/ea)</span></span>
+                                    <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
+                                </div>
                             </button>
-                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">This is the Advansells differentiator. We do not believe in one-click solutions for premium brands. Every piece of content—from a complex VFX sequence to a simple voiceover—undergoes a rigorous manual refinement process.</p>
-                                <p>Our specialists clean up artifacts, balance audio frequencies, and frame-by-frame check video outputs. We make sure every pixel and decibel is <strong>just right</strong> before we even consider scale. Quality is our baseline, not our goal.</p>
+                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-violet-500/50">
+                                <p class="mb-3">Our most requested custom tier. Three distinct high-retention variations designed to test different angles and hooks for your brand.</p>
+                                <p class="text-violet-400 font-bold italic">Requires a full project briefing to align with your specific conversion goals.</p>
                             </div>
                         </div>
 
-                        <!-- Step 03 -->
-                        <div class="mb-4 reveal-up">
+                        <!-- Agency Tier -->
+                        <div class="mb-6 reveal-up">
                             <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
-                                <span class="text-xl font-semibold text-accent-teal">03. Scaled Asset Orchestration</span>
-                                <i id="icon-3" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-semibold text-accent-teal">Agency Fullfilment</span>
+                                    <span class="text-sm text-slate-400">High-Volume Retainer & Bulk Assets</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-sm font-bold text-teal-400 uppercase tracking-widest mr-4">Custom Terms</span>
+                                    <i id="icon-3" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
+                                </div>
                             </button>
-                            <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-6 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">Only after the creative DNA is perfected do we move toward automation. We orchestrate a pipeline that can deploy your refined AI identity across global channels at infinite speed.</p>
-                                <p>This allows your business to maintain a high-frequency presence on social, web, and broadcast platforms without the traditional overhead of production teams. You get "Anywhere, Anytime" availability with the polish of a boutique studio.</p>
+                            <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
+                                <p class="mb-3">For agencies looking to outsource their IGC production. We provide human-equivalent assets at scale without the overhead of real influencers.</p>
+                                <p>Contact us directly to discuss volume needs, white-label options, and priority turnarounds.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="py-20 text-center">
-                    <button onclick="openConsultationModal()" class="inline-flex items-center justify-center px-10 py-4 border-4 border-teal-500 text-lg font-bold rounded-xl text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05]">
-                        Begin Your Build
+                <section class="py-24 text-center">
+                    <button onclick="openConsultationModal()" class="inline-flex items-center justify-center px-10 py-5 border-4 border-teal-500 text-lg font-bold rounded-xl text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05]">
+                        Contact for Briefing
                     </button>
                 </section>
             </div>
@@ -322,17 +363,17 @@
 
 
         <!-- 3. CONTENT SECTION: THE GALLERY (Fully Dynamic) -->
-        <section id="gallery-content" class="content-section py-20 bg-slate-950">
-            <div class="max-w-7xl mx-auto px-4 text-center">
-                <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">Asset <span class="text-violet-500">Showcase</span></h2>
-                <p class="text-slate-400 mb-16 max-w-2xl mx-auto">Latest generations directly from our production engine.</p>
+        <section id="gallery-content" class="content-section py-24 bg-slate-950">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold mb-6">Realism <span class="text-violet-500">Showcase</span></h2>
+                <p class="text-slate-400 mb-20 max-w-2xl mx-auto">Witness the Bio-Organic Prompt Engine in action. Total human-equivalence.</p>
                 
                 <!-- Gallery Grid - Dynamic items will populate here -->
-                <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 justify-center items-start">
+                <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-center items-start">
                     <!-- Dynamic Video Items injected via script -->
                 </div>
 
-                <div class="mt-20">
+                <div class="mt-24">
                     <button onclick="showLaunchpad()" class="text-slate-500 hover:text-white transition text-sm">
                         ← Back to Hub
                     </button>
@@ -347,26 +388,26 @@
             <div class="bg-slate-800 p-8 rounded-xl max-w-sm mx-4 shadow-2xl border border-teal-500/50">
                 <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
                     <i data-lucide="mail" class="w-6 h-6 mr-2 text-teal-400"></i>
-                    Request Access
+                    Custom Briefing
                 </h3>
                 <p class="text-slate-300 mb-6">
-                    Connect with the Advansells team at <span class="text-teal-400 font-semibold">milannemecek@advansells.com</span> to discuss your custom build.
+                    Connect with the Advansells team at <span class="text-teal-400 font-semibold">milannemecek@advansells.com</span> to submit your briefing or discuss agency terms.
                 </p>
                 <div class="flex justify-end space-x-3">
                     <button onclick="closeConsultationModal()" class="px-5 py-2 text-sm font-semibold rounded-lg text-slate-300 hover:bg-slate-700 transition">
                         Wait
                     </button>
-                    <a href="mailto:advansells.mind@gmail.com" class="px-5 py-2 text-sm font-bold rounded-lg bg-teal-500 text-slate-900 hover:bg-teal-400 transition" onclick="closeConsultationModal()">
+                    <a href="mailto:milannemecek@advansells.com" class="px-5 py-2 text-sm font-bold rounded-lg bg-teal-500 text-slate-900 hover:bg-teal-400 transition" onclick="closeConsultationModal()">
                         Connect
                     </a>
                 </div>
             </div>
         </div>
 
-        <footer class="bg-slate-900 border-t border-slate-800 py-10">
-            <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-                <p>&copy; 2025 Advansells. Pure Generation for the Elite Enterprise.</p>
-                <p class="mt-2">Anywhere. Anytime. Whenever you want.</p>
+        <footer class="bg-slate-900 border-t border-slate-800 py-12">
+            <div class="max-w-7xl mx-auto px-6 text-center text-slate-500 text-sm">
+                <p>&copy; 2025 Advansells. Hyper-Realistic IGC Strategy.</p>
+                <p class="mt-2">Human Equivalence. Anywhere. Anytime.</p>
             </div>
         </footer>
     </main>
@@ -415,7 +456,7 @@
                     }
                 } catch (error) {
                     console.error("Error listing gallery from Firebase:", error);
-                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Elite Demo Protocol");
+                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Hyper-Realistic Persona Demo");
                 }
             };
 
@@ -450,7 +491,7 @@
                 </div>
                 <!-- Description Box -->
                 <div class="asset-description-box">
-                    <h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">Asset Identity</h4>
+                    <h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">IGC Identity</h4>
                     <p class="text-white font-medium">${description}</p>
                 </div>
             `;
