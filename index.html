@@ -87,6 +87,74 @@
             transform: scale(1.05); 
         }
 
+        /* --- Carousel Logic --- */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 672px; 
+            margin: 0 auto;
+        }
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            padding: 10px;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            z-index: 30;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .nav-arrow:hover {
+            background: var(--accent-teal);
+            color: var(--primary-dark);
+        }
+        .nav-arrow-left { left: -22px; }
+        .nav-arrow-right { right: -22px; }
+
+        @media (max-width: 768px) {
+            .nav-arrow { display: none; } 
+        }
+
+        .hero-video-frame {
+            width: 100%;
+            aspect-ratio: 16/9; 
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .hero-video-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* --- Phone Mockup Styles for Gallery --- */
         .phone-mockup {
             background: #000;
@@ -153,11 +221,28 @@
         }
         
         .asset-description-box p {
-            font-size: 0.875rem; /* Smaller font */
+            font-size: 0.875rem; 
             line-height: 1.25rem;
-            overflow-wrap: break-word; /* Wrap long text */
+            overflow-wrap: break-word; 
             word-wrap: break-word;
             hyphens: auto;
+        }
+
+        /* Gallery Tab Styles */
+        .gallery-tab {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            transition: all 0.3s ease;
+            color: #94a3b8;
+        }
+        .gallery-tab.active {
+            background-color: var(--accent-teal);
+            color: var(--primary-dark);
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
         }
 
         /* Mobile Adjustments for "less tight" feel */
@@ -197,41 +282,82 @@
 
     <main class="min-h-screen">
         
-        <!-- 1. LAUNCHPAD HUB (Default View) -->
+        <!-- 1. LAUNCHPAD HUB (Carousel View) -->
         <section id="launchpad-section" class="min-h-[85vh] flex items-center justify-center p-6 sm:p-8 bg-slate-900">
-            <div class="max-w-2xl mx-auto text-center reveal-up launchpad-hub-container">
-                
-                <div class="premium-card p-8 sm:p-12 mb-10 border-2 border-violet-500/50">
+            <div class="carousel-wrapper">
+                <!-- Arrows for Desktop Navigation -->
+                <button onclick="slideCarousel(-1)" class="nav-arrow nav-arrow-left">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button onclick="slideCarousel(1)" class="nav-arrow nav-arrow-right">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+
+                <div id="carousel-track" class="carousel-container reveal-up">
                     
-                    <div class="launchpad-logo-container">
-                        <img src="ADVANSELLS LOGO.png" 
-                             alt="Advansells Logo" 
-                             class="launchpad-logo"
-                             onerror="this.onerror=null;this.src='https://placehold.co/144x144/1e293b/14b8a6?text=Advansells';">
-                    </div>
-                    
-                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-violet-400 uppercase bg-violet-500/10 border border-violet-500/20 rounded-full">
-                        Only 10 Custom Slots Remaining
+                    <!-- Slide 1: Enhanced Hero Ad Video -->
+                    <div class="carousel-slide">
+                        <div class="premium-card p-4 sm:p-8 mb-10 border-2 border-teal-500/30 flex flex-col items-center bg-gradient-to-b from-slate-900 to-slate-950">
+                            <div id="hero-video-anchor" class="hero-video-frame shadow-2xl border border-white/5">
+                                <!-- Video injected via Firebase script -->
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+                                </div>
+                            </div>
+                            <div class="mt-8 text-center max-w-lg">
+                                <div class="inline-block px-3 py-1 mb-3 text-[10px] font-black tracking-[0.2em] text-teal-400 uppercase bg-teal-500/10 border border-teal-500/20 rounded-md">
+                                    Bio-Organic Persona Modeling
+                                </div>
+                                <h2 class="text-2xl font-bold text-white mb-3">Pure Realism. Built for Scale.</h2>
+                                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                    Experience the new standard in hyper-realistic digital creators. This is a direct output of our prompt engine.
+                                </p>
+                                <div onclick="slideCarousel(1)" class="cursor-pointer group inline-flex items-center space-x-3 text-teal-500 hover:text-teal-400 transition font-bold text-sm">
+                                    <span>Explore Strategy & Showcase</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <h1 class="text-3xl sm:text-5xl font-extrabold mb-6 sm:mb-4">
-                        UGC that looks, moves, and converts like a human.
-                    </h1>
-                    <p class="text-lg text-slate-400 max-w-sm mx-auto mb-10 sm:mb-8">
-                        High-volume video assets designed to bypass the 'AI look' and build immediate creator-level trust with your audience.
-                    </p>
-                    
-                    <div class="space-y-5 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
-                        <button onclick="showContent('protocol-content')" 
-                                class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
-                            <i data-lucide="cpu" class="w-5 h-5 inline mr-2"></i> Strategy Protocol
-                        </button>
-                        
-                        <button onclick="showContent('gallery-content')" 
-                                class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
-                            <i data-lucide="play-circle" class="w-5 h-5 inline mr-2"></i> Realism Showcase
-                        </button>
+                    <!-- Slide 2: Original Navigation Card -->
+                    <div class="carousel-slide">
+                        <div class="max-w-2xl mx-auto text-center launchpad-hub-container">
+                            <div class="premium-card p-8 sm:p-12 mb-10 border-2 border-violet-500/50">
+                                
+                                <div class="launchpad-logo-container">
+                                    <img src="ADVANSELLS LOGO.png" 
+                                         alt="Advansells Logo" 
+                                         class="launchpad-logo"
+                                         onerror="this.onerror=null;this.src='https://placehold.co/144x144/1e293b/14b8a6?text=Advansells';">
+                                </div>
+                                
+                                <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-violet-400 uppercase bg-violet-500/10 border border-violet-500/20 rounded-full">
+                                    Only 10 Custom Slots Remaining
+                                </div>
+
+                                <h1 class="text-3xl sm:text-5xl font-extrabold mb-6 sm:mb-4">
+                                    UGC that looks, moves, and converts like a human.
+                                </h1>
+                                <h2 class="text-lg text-slate-400 max-w-sm mx-auto mb-10 sm:mb-8">
+                                    High-volume video assets crafted to overcome the 'AI look' and establish a genuine creator-level presence with your audience.
+                                </h2>
+                                
+                                <div class="space-y-5 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center">
+                                    <button onclick="showContent('protocol-content')" 
+                                            class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
+                                        <i data-lucide="cpu" class="w-5 h-5 inline mr-2"></i> Strategy Protocol
+                                    </button>
+                                    
+                                    <button onclick="showContent('gallery-content')" 
+                                            class="flex-1 px-6 py-4 sm:py-3 font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
+                                        <i data-lucide="play-circle" class="w-5 h-5 inline mr-2"></i> Realism Showcase
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -243,13 +369,13 @@
                 
                 <section class="min-h-[70vh] flex items-center justify-center text-center p-6 sm:p-8 border-b border-slate-800">
                     <div class="max-w-4xl mx-auto reveal-up">
-                        <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Bio-Organic Prompt Engineering</p>
+                        <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Precision Persona Modeling</p>
                         <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-8 sm:mb-6">
-                            <span class="text-white block">Absolute Visual</span>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Perfection.</span>
+                            <span class="text-white block">Hyper-Realistic</span>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Digital Content.</span>
                         </h1>
                         <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                            Most digital creators feel 'manufactured.' Our assets are engineered to maintain the low-fi, organic feel that modern social algorithms and consumers actually reward.
+                            Most digital creators feel 'manufactured.' Our assets are refined to preserve the natural, organic feel that modern social algorithms and consumers reward—especially in high-trust Fitness and Skincare niches.
                         </p>
                         <a href="#protocol-details" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
                             View Commission Tiers
@@ -264,7 +390,7 @@
                             <i data-lucide="user-check" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
                             <h3 class="text-2xl font-bold mb-4">Authentic Realism</h3>
                             <p class="text-slate-400">
-                                Asymmetrical slouching and limb timing. We create <span class="text-teal-300 font-semibold">Low-Fi Authenticity</span> that breaks the uncanny valley for higher trust.
+                                Modeling subtle physical nuances and natural timing. We create <span class="text-teal-300 font-semibold">Organic Authenticity</span> that bridges the gap for higher trust in Fitness & Wellness.
                             </p>
                         </div>
 
@@ -272,68 +398,108 @@
                             <i data-lucide="building-2" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
                             <h3 class="2xl font-bold mb-4">Agency Partnership</h3>
                             <p class="text-slate-400">
-                                Dedicated high-volume fulfillment for agencies. We act as your <span class="text-teal-300 font-semibold">behind-the-scenes IGC engine</span>. Contact for custom terms.
+                                Dedicated high-volume fulfillment for Skincare & Supp brands. We provide the <span class="text-teal-300 font-semibold">creative backend</span> for your IGC needs.
                             </p>
                         </div>
 
                         <div class="premium-card p-8 lg:p-10 text-center">
                             <i data-lucide="zap" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
-                            <h3 class="2xl font-bold mb-4">Hyper-Retention</h3>
+                            <h3 class="2xl font-bold mb-4">Maximum Retention</h3>
                             <p class="text-slate-400">
-                                Handheld POV jitters and elided speech delivery. Our assets are <span class="text-teal-300 font-semibold">engineered to stop the scroll</span> and hold attention.
+                                Capturing natural POV dynamics and realistic speech delivery. Our assets are <span class="text-teal-300 font-semibold">designed to hold attention</span> throughout Supplementation ads.
                             </p>
                         </div>
                     </div>
                 </section>
 
-                <!-- NEW: COMMISSION TIERS SECTION -->
                 <section id="protocol-details" class="py-24 bg-slate-900 border-t border-b border-slate-800">
                     <div class="max-w-4xl mx-auto px-6">
                         <div class="text-center mb-16 reveal-up">
                             <h2 class="text-4xl font-extrabold mb-4 text-white">The New Standard in Digital Authenticity.</h2>
-                            <p class="text-slate-400">We prioritize the subtle physical cues and natural imperfections that traditional AI misses, ensuring every asset feels raw, handheld, and real.</p>
+                            <p class="text-slate-400">We prioritize the subtle physical cues and natural imperfections that traditional AI misses, ensuring every asset for Fitness, Skincare, and Supplementation feels raw, handheld, and real.</p>
                             <div class="inline-block mt-4 px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-lg text-teal-400 font-bold text-sm">
                                 10 Slots Available - Briefing Required
                             </div>
                         </div>
 
-                        <!-- Single Video Tier -->
                         <div class="mb-6 reveal-up">
                             <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
                                 <div class="flex flex-col">
                                     <span class="text-xl font-semibold text-accent-teal">The Social Hook Pack</span>
-                                    <span class="text-sm text-slate-400">10-second assets built for maximum thumb-stop.</span>
+                                    <span class="text-sm text-slate-400">1x 15-Second High-Retention Asset</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <span class="text-2xl font-bold text-white mr-4">$75</span>
+                                    <span class="text-2xl font-bold text-white mr-4">$65</span>
                                     <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
                                 </div>
                             </button>
                             <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">A precision-crafted IGC asset using our Bio-Organic logic. Includes custom persona architecture, handheld camera jitters, and elided speech delivery for total realism.</p>
-                                <p class="text-teal-400 font-bold">Perfect for: High-conversion hooks or brand representative introductions.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">Single 15-Second Asset</p>
+                                            <p class="text-sm">A precision-crafted IGC hook designed for immediate rapport and high viewer retention.</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">Natural Persona Modeling</p>
+                                            <p class="text-sm">Refined behavioral mapping to ensure the creator exhibits natural human posture and movement.</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">1x Dedicated Refinement</p>
+                                            <p class="text-sm">One round of detailed polishing to ensure the final output meets your brand's realism standards.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="mt-6 text-teal-400 font-bold">Perfect for: High-conversion hooks or brand representative introductions.</p>
                             </div>
                         </div>
 
-                        <!-- Starter Pack Tier -->
                         <div class="mb-6 reveal-up">
                             <button class="w-full premium-card p-6 flex justify-between items-center text-left border-violet-500/40" onclick="toggleDropdown(2)">
                                 <div class="flex flex-col">
                                     <span class="text-xl font-semibold text-violet-400">The Performance Batch</span>
-                                    <span class="text-sm text-slate-400">High-volume, high-trust UGC for rapid ad-spend testing.</span>
+                                    <span class="text-sm text-slate-400">Two 45-Second worth of High-Trust IGC Videos</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <span class="text-2xl font-bold text-white mr-4">$180 <span class="text-sm text-slate-500">($60/ea)</span></span>
+                                    <span class="text-2xl font-bold text-white mr-4">$199 <span class="text-sm text-slate-500">($99.50/ea)</span></span>
                                     <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
                                 </div>
                             </button>
                             <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-violet-500/50">
-                                <p class="mb-3">Our most requested custom tier. Three distinct high-retention variations designed to test different angles and hooks for your brand.</p>
-                                <p class="text-violet-400 font-bold italic">Requires a full project briefing to align with your specific conversion goals.</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">2x Performance Videos</p>
+                                            <p class="text-sm">Two distinct, high-trust assets totaling 45 seconds of high-fidelity content runtime.</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">Optimized for Ad Testing</p>
+                                            <p class="text-sm">Specifically modeled for performance marketing and rapid split-testing on social platforms.</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
+                                        <div>
+                                            <p class="font-bold text-white">Natural Behavior Integration</p>
+                                            <p class="text-sm">Our advanced personas are crafted to exhibit natural micro-movements like micro-expressions and subtle posture shifts for maximum audience engagement and retention.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="mt-6 text-violet-400 font-bold italic">Requires a full project briefing to align with conversion goals.</p>
                             </div>
                         </div>
 
-                        <!-- Agency Tier -->
                         <div class="mb-6 reveal-up">
                             <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
                                 <div class="flex flex-col">
@@ -346,7 +512,7 @@
                                 </div>
                             </button>
                             <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">For agencies looking to outsource their IGC production. We provide human-equivalent assets at scale without the overhead of real influencers.</p>
+                                <p class="mb-3">For agencies looking to outsource their IGC production. We provide high-realism assets at scale without the overhead of sourcing real creators.</p>
                                 <p>Contact us directly to discuss volume needs, white-label options, and priority turnarounds.</p>
                             </div>
                         </div>
@@ -366,7 +532,12 @@
         <section id="gallery-content" class="content-section py-24 bg-slate-950">
             <div class="max-w-7xl mx-auto px-6 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold mb-6">Realism <span class="text-violet-500">Showcase</span></h2>
-                <p class="text-slate-400 mb-20 max-w-2xl mx-auto">Witness the Bio-Organic Prompt Engine in action. Total human-equivalence.</p>
+                <p class="text-slate-400 mb-12 max-w-2xl mx-auto">Discover our natural persona modeling in action. Authentic digital rapport.</p>
+                
+                <!-- Category Tabs Navigation -->
+                <div id="gallery-tabs" class="flex flex-wrap justify-center gap-3 mb-16 px-4">
+                    <!-- Dynamic Category Tabs injected here -->
+                </div>
                 
                 <!-- Gallery Grid - Dynamic items will populate here -->
                 <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-center items-start">
@@ -407,7 +578,7 @@
         <footer class="bg-slate-900 border-t border-slate-800 py-12">
             <div class="max-w-7xl mx-auto px-6 text-center text-slate-500 text-sm">
                 <p>&copy; 2025 Advansells. Hyper-Realistic IGC Strategy.</p>
-                <p class="mt-2">Human Equivalence. Anywhere. Anytime.</p>
+                <p class="mt-2">Natural Rapport. Anywhere. Anytime.</p>
             </div>
         </footer>
     </main>
@@ -433,32 +604,76 @@
             storage = getStorage(firebaseApp);
             console.log("Firebase initialized.");
 
-            // GLOBAL Function to load gallery from Storage
-            window.loadGallery = async () => {
-                const listRef = ref(storage, 'gallery/');
+            // HERO VIDEO LOADING LOGIC
+            window.loadHeroVideo = async () => {
+                const heroVideoRef = ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4');
+                const anchor = document.getElementById('hero-video-anchor');
+                try {
+                    const url = await getDownloadURL(heroVideoRef);
+                    anchor.innerHTML = `
+                        <video autoplay muted loop playsinline disablePictureInPicture controlsList="nodownload" oncontextmenu="return false;">
+                            <source src="${url}" type="video/mp4">
+                        </video>
+                    `;
+                } catch (e) {
+                    console.error("Hero video error:", e);
+                    anchor.innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`;
+                }
+            };
+
+            // GLOBAL Function to load gallery categories and items
+            window.loadGallery = async (categoryPath = 'gallery/') => {
+                const listRef = ref(storage, categoryPath);
                 const videoGrid = document.getElementById('video-grid');
+                const tabsContainer = document.getElementById('gallery-tabs');
                 
-                // Reset Grid
-                videoGrid.innerHTML = '';
+                // Clear Grid for the specific category
+                videoGrid.innerHTML = '<div class="col-span-full py-20 flex justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div></div>';
 
                 try {
                     const res = await listAll(listRef);
+                    
+                    // 1. Handle Tabs (Folders/Prefixes) - only build once at root
+                    if (categoryPath === 'gallery/' && tabsContainer.children.length === 0) {
+                        createTab('Main Showcase', 'gallery/', true);
+                        res.prefixes.forEach(prefixRef => {
+                            if (prefixRef.name !== 'hero') {
+                                createTab(prefixRef.name, `gallery/${prefixRef.name}/`);
+                            }
+                        });
+                    }
+
+                    // 2. Clear loader and Load Items (Videos)
+                    videoGrid.innerHTML = '';
                     if (res.items.length === 0) {
-                        videoGrid.innerHTML = '<p class="text-slate-500 col-span-full">Awaiting fresh generations...</p>';
+                        videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Awaiting fresh generations for this category...</p>';
                         return;
                     }
 
                     for (const itemRef of res.items) {
                         const url = await getDownloadURL(itemRef);
-                        // Clean up filename for the description
                         const fileName = itemRef.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' ');
                         injectVideoMockup(url, fileName);
                     }
                 } catch (error) {
                     console.error("Error listing gallery from Firebase:", error);
-                    injectVideoMockup("https://firebasestorage.googleapis.com/v0/b/authenticateflash.firebasestorage.app/o/Project_11_22_2025-11-27-12-08-32.mp4?alt=media&token=f628b1f1-67de-4882-825a-dc8c8efce1ae", "Hyper-Realistic Persona Demo");
+                    videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Unable to load showcase assets.</p>';
                 }
             };
+
+            function createTab(name, path, isActive = false) {
+                const tabsContainer = document.getElementById('gallery-tabs');
+                const btn = document.createElement('button');
+                btn.className = `gallery-tab ${isActive ? 'active' : ''}`;
+                btn.innerText = name.replace(/_/g, ' ');
+                btn.onclick = () => {
+                    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+                    btn.classList.add('active');
+                    // Reset grid and load ONLY this specific path
+                    window.loadGallery(path);
+                };
+                tabsContainer.appendChild(btn);
+            }
 
         } catch (e) {
             console.error("Firebase Initialization Error:", e);
@@ -469,7 +684,6 @@
             const video = element.querySelector('video');
             if (video) {
                 video.muted = !isEnter;
-                // Ensure audio actually plays on hover even if autoplay started muted
                 if (isEnter && video.paused) video.play();
             }
         };
@@ -479,8 +693,6 @@
             const container = document.createElement('div');
             container.className = 'reveal-up active flex flex-col items-center'; 
             
-            // On mouseenter un-mute, on mouseleave mute
-            // Added controlsList, disablePictureInPicture and oncontextmenu to prevent downloads
             container.innerHTML = `
                 <div class="phone-mockup" onmouseenter="handleAssetHover(this, true)" onmouseleave="handleAssetHover(this, false)">
                     <div class="phone-notch"></div>
@@ -498,11 +710,19 @@
             `;
             videoGrid.appendChild(container);
         }
+
+        // CAROUSEL NAVIGATION
+        window.slideCarousel = (direction) => {
+            const container = document.getElementById('carousel-track');
+            const slideWidth = container.offsetWidth;
+            container.scrollLeft += direction * slideWidth;
+        };
     </script>
 
     <script>
         window.onload = () => {
              lucide.createIcons();
+             if (window.loadHeroVideo) window.loadHeroVideo();
         };
 
         const LAUNCHPAD = document.getElementById('launchpad-section');
