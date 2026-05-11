@@ -260,6 +260,22 @@
                 margin-bottom: 2.5rem;
             }
         }
+        
+        /* Video Loading Layers */
+        .video-container-layer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .video-loader-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            background: #000;
+        }
+        .video-loader-overlay.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -472,7 +488,7 @@
                                     <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
                                 </div>
                             </button>
-                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-violet-500/50">
+                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
                                 <ul class="space-y-4">
                                     <li class="flex items-start">
                                         <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
@@ -599,22 +615,83 @@
         };
 
         let firebaseApp, storage;
+        let globalLoadingVideoUrl = null;
+
         try {
             firebaseApp = initializeApp(STATIC_FIREBASE_CONFIG);
             storage = getStorage(firebaseApp);
             console.log("Firebase initialized.");
 
+            // FETCH SHARED LOADING VIDEO
+            const fetchLoadingVideo = async () => {
+                const loadingDirRef = ref(storage, 'gallery/loading/');
+                try {
+                    const res = await listAll(loadingDirRef);
+                    if (res.items.length > 0) {
+                        globalLoadingVideoUrl = await getDownloadURL(res.items[0]);
+                    }
+                } catch (e) {
+                    console.error("Error fetching loading video:", e);
+                }
+            };
+
+            // UTILITY: Wrap video with a loader detection layer
+            const createLoadingLayer = (targetUrl, isMuted = true) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'video-container-layer';
+                
+                // 1. Loader Video (Always playing until replaced)
+                const loaderOverlay = document.createElement('div');
+                loaderOverlay.className = 'video-loader-overlay';
+                if (globalLoadingVideoUrl) {
+                    loaderOverlay.innerHTML = `
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                            <source src="${globalLoadingVideoUrl}" type="video/mp4">
+                        </video>
+                    `;
+                } else {
+                    loaderOverlay.innerHTML = `<div class="flex items-center justify-center h-full"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div></div>`;
+                }
+
+                // 2. Main Video (Hidden initially)
+                const mainVideo = document.createElement('video');
+                mainVideo.autoplay = true;
+                mainVideo.muted = isMuted;
+                mainVideo.loop = true;
+                mainVideo.playsInline = true;
+                mainVideo.disablePictureInPicture = true;
+                mainVideo.setAttribute('controlsList', 'nodownload');
+                mainVideo.oncontextmenu = () => false;
+                mainVideo.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-700';
+                
+                const source = document.createElement('source');
+                source.src = targetUrl;
+                source.type = 'video/mp4';
+                mainVideo.appendChild(source);
+
+                // Detection Logic
+                mainVideo.addEventListener('playing', () => {
+                    mainVideo.classList.remove('opacity-0');
+                    loaderOverlay.classList.add('hidden');
+                    // Clean up loader video to save resources
+                    const lv = loaderOverlay.querySelector('video');
+                    if (lv) { lv.pause(); lv.src = ""; lv.load(); }
+                }, { once: true });
+
+                wrapper.appendChild(loaderOverlay);
+                wrapper.appendChild(mainVideo);
+                return wrapper;
+            };
+
             // HERO VIDEO LOADING LOGIC
             window.loadHeroVideo = async () => {
+                await fetchLoadingVideo();
                 const heroVideoRef = ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4');
                 const anchor = document.getElementById('hero-video-anchor');
                 try {
                     const url = await getDownloadURL(heroVideoRef);
-                    anchor.innerHTML = `
-                        <video autoplay muted loop playsinline disablePictureInPicture controlsList="nodownload" oncontextmenu="return false;">
-                            <source src="${url}" type="video/mp4">
-                        </video>
-                    `;
+                    anchor.innerHTML = '';
+                    anchor.appendChild(createLoadingLayer(url, true));
                 } catch (e) {
                     console.error("Hero video error:", e);
                     anchor.innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`;
@@ -637,7 +714,7 @@
                     if (categoryPath === 'gallery/' && tabsContainer.children.length === 0) {
                         createTab('Main Showcase', 'gallery/', true);
                         res.prefixes.forEach(prefixRef => {
-                            if (prefixRef.name !== 'hero') {
+                            if (prefixRef.name !== 'hero' && prefixRef.name !== 'loading') {
                                 createTab(prefixRef.name, `gallery/${prefixRef.name}/`);
                             }
                         });
@@ -653,7 +730,7 @@
                     for (const itemRef of res.items) {
                         const url = await getDownloadURL(itemRef);
                         const fileName = itemRef.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' ');
-                        injectVideoMockup(url, fileName);
+                        injectVideoMockup(url, fileName, createLoadingLayer);
                     }
                 } catch (error) {
                     console.error("Error listing gallery from Firebase:", error);
@@ -669,7 +746,6 @@
                 btn.onclick = () => {
                     document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
                     btn.classList.add('active');
-                    // Reset grid and load ONLY this specific path
                     window.loadGallery(path);
                 };
                 tabsContainer.appendChild(btn);
@@ -681,33 +757,43 @@
 
         // Logic for Audio-on-Hover
         window.handleAssetHover = (element, isEnter) => {
-            const video = element.querySelector('video');
-            if (video) {
-                video.muted = !isEnter;
-                if (isEnter && video.paused) video.play();
+            const video = element.querySelector('.video-container-layer video:not(.hidden video)');
+            const mainVideo = Array.from(element.querySelectorAll('video')).find(v => !v.closest('.video-loader-overlay'));
+            if (mainVideo) {
+                mainVideo.muted = !isEnter;
+                if (isEnter && mainVideo.paused) mainVideo.play();
             }
         };
 
-        function injectVideoMockup(url, description) {
+        function injectVideoMockup(url, description, loaderFactory) {
             const videoGrid = document.getElementById('video-grid');
             const container = document.createElement('div');
             container.className = 'reveal-up active flex flex-col items-center'; 
             
-            container.innerHTML = `
-                <div class="phone-mockup" onmouseenter="handleAssetHover(this, true)" onmouseleave="handleAssetHover(this, false)">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
-                        <video autoplay muted loop playsinline disablePictureInPicture controlsList="nodownload" oncontextmenu="return false;">
-                            <source src="${url}" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-                <!-- Description Box -->
-                <div class="asset-description-box">
-                    <h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">IGC Identity</h4>
-                    <p class="text-white font-medium">${description}</p>
-                </div>
+            const mockup = document.createElement('div');
+            mockup.className = 'phone-mockup';
+            mockup.onmouseenter = () => window.handleAssetHover(container, true);
+            mockup.onmouseleave = () => window.handleAssetHover(container, false);
+            
+            const notch = document.createElement('div');
+            notch.className = 'phone-notch';
+            
+            const screen = document.createElement('div');
+            screen.className = 'phone-screen';
+            screen.appendChild(loaderFactory(url, true));
+
+            mockup.appendChild(notch);
+            mockup.appendChild(screen);
+
+            const descBox = document.createElement('div');
+            descBox.className = 'asset-description-box';
+            descBox.innerHTML = `
+                <h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">IGC Identity</h4>
+                <p class="text-white font-medium">${description}</p>
             `;
+
+            container.appendChild(mockup);
+            container.appendChild(descBox);
             videoGrid.appendChild(container);
         }
 
