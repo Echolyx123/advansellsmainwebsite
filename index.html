@@ -38,19 +38,20 @@
         }
 
         .dropdown-content {
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             max-height: 0;
             overflow: hidden;
             opacity: 0;
         }
         .dropdown-content.open {
-            max-height: 500px; 
+            max-height: 800px; 
             opacity: 1;
+            padding-bottom: 2rem;
         }
 
         .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
         }
 
         .content-section {
@@ -67,20 +68,39 @@
             transform: translateY(0);
         }
         
-        .launchpad-logo-container {
-            width: 144px; 
-            height: 144px; 
-            border-radius: 9999px; 
-            margin: 0 auto 1.5rem; 
-            background-color: #0f172a; 
-            border: 4px solid var(--accent-teal); 
-            box-shadow: 0 0 20px rgba(20, 184, 166, 0.5); 
-            overflow: hidden;
+        /* --- Sidebar Styles --- */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: #1e293b;
+            z-index: 100;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+        }
+        #sidebar.open {
+            left: 0;
+        }
+        .sidebar-link {
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: color 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
         }
-
+        .sidebar-link:hover {
+            color: var(--accent-teal);
+        }
+        
         /* --- Carousel Logic --- */
         .carousel-wrapper {
             position: relative;
@@ -112,12 +132,11 @@
             align-items: center;
         }
 
-        /* Nav Controls at bottom */
         .carousel-controls {
             display: flex;
             align-items: center;
             gap: 2rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             z-index: 30;
         }
 
@@ -151,13 +170,13 @@
             max-width: 280px;
             margin: 0 auto;
             position: relative;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
-            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .phone-mockup:hover {
-            transform: scale(1.02) translateY(-5px);
-            border-color: var(--accent-teal);
+        /* Specific Hero Phone size adjustment to reduce height footprint */
+        .phone-mockup.hero-phone {
+            max-width: 230px;
         }
+
         .phone-screen {
             background-color: #000;
             border-radius: 24px;
@@ -186,59 +205,38 @@
             z-index: 10;
         }
 
-        /* --- Volume Toggle Styles --- */
-        .volume-toggle {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            z-index: 40;
-            width: 32px;
-            height: 32px;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .volume-toggle:hover {
-            background: var(--accent-teal);
-            color: var(--primary-dark);
-            transform: scale(1.1);
+        /* --- Glowing Button Styles --- */
+        @keyframes softGlow {
+            0% { border-color: var(--accent-teal); box-shadow: 0 0 5px rgba(20, 184, 166, 0.2); }
+            50% { border-color: #1e293b; box-shadow: 0 0 15px rgba(20, 184, 166, 0.5); }
+            100% { border-color: var(--accent-teal); box-shadow: 0 0 5px rgba(20, 184, 166, 0.2); }
         }
 
-        /* --- Refined Description Box Styles --- */
-        .asset-description-box {
-            margin-top: 1.5rem;
-            padding: 1.25rem;
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(51, 65, 85, 0.3);
-            border-radius: 0.75rem;
-            backdrop-filter: blur(8px);
-            text-align: center;
+        .asset-btn-box {
+            margin-top: 1.25rem;
             width: 100%;
             max-width: 280px;
-            margin-left: auto;
-            margin-right: auto;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
-        
-        .asset-description-box p {
-            font-size: 0.875rem; 
-            line-height: 1.25rem;
-            overflow-wrap: break-word; 
-            word-wrap: break-word;
-            hyphens: auto;
+        .gallery-cta-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: #0f172a;
+            border: 2px solid var(--accent-teal);
+            border-radius: 0.75rem;
+            color: var(--accent-teal);
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: softGlow 3s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+        .gallery-cta-btn:hover {
+            background: var(--accent-teal);
+            color: var(--primary-dark);
+            transform: scale(1.02);
         }
 
-        /* Gallery Tab Styles */
         .gallery-tab {
             padding: 0.5rem 1.25rem;
             border-radius: 9999px;
@@ -252,80 +250,102 @@
             background-color: var(--accent-teal);
             color: var(--primary-dark);
             border-color: var(--accent-teal);
-            box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
         }
 
-        /* Mobile Adjustments */
+        /* Form Steps */
+        .form-step { display: none; }
+        .form-step.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .option-tile {
+            cursor: pointer; padding: 1rem; border: 1px solid #334155; border-radius: 0.75rem;
+            transition: all 0.2s ease; text-align: center; font-weight: 600; font-size: 0.9rem;
+        }
+        .option-tile:hover { border-color: var(--accent-teal); background: rgba(20, 184, 166, 0.05); }
+        .option-tile.selected { background: var(--accent-teal); color: var(--primary-dark); border-color: var(--accent-teal); }
+
+        .volume-toggle {
+            position: absolute; bottom: 12px; right: 12px; z-index: 40; width: 32px; height: 32px;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer;
+        }
+
         @media (max-width: 640px) {
-            #launchpad-section {
-                padding-left: 1rem;
-                padding-right: 1rem;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
+            #launchpad-section { 
+                padding: 1.5rem 1rem; 
+                min-height: 100svh; /* Use SVH for precise mobile fit */
             }
-            .launchpad-hub-container-mobile-adj {
-                padding-top: 3.5rem !important;
-                padding-bottom: 3.5rem !important;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                min-height: 320px;
+            .launchpad-hub-container-mobile-adj { padding: 2.5rem 1rem !important; min-height: auto; }
+            .header-container-mobile { gap: 1rem !important; justify-content: space-between; }
+            .carousel-controls { 
+                gap: 3rem; /* Spread arrows wider on mobile for thumb reach */
+                margin-top: 0.5rem;
             }
-            .header-container-mobile {
-                gap: 2rem !important;
-                justify-content: space-between;
-            }
-            .carousel-controls {
-                gap: 1.5rem;
+            .nav-arrow {
+                width: 54px; /* Larger targets for mobile */
+                height: 54px;
             }
         }
         
-        /* Video Loading Layers */
-        .video-container-layer {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .video-loader-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 20;
-            background: #000;
-        }
-        .video-loader-overlay.hidden {
-            display: none;
-        }
+        .video-container-layer { position: relative; width: 100%; height: 100%; }
+        .video-loader-overlay { position: absolute; inset: 0; z-index: 20; background: #000; }
+        .video-loader-overlay.hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Header / Navigation Bar -->
+    <!-- Sidebar Menu -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[90] hidden backdrop-blur-sm" onclick="closeSidebar()"></div>
+    <nav id="sidebar">
+        <div class="flex justify-between items-center mb-10">
+            <span class="text-2xl font-black text-teal-500">Menu</span>
+            <button onclick="closeSidebar()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-8 h-8"></i></button>
+        </div>
+        <div class="flex flex-col">
+            <a href="javascript:void(0)" onclick="handleSidebarNav('launchpad')" class="sidebar-link"><i data-lucide="home" class="w-5 h-5 mr-3"></i> Hero</a>
+            <a href="javascript:void(0)" onclick="handleSidebarNav('payment')" class="sidebar-link"><i data-lucide="credit-card" class="w-5 h-5 mr-3"></i> Pricing</a>
+            <a href="javascript:void(0)" onclick="handleSidebarNav('agency')" class="sidebar-link"><i data-lucide="briefcase" class="w-5 h-5 mr-3"></i> Services</a>
+            <a href="javascript:void(0)" onclick="handleSidebarNav('showcase')" class="sidebar-link"><i data-lucide="play-circle" class="w-5 h-5 mr-3"></i> Gallery</a>
+            <div class="mt-auto pt-10">
+                <button onclick="openContactModal(); closeSidebar();" class="w-full py-4 bg-slate-800 text-teal-500 font-bold rounded-xl border border-teal-500/30 text-center">Contact Us</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
     <header class="sticky top-0 z-40 bg-primary-dark/95 backdrop-blur-md shadow-lg border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center header-container-mobile">
-            <button onclick="showLaunchpad()" class="flex items-center group flex-shrink-0">
-                <span class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
-                    Advansells
-                </span>
-            </button>
+            <div class="flex items-center space-x-4">
+                <button onclick="openSidebar()" class="p-2 -ml-2 text-slate-400 hover:text-teal-400 transition">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+                <button onclick="showLaunchpad()" class="flex items-center group flex-shrink-0">
+                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">
+                        Advansells
+                    </span>
+                </button>
+            </div>
             
-            <button onclick="openConsultationModal()" class="inline-flex items-center px-4 py-2 border border-teal-500 text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300 flex-shrink-0 whitespace-nowrap">
-                <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                Start Today
-            </button>
+            <div class="flex items-center space-x-3 sm:space-x-6">
+                <button onclick="openLeadForm('Standard Inquiry')" class="inline-flex items-center px-4 py-2 border border-teal-500 text-xs sm:text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300 flex-shrink-0 whitespace-nowrap">
+                    <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
+                    Start Today
+                </button>
+            </div>
         </div>
     </header>
 
     <main class="min-h-screen">
         
-        <!-- 1. LAUNCHPAD HUB (Carousel View) -->
+        <!-- 1. LAUNCHPAD HUB -->
         <section id="launchpad-section" class="min-h-[85vh] flex items-center justify-center bg-slate-900">
             <div class="carousel-wrapper">
                 <div id="carousel-track" class="carousel-container reveal-up">
                     
-                    <!-- Slide 1: Hero Ad Video (Redesigned with Phone UI) -->
+                    <!-- Slide 1: Hero Ad Video -->
                     <div class="carousel-slide">
                         <div class="flex flex-col items-center w-full">
-                            <div class="phone-mockup" id="hero-phone-container">
+                            <div class="phone-mockup hero-phone">
                                 <div class="phone-notch"></div>
                                 <div class="phone-screen" id="hero-video-anchor">
                                     <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
@@ -334,39 +354,44 @@
                                 </div>
                             </div>
                             
-                            <div class="mt-8 text-center max-w-sm px-4">
-                                <div class="inline-block px-3 py-1 mb-3 text-[10px] font-black tracking-[0.2em] text-teal-400 uppercase bg-teal-500/10 border border-teal-500/20 rounded-md">
-                                    Bio-Organic Persona Modeling
+                            <div class="mt-4 text-center max-w-sm px-4">
+                                <div class="inline-block px-3 py-1 mb-2 text-[10px] font-black tracking-[0.2em] text-teal-400 uppercase bg-teal-500/10 border border-teal-500/20 rounded-md">
+                                    Pure Realism. Built for Scale.
                                 </div>
-                                <h2 class="text-xl font-bold text-white mb-2">Pure Realism. Built for Scale.</h2>
-                                <p class="text-slate-400 text-xs leading-relaxed mb-4">
-                                    Direct output of our proprietary prompt engine. Natural micro-expressions and posture shifts preserved.
-                                </p>
+                                
+                                <div class="mt-2 mb-4">
+                                    <button onclick="scrollToPerformanceBatch()" class="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition flex items-center justify-center space-x-3">
+                                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                                        <span>Get Performance Batch</span>
+                                    </button>
+                                </div>
+
+                                <div onclick="slideCarousel(1)" class="cursor-pointer group inline-flex items-center space-x-3 text-slate-500 hover:text-teal-400 transition font-bold text-xs uppercase tracking-widest">
+                                    <span>Swipe for Strategy</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Original Navigation Card -->
+                    <!-- Slide 2: Nav Card -->
                     <div class="carousel-slide">
-                        <div class="max-w-2xl mx-auto text-center launchpad-hub-container">
+                        <div class="max-w-2xl mx-auto text-center launchpad-hub-container w-full">
                             <div class="premium-card p-8 sm:p-12 border-2 border-violet-500/50 launchpad-hub-container-mobile-adj">
                                 <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-violet-400 uppercase bg-violet-500/10 border border-violet-500/20 rounded-full">
                                     Only 10 Custom Slots Remaining
                                 </div>
 
-                                <h1 class="text-3xl sm:text-5xl font-extrabold mb-8 sm:mb-4">
+                                <h1 class="text-3xl sm:text-5xl font-extrabold mb-8 sm:mb-4 text-white">
                                     UGC that looks, moves, and converts like a human.
                                 </h1>
                                 
                                 <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center mt-6">
-                                    <button onclick="showContent('protocol-content')" 
-                                            class="flex-1 px-4 py-3 sm:px-6 sm:py-3 text-sm sm:text-base font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
-                                        <i data-lucide="cpu" class="w-4 h-4 sm:w-5 sm:h-5 inline mr-2"></i> Strategy Protocol
+                                    <button onclick="showContent('protocol-content')" class="flex-1 px-4 py-3 sm:px-6 text-sm sm:text-base font-bold rounded-full bg-teal-500 text-slate-900 hover:bg-teal-400 transition transform hover:scale-[1.03] shadow-lg">
+                                        <i data-lucide="cpu" class="w-5 h-5 inline mr-2"></i> Strategy Protocol
                                     </button>
-                                    
-                                    <button onclick="showContent('gallery-content')" 
-                                            class="flex-1 px-4 py-3 sm:px-6 sm:py-3 text-sm sm:text-base font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
-                                        <i data-lucide="play-circle" class="w-4 h-4 sm:w-5 sm:h-5 inline mr-2"></i> Realism Showcase
+                                    <button onclick="showContent('gallery-content')" class="flex-1 px-4 py-3 sm:px-6 text-sm sm:text-base font-bold rounded-full bg-violet-500 text-slate-900 hover:bg-violet-400 transition transform hover:scale-[1.03] shadow-lg">
+                                        <i data-lucide="play-circle" class="w-5 h-5 inline mr-2"></i> Realism Showcase
                                     </button>
                                 </div>
                             </div>
@@ -374,69 +399,32 @@
                     </div>
                 </div>
 
-                <!-- Navigation Controls (Bottom of card) -->
                 <div class="carousel-controls reveal-up">
-                    <button onclick="slideCarousel(-1)" class="nav-arrow" aria-label="Previous">
-                        <i data-lucide="chevron-left"></i>
-                    </button>
+                    <button onclick="slideCarousel(-1)" class="nav-arrow"><i data-lucide="chevron-left"></i></button>
                     <div class="flex gap-2">
                         <div id="dot-0" class="w-2 h-2 rounded-full bg-teal-500"></div>
                         <div id="dot-1" class="w-2 h-2 rounded-full bg-slate-700"></div>
                     </div>
-                    <button onclick="slideCarousel(1)" class="nav-arrow" aria-label="Next">
-                        <i data-lucide="chevron-right"></i>
-                    </button>
+                    <button onclick="slideCarousel(1)" class="nav-arrow"><i data-lucide="chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
 
-        <!-- 2. CONTENT SECTION: THE STRATEGY -->
+        <!-- 2. STRATEGY & PAYMENT -->
         <section id="protocol-content" class="content-section">
             <div class="main-content-wrapper">
                 
-                <section class="min-h-[70vh] flex items-center justify-center text-center p-6 sm:p-8 border-b border-slate-800">
+                <section class="min-h-[60vh] flex items-center justify-center text-center p-6 sm:p-8 border-b border-slate-800">
                     <div class="max-w-4xl mx-auto reveal-up">
                         <p class="text-lg uppercase tracking-widest text-accent-teal mb-4">Precision Persona Modeling</p>
-                        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-8 sm:mb-6">
+                        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight mb-8">
                             <span class="text-white block">Hyper-Realistic</span>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500 block">Digital Content.</span>
                         </h1>
-                        <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                            Most digital creators feel 'manufactured.' Our assets are refined to preserve the natural, organic feel that modern social algorithms and consumers reward—especially in high-trust Fitness and Skincare niches.
+                        <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                            Most digital creators feel 'manufactured.' Our assets are refined to preserve the natural, organic feel that modern social algorithms reward—especially in high-trust Fitness and Skincare niches.
                         </p>
-                        <a href="#protocol-details" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 transition duration-300 shadow-xl transform hover:scale-[1.02]">
-                            View Commission Tiers
-                            <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
-                        </a>
-                    </div>
-                </section>
-
-                <section id="vision" class="py-24 lg:py-32 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-3 gap-10 lg:gap-12 reveal-up">
-                        <div class="premium-card p-8 lg:p-10 text-center">
-                            <i data-lucide="user-check" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
-                            <h3 class="text-2xl font-bold mb-4">Authentic Realism</h3>
-                            <p class="text-slate-400">
-                                Modeling subtle physical nuances and natural timing. We create <span class="text-teal-300 font-semibold">Organic Authenticity</span> that bridges the gap for higher trust in Fitness & Wellness.
-                            </p>
-                        </div>
-
-                        <div class="premium-card p-8 lg:p-10 text-center border-teal-500/30">
-                            <i data-lucide="building-2" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
-                            <h3 class="2xl font-bold mb-4">Agency Partnership</h3>
-                            <p class="text-slate-400">
-                                Dedicated high-volume fulfillment for Skincare & Supp brands. We provide the <span class="text-teal-300 font-semibold">creative backend</span> for your IGC needs.
-                            </p>
-                        </div>
-
-                        <div class="premium-card p-8 lg:p-10 text-center">
-                            <i data-lucide="zap" class="w-12 h-12 text-accent-teal mx-auto mb-6"></i>
-                            <h3 class="2xl font-bold mb-4">Maximum Retention</h3>
-                            <p class="text-slate-400">
-                                Capturing natural POV dynamics and realistic speech delivery. Our assets are <span class="text-teal-300 font-semibold">designed to hold attention</span> throughout Supplementation ads.
-                            </p>
-                        </div>
                     </div>
                 </section>
 
@@ -444,421 +432,370 @@
                     <div class="max-w-4xl mx-auto px-6">
                         <div class="text-center mb-16 reveal-up">
                             <h2 class="text-4xl font-extrabold mb-4 text-white">The New Standard in Digital Authenticity.</h2>
-                            <p class="text-slate-400">We prioritize the subtle physical cues and natural imperfections that traditional AI misses, ensuring every asset for Fitness, Skincare, and Supplementation feels raw, handheld, and real.</p>
+                            <p class="text-slate-400">Impactful digital assets for Fitness, Skincare, and Supplementation.</p>
                             <div class="inline-block mt-4 px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-lg text-teal-400 font-bold text-sm">
                                 10 Slots Available - Briefing Required
                             </div>
                         </div>
 
+                        <!-- Single Video Tier -->
                         <div class="mb-6 reveal-up">
-                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
-                                <div class="flex flex-col">
-                                    <span class="text-xl font-semibold text-accent-teal">The Social Hook Pack</span>
-                                    <span class="text-sm text-slate-400">1x 15-Second High-Retention Asset</span>
+                            <div class="premium-card overflow-hidden">
+                                <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
+                                    <div class="flex flex-col text-left">
+                                        <span class="text-xl font-semibold text-accent-teal">The Social Hook Pack</span>
+                                        <span class="text-sm text-slate-400">1x 15-Second High-Retention Asset</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-2xl font-bold text-white mr-4">$65</span>
+                                        <i id="icon-1" data-lucide="info" class="w-6 h-6 text-slate-500"></i>
+                                    </div>
+                                </button>
+                                <div id="dropdown-1" class="dropdown-content px-8">
+                                    <ul class="space-y-4 mb-8">
+                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Single 15s Asset</p><p class="text-sm text-slate-400">Precision hook designed for immediate rapport.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Natural Timing</p><p class="text-sm text-slate-400">Refined behavioral mapping for authentic human movement.</p></div></li>
+                                    </ul>
+                                    <button onclick="openLeadForm('Social Hook Pack')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
                                 </div>
-                                <div class="flex items-center">
-                                    <span class="text-2xl font-bold text-white mr-4">$65</span>
-                                    <i id="icon-1" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
-                                </div>
-                            </button>
-                            <div id="dropdown-1" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
-                                <ul class="space-y-4">
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">Single 15-Second Asset</p>
-                                            <p class="text-sm">A precision-crafted IGC hook designed for immediate rapport and high viewer retention.</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">Natural Persona Modeling</p>
-                                            <p class="text-sm">Refined behavioral mapping to ensure the creator exhibits natural human posture and movement.</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">1x Dedicated Refinement</p>
-                                            <p class="text-sm">One round of detailed polishing to ensure the final output meets your brand's realism standards.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <p class="mt-6 text-teal-400 font-bold">Perfect for: High-conversion hooks or brand representative introductions.</p>
                             </div>
                         </div>
 
-                        <div class="mb-6 reveal-up">
-                            <button class="w-full premium-card p-6 flex justify-between items-center text-left border-violet-500/40" onclick="toggleDropdown(2)">
-                                <div class="flex flex-col">
-                                    <span class="text-xl font-semibold text-violet-400">The Performance Batch</span>
-                                    <span class="text-sm text-slate-400">Two 45-Second worth of High-Trust IGC Videos</span>
+                        <!-- Performance Batch Tier (UPSELL) -->
+                        <div id="target-performance-batch" class="mb-6 reveal-up">
+                            <div class="premium-card overflow-hidden border-2 border-violet-500 shadow-[0_0_30px_rgba(139,92,246,0.2)]">
+                                <div class="bg-violet-500 text-white text-[10px] font-black tracking-widest text-center py-1 uppercase">Top Selling Option</div>
+                                <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(2)">
+                                    <div class="flex flex-col text-left">
+                                        <span class="text-xl font-semibold text-violet-400">The Performance Batch</span>
+                                        <span class="text-sm text-slate-400">2x 45-Second worth of High-Trust Content</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-2xl font-bold text-white mr-4">$199</span>
+                                        <i id="icon-2" data-lucide="info" class="w-6 h-6 text-violet-500"></i>
+                                    </div>
+                                </button>
+                                <div id="dropdown-2" class="dropdown-content px-8">
+                                    <ul class="space-y-4 mb-8">
+                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">2x Performance Assets</p><p class="text-sm text-slate-400">Totaling 45s of runtime. Designed for rapid ad-spend testing.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Advanced Persona Logic</p><p class="text-sm text-slate-400">Exhibits natural micro-expressions and subtle posture shifts.</p></div></li>
+                                    </ul>
+                                    <button onclick="openLeadForm('Performance Batch')" class="w-full py-4 bg-violet-500 text-white font-black rounded-xl hover:bg-violet-400 transition">GET STARTED</button>
                                 </div>
-                                <div class="flex items-center">
-                                    <span class="text-2xl font-bold text-white mr-4">$199 <span class="text-sm text-slate-500">($99.50/ea)</span></span>
-                                    <i id="icon-2" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
-                                </div>
-                            </button>
-                            <div id="dropdown-2" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
-                                <ul class="space-y-4">
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">2x Performance Videos</p>
-                                            <p class="text-sm">Two distinct, high-trust assets totaling 45 seconds of high-fidelity content runtime.</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">Optimized for Ad Testing</p>
-                                            <p class="text-sm">Specifically modeled for performance marketing and rapid split-testing on social platforms.</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i data-lucide="check" class="w-5 h-5 text-violet-400 mr-3 flex-shrink-0"></i>
-                                        <div>
-                                            <p class="font-bold text-white">Natural Behavior Integration</p>
-                                            <p class="text-sm">Our advanced personas are crafted to exhibit natural micro-movements like micro-expressions and subtle posture shifts for maximum audience engagement and retention.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <p class="mt-6 text-violet-400 font-bold italic">Requires a full project briefing to align with conversion goals.</p>
                             </div>
                         </div>
 
-                        <div class="mb-6 reveal-up">
-                            <button class="w-full premium-card p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
-                                <div class="flex flex-col">
-                                    <span class="text-xl font-semibold text-accent-teal">Agency Fullfilment</span>
-                                    <span class="text-sm text-slate-400">High-Volume Retainer & Bulk Assets</span>
+                        <!-- Agency Tier -->
+                        <div id="target-agency-fulfillment" class="mb-6 reveal-up">
+                            <div class="premium-card overflow-hidden">
+                                <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
+                                    <div class="flex flex-col text-left">
+                                        <span class="text-xl font-semibold text-accent-teal">Agency Fullfilment</span>
+                                        <span class="text-sm text-slate-400">High-Volume Retainer & Bulk Assets</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-sm font-bold text-teal-400 uppercase tracking-widest mr-4">Custom Terms</span>
+                                        <i id="icon-3" data-lucide="info" class="w-6 h-6 text-slate-500"></i>
+                                    </div>
+                                </button>
+                                <div id="dropdown-3" class="dropdown-content px-8">
+                                    <p class="text-slate-400 mb-8 leading-relaxed">For agencies looking to outsource their IGC production. We provide high-realism assets at scale without the overhead of real influencers.</p>
+                                    <button onclick="openLeadForm('Agency Fulfillment')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
                                 </div>
-                                <div class="flex items-center">
-                                    <span class="text-sm font-bold text-teal-400 uppercase tracking-widest mr-4">Custom Terms</span>
-                                    <i id="icon-3" data-lucide="chevron-down" class="w-6 h-6 transform transition duration-300 flex-shrink-0"></i>
-                                </div>
-                            </button>
-                            <div id="dropdown-3" class="dropdown-content mt-2 premium-card p-8 text-slate-300 border-t-2 border-teal-500/50">
-                                <p class="mb-3">For agencies looking to outsource their IGC production. We provide high-realism assets at scale without the overhead of sourcing real creators.</p>
-                                <p>Contact us directly to discuss volume needs, white-label options, and priority turnarounds.</p>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <section class="py-24 text-center">
-                    <button onclick="openConsultationModal()" class="inline-flex items-center justify-center px-10 py-5 border-4 border-teal-500 text-lg font-bold rounded-xl text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-500 transform hover:scale-[1.05]">
-                        Start Today
-                    </button>
-                </section>
             </div>
         </section>
 
 
-        <!-- 3. CONTENT SECTION: THE GALLERY (Fully Dynamic) -->
+        <!-- 3. GALLERY -->
         <section id="gallery-content" class="content-section py-24 bg-slate-950">
             <div class="max-w-7xl mx-auto px-6 text-center">
-                <h2 class="text-4xl sm:text-5xl font-extrabold mb-6">Realism <span class="text-violet-500">Showcase</span></h2>
-                <p class="text-slate-400 mb-12 max-w-2xl mx-auto">Discover our natural persona modeling in action. Authentic digital rapport.</p>
-                
+                <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 text-white">Realism <span class="text-violet-500">Showcase</span></h2>
                 <div id="gallery-tabs" class="flex flex-wrap justify-center gap-3 mb-16 px-4"></div>
-                
                 <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-center items-start"></div>
-
-                <div class="mt-24">
-                    <button onclick="showLaunchpad()" class="text-slate-500 hover:text-white transition text-sm">
-                        ← Back to Hub
-                    </button>
-                </div>
+                <div class="mt-24"><button onclick="showLaunchpad()" class="text-slate-500 hover:text-white transition text-sm">← Back to Hub</button></div>
             </div>
         </section>
 
+        <!-- --- MODALS --- -->
 
-        <!-- 4. FOOTER AND MODAL -->
-        
-        <div id="confirmation-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
-            <div class="bg-slate-800 p-8 rounded-xl max-w-sm mx-4 shadow-2xl border border-teal-500/50">
-                <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <i data-lucide="mail" class="w-6 h-6 mr-2 text-teal-400"></i>
-                    Start Today
-                </h3>
-                <p class="text-slate-300 mb-6">
-                    Connect with the Advansells team at <span class="text-teal-400 font-semibold">milannemecek@advansells.com</span> to submit your briefing or discuss agency terms.
-                </p>
-                <div class="flex justify-end space-x-3">
-                    <button onclick="closeConsultationModal()" class="px-5 py-2 text-sm font-semibold rounded-lg text-slate-300 hover:bg-slate-700 transition">
-                        Wait
-                    </button>
-                    <a href="mailto:milannemecek@advansells.com" class="px-5 py-2 text-sm font-bold rounded-lg bg-teal-500 text-slate-900 hover:bg-teal-400 transition" onclick="closeConsultationModal()">
-                        Connect
-                    </a>
+        <!-- Lead Form -->
+        <div id="lead-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+            <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full mx-4 shadow-2xl border border-teal-500/30 overflow-hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Project Setup</h3>
+                    <button onclick="closeLeadForm()" class="text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
+                </div>
+                <div id="lead-form-content">
+                    <div id="step-1" class="form-step active">
+                        <p class="text-slate-400 mb-6 font-medium">Step 1: Select your brand niche</p>
+                        <div class="grid grid-cols-2 gap-3" id="niche-grid"></div>
+                        <button onclick="nextFormStep()" class="w-full mt-8 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Continue <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
+                    </div>
+                    <div id="step-2" class="form-step">
+                        <p class="text-slate-400 mb-6 font-medium">Step 2: Asset Style Preferences</p>
+                        <div class="grid grid-cols-1 gap-3" id="style-grid"></div>
+                        <button onclick="goToAdSpend()" class="w-full mt-8 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Almost There <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
+                    </div>
+                    <div id="step-3" class="form-step">
+                        <p class="text-slate-400 mb-6 font-medium">Step 3: Target Monthly Ad Spend</p>
+                        <div class="space-y-3">
+                            <div class="option-tile spend-opt" onclick="selectSpend(this)">$1k - $5k</div>
+                            <div class="option-tile spend-opt" onclick="selectSpend(this)">$5k - $20k</div>
+                            <div class="option-tile spend-opt" onclick="selectSpend(this)">$20k - $100k</div>
+                            <div class="option-tile spend-opt" onclick="selectSpend(this)">$100k+ / Scaling</div>
+                        </div>
+                        <div class="mt-6"><input type="email" id="lead-email" placeholder="Your Work Email" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition"></div>
+                        <button id="submit-lead-btn" onclick="submitLead()" class="w-full mt-8 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Submit Briefing</button>
+                    </div>
+                </div>
+                <div id="lead-success" class="hidden text-center py-10">
+                    <div class="w-16 h-16 bg-teal-500/20 text-teal-400 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check-circle" class="w-10 h-10"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-2">Setup Details Received</h4>
+                    <p class="text-slate-400">The team will reach out to ADTeam@advansells.com shortly.</p>
                 </div>
             </div>
         </div>
 
-        <footer class="bg-slate-900 border-t border-slate-800 py-12">
-            <div class="max-w-7xl mx-auto px-6 text-center text-slate-500 text-sm">
-                <p>&copy; 2025 Advansells. Hyper-Realistic IGC Strategy.</p>
-                <p class="mt-2">Natural Rapport. Anywhere. Anytime.</p>
+        <!-- Contact Pop-up -->
+        <div id="contact-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
+            <div class="bg-slate-800 p-8 rounded-2xl max-w-sm w-full mx-4 shadow-2xl border border-teal-500/50 text-center">
+                <div class="w-16 h-16 bg-teal-500/10 text-teal-400 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="mail" class="w-8 h-8"></i></div>
+                <h3 class="text-2xl font-bold text-white mb-2">Direct Channel</h3>
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700 mb-8"><p class="text-teal-400 font-mono font-bold select-all">ADTeam@advansells.com</p></div>
+                <div class="flex flex-col space-y-3">
+                    <a href="mailto:ADTeam@advansells.com" class="py-3 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition">Send Email</a>
+                    <button onclick="closeContactModal()" class="py-3 text-slate-500 hover:text-white transition font-medium">Close</button>
+                </div>
             </div>
+        </div>
+
+        <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-slate-600 text-[10px]">
+            <p>&copy; 2025 Advansells. Natural Rapport. Anywhere. Anytime.</p>
         </footer>
     </main>
 
-    <!-- FIREBASE MODULE -->
+    <!-- FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         const STATIC_FIREBASE_CONFIG = {
-            apiKey: "AIzaSyBxKxQtsK1YTXtuE0nIibqdICb8h-iuPGg", 
-            authDomain: "authenticateflash.firebaseapp.com",
-            projectId: "authenticateflash",
-            storageBucket: "authenticateflash.firebasestorage.app",
-            messagingSenderId: "1016397797146",
-            appId: "1:1016397797146:web:d3bf97086e89649e5a3ea3"
+            apiKey: "AIzaSyBxKxQtsK1YTXtuE0nIibqdICb8h-iuPGg", authDomain: "authenticateflash.firebaseapp.com",
+            projectId: "authenticateflash", storageBucket: "authenticateflash.firebasestorage.app",
+            messagingSenderId: "1016397797146", appId: "1:1016397797146:web:d3bf97086e89649e5a3ea3"
         };
 
-        let firebaseApp, storage;
+        const app = initializeApp(STATIC_FIREBASE_CONFIG);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        let user = null;
         let globalLoadingVideoUrl = null;
 
-        try {
-            firebaseApp = initializeApp(STATIC_FIREBASE_CONFIG);
-            storage = getStorage(firebaseApp);
-            console.log("Firebase initialized.");
+        // Monitor Auth State properly
+        onAuthStateChanged(auth, (u) => {
+            user = u;
+            console.log(user ? "User identified: " + user.uid : "Awaiting auth...");
+        });
 
-            const fetchLoadingVideo = async () => {
-                const loadingDirRef = ref(storage, 'gallery/loading/');
-                try {
-                    const res = await listAll(loadingDirRef);
-                    if (res.items.length > 0) {
-                        globalLoadingVideoUrl = await getDownloadURL(res.items[0]);
-                    }
-                } catch (e) {
-                    console.error("Error fetching loading video:", e);
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
+                    const cred = await signInWithCustomToken(auth, __initial_auth_token); 
+                    user = cred.user; 
+                } 
+                else { 
+                    const cred = await signInAnonymously(auth); 
+                    user = cred.user; 
                 }
-            };
+            } catch (e) { console.error("Initial Auth Failure:", e); }
+        };
+        initAuth();
 
-            const createLoadingLayer = (targetUrl, isMuted = true) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'video-container-layer';
-                
-                const loaderOverlay = document.createElement('div');
-                loaderOverlay.className = 'video-loader-overlay';
-                if (globalLoadingVideoUrl) {
-                    loaderOverlay.innerHTML = `
-                        <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                            <source src="${globalLoadingVideoUrl}" type="video/mp4">
-                        </video>
-                    `;
-                } else {
-                    loaderOverlay.innerHTML = `<div class="flex items-center justify-center h-full"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div></div>`;
+        const fetchLoadingVideo = async () => {
+            try {
+                const res = await listAll(ref(storage, 'gallery/loading/'));
+                if (res.items.length > 0) globalLoadingVideoUrl = await getDownloadURL(res.items[0]);
+            } catch (e) { console.error(e); }
+        };
+
+        const createLoadingLayer = (targetUrl, isMuted = true) => {
+            const wrapper = document.createElement('div'); wrapper.className = 'video-container-layer';
+            const overlay = document.createElement('div'); overlay.className = 'video-loader-overlay';
+            if (globalLoadingVideoUrl) { overlay.innerHTML = `<video autoplay muted loop playsinline class="w-full h-full object-cover"><source src="${globalLoadingVideoUrl}" type="video/mp4"></video>`; } 
+            else { overlay.innerHTML = `<div class="flex items-center justify-center h-full"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div></div>`; }
+            const mainVideo = document.createElement('video'); mainVideo.autoplay = true; mainVideo.muted = isMuted; mainVideo.loop = true; mainVideo.playsInline = true; mainVideo.disablePictureInPicture = true;
+            mainVideo.setAttribute('controlsList', 'nodownload'); mainVideo.oncontextmenu = () => false;
+            mainVideo.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-700';
+            const source = document.createElement('source'); source.src = targetUrl; source.type = 'video/mp4';
+            mainVideo.appendChild(source);
+            mainVideo.addEventListener('playing', () => { mainVideo.classList.remove('opacity-0'); overlay.classList.add('hidden'); const lv = overlay.querySelector('video'); if(lv){lv.pause();lv.src="";} }, { once: true });
+            const volBtn = document.createElement('button'); volBtn.className = 'volume-toggle'; volBtn.innerHTML = '<i data-lucide="volume-x"></i>';
+            volBtn.onclick = (e) => { e.stopPropagation(); mainVideo.muted = !mainVideo.muted; volBtn.innerHTML = mainVideo.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>'; lucide.createIcons(); };
+            wrapper.appendChild(overlay); wrapper.appendChild(mainVideo); wrapper.appendChild(volBtn);
+            setTimeout(() => lucide.createIcons(), 0); return wrapper;
+        };
+
+        window.loadHeroVideo = async () => {
+            await fetchLoadingVideo();
+            try {
+                const url = await getDownloadURL(ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4'));
+                const anchor = document.getElementById('hero-video-anchor'); anchor.innerHTML = ''; anchor.appendChild(createLoadingLayer(url, true));
+            } catch (e) { document.getElementById('hero-video-anchor').innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`; }
+        };
+
+        window.loadGallery = async (categoryPath = 'gallery/') => {
+            const videoGrid = document.getElementById('video-grid'); const tabsContainer = document.getElementById('gallery-tabs');
+            videoGrid.innerHTML = '<div class="col-span-full py-20 flex justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div></div>';
+            try {
+                const res = await listAll(ref(storage, categoryPath));
+                if (categoryPath === 'gallery/' && tabsContainer.children.length === 0) {
+                    createTab('Main Showcase', 'gallery/', true);
+                    res.prefixes.forEach(p => { if (p.name !== 'hero' && p.name !== 'loading') createTab(p.name, `gallery/${p.name}/`); });
                 }
+                videoGrid.innerHTML = '';
+                if (res.items.length === 0) { videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Awaiting fresh generations...</p>'; return; }
+                for (const item of res.items) { const url = await getDownloadURL(item); const name = item.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' '); injectVideoMockup(url, name, createLoadingLayer); }
+            } catch (error) { videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Error loading assets.</p>'; }
+        };
 
-                const mainVideo = document.createElement('video');
-                mainVideo.autoplay = true;
-                mainVideo.muted = isMuted;
-                mainVideo.loop = true;
-                mainVideo.playsInline = true;
-                mainVideo.disablePictureInPicture = true;
-                mainVideo.setAttribute('controlsList', 'nodownload');
-                mainVideo.oncontextmenu = () => false;
-                mainVideo.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-700';
-                
-                const source = document.createElement('source');
-                source.src = targetUrl;
-                source.type = 'video/mp4';
-                mainVideo.appendChild(source);
-
-                mainVideo.addEventListener('playing', () => {
-                    mainVideo.classList.remove('opacity-0');
-                    loaderOverlay.classList.add('hidden');
-                    const lv = loaderOverlay.querySelector('video');
-                    if (lv) { lv.pause(); lv.src = ""; lv.load(); }
-                }, { once: true });
-
-                const volBtn = document.createElement('button');
-                volBtn.className = 'volume-toggle';
-                volBtn.innerHTML = isMuted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
-                volBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    mainVideo.muted = !mainVideo.muted;
-                    volBtn.innerHTML = mainVideo.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
-                    lucide.createIcons();
-                };
-
-                wrapper.appendChild(loaderOverlay);
-                wrapper.appendChild(mainVideo);
-                wrapper.appendChild(volBtn);
-                
-                setTimeout(() => lucide.createIcons(), 0);
-                return wrapper;
-            };
-
-            window.loadHeroVideo = async () => {
-                await fetchLoadingVideo();
-                const heroVideoRef = ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4');
-                const anchor = document.getElementById('hero-video-anchor');
-                try {
-                    const url = await getDownloadURL(heroVideoRef);
-                    anchor.innerHTML = '';
-                    anchor.appendChild(createLoadingLayer(url, true));
-                } catch (e) {
-                    console.error("Hero video error:", e);
-                    anchor.innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`;
-                }
-            };
-
-            window.loadGallery = async (categoryPath = 'gallery/') => {
-                const listRef = ref(storage, categoryPath);
-                const videoGrid = document.getElementById('video-grid');
-                const tabsContainer = document.getElementById('gallery-tabs');
-                videoGrid.innerHTML = '<div class="col-span-full py-20 flex justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div></div>';
-
-                try {
-                    const res = await listAll(listRef);
-                    if (categoryPath === 'gallery/' && tabsContainer.children.length === 0) {
-                        createTab('Main Showcase', 'gallery/', true);
-                        res.prefixes.forEach(prefixRef => {
-                            if (prefixRef.name !== 'hero' && prefixRef.name !== 'loading') {
-                                createTab(prefixRef.name, `gallery/${prefixRef.name}/`);
-                            }
-                        });
-                    }
-                    videoGrid.innerHTML = '';
-                    if (res.items.length === 0) {
-                        videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Awaiting fresh generations...</p>';
-                        return;
-                    }
-                    for (const itemRef of res.items) {
-                        const url = await getDownloadURL(itemRef);
-                        const fileName = itemRef.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' ');
-                        injectVideoMockup(url, fileName, createLoadingLayer);
-                    }
-                } catch (error) {
-                    console.error("Error listing gallery:", error);
-                }
-            };
-
-            function createTab(name, path, isActive = false) {
-                const tabsContainer = document.getElementById('gallery-tabs');
-                const btn = document.createElement('button');
-                btn.className = `gallery-tab ${isActive ? 'active' : ''}`;
-                btn.innerText = name.replace(/_/g, ' ');
-                btn.onclick = () => {
-                    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
-                    btn.classList.add('active');
-                    window.loadGallery(path);
-                };
-                tabsContainer.appendChild(btn);
-            }
-
-        } catch (e) {
-            console.error("Firebase Initialization Error:", e);
+        function createTab(name, path, isActive = false) {
+            const tabsContainer = document.getElementById('gallery-tabs');
+            const btn = document.createElement('button'); btn.className = `gallery-tab ${isActive ? 'active' : ''}`; btn.innerText = name.replace(/_/g, ' ');
+            btn.onclick = () => { document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); window.loadGallery(path); };
+            tabsContainer.appendChild(btn);
         }
 
-        window.slideCarousel = (direction) => {
-            const container = document.getElementById('carousel-track');
-            const slideWidth = container.offsetWidth;
-            container.scrollLeft += direction * slideWidth;
-            
-            // Update dots
-            setTimeout(() => {
-                const scrollPos = container.scrollLeft;
-                const index = Math.round(scrollPos / slideWidth);
-                document.getElementById('dot-0').className = `w-2 h-2 rounded-full ${index === 0 ? 'bg-teal-500' : 'bg-slate-700'}`;
-                document.getElementById('dot-1').className = `w-2 h-2 rounded-full ${index === 1 ? 'bg-teal-500' : 'bg-slate-700'}`;
-            }, 300);
+        function injectVideoMockup(url, description, loaderFactory) {
+            const videoGrid = document.getElementById('video-grid');
+            const container = document.createElement('div'); container.className = 'reveal-up active flex flex-col items-center w-full'; 
+            const mockup = document.createElement('div'); mockup.className = 'phone-mockup';
+            const notch = document.createElement('div'); notch.className = 'phone-notch';
+            const screen = document.createElement('div'); screen.className = 'phone-screen'; screen.appendChild(loaderFactory(url, true));
+            mockup.appendChild(notch); mockup.appendChild(screen);
+            const btnBox = document.createElement('div'); btnBox.className = 'asset-btn-box';
+            btnBox.innerHTML = `<button class="gallery-cta-btn" onclick="scrollToPayment()">${description}</button>`;
+            container.appendChild(mockup); container.appendChild(btnBox); videoGrid.appendChild(container);
+        }
+
+        window.saveLeadToFirebase = async (data) => {
+            // FIX: Re-auth if user is missing for some reason during submission
+            if (!user) {
+                try {
+                    const cred = await signInAnonymously(auth);
+                    user = cred.user;
+                } catch (e) {
+                    console.error("Auth Failure on Submit:", e);
+                    return false;
+                }
+            }
+            if (!user) return false;
+
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'leads'), { 
+                    ...data, 
+                    timestamp: serverTimestamp() 
+                });
+                return true;
+            } catch (e) { 
+                console.error("Firestore Error:", e);
+                return false; 
+            }
         };
     </script>
 
     <script>
-        window.onload = () => {
-             lucide.createIcons();
-             if (window.loadHeroVideo) window.loadHeroVideo();
+        let currentLeadContext = {};
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+
+        const muteAllAudio = () => {
+            document.querySelectorAll('video').forEach(video => {
+                video.muted = true;
+                const container = video.closest('.video-container-layer');
+                if (container) {
+                    const btn = container.querySelector('.volume-toggle');
+                    if (btn) btn.innerHTML = '<i data-lucide="volume-x"></i>';
+                }
+            });
+            lucide.createIcons();
         };
 
-        const LAUNCHPAD = document.getElementById('launchpad-section');
-        const PROTOCOL_CONTENT = document.getElementById('protocol-content');
-        const GALLERY_CONTENT = document.getElementById('gallery-content');
-        const MODAL = document.getElementById('confirmation-modal');
-
-        const hideAllContent = () => {
-            LAUNCHPAD.style.display = 'none';
-            PROTOCOL_CONTENT.style.display = 'none';
-            GALLERY_CONTENT.style.display = 'none';
-            window.scrollTo(0, 0); 
+        window.onload = () => { 
+            lucide.createIcons(); 
+            if (window.loadHeroVideo) window.loadHeroVideo(); 
+            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)); 
         };
 
-        const showLaunchpad = () => {
-            hideAllContent();
-            LAUNCHPAD.style.display = 'flex';
+        const openSidebar = () => { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.remove('hidden'); };
+        const closeSidebar = () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.add('hidden'); };
+        const handleSidebarNav = (loc) => {
+            closeSidebar();
+            if (loc === 'launchpad') showLaunchpad();
+            else if (loc === 'payment') scrollToPayment();
+            else if (loc === 'agency') { showContent('protocol-content'); setTimeout(() => document.getElementById('target-agency-fulfillment').scrollIntoView({ behavior: 'smooth' }), 300); }
+            else if (loc === 'showcase') showContent('gallery-content');
         };
 
-        const showContent = (contentId) => {
-            hideAllContent();
-            const target = document.getElementById(contentId);
-            target.style.display = 'block';
-            document.querySelectorAll('.reveal-up').forEach(el => el.classList.remove('active'));
-            if (contentId === 'gallery-content') {
-                if (window.loadGallery) window.loadGallery();
-            }
-            setTimeout(handleScroll, 100);
+        const slideCarousel = (direction) => {
+            muteAllAudio();
+            const container = document.getElementById('carousel-track'); const slideWidth = container.offsetWidth; container.scrollLeft += direction * slideWidth;
+            setTimeout(() => { const idx = Math.round(container.scrollLeft / slideWidth); document.getElementById('dot-0').className = `w-2 h-2 rounded-full ${idx === 0 ? 'bg-teal-500' : 'bg-slate-700'}`; document.getElementById('dot-1').className = `w-2 h-2 rounded-full ${idx === 1 ? 'bg-teal-500' : 'bg-slate-700'}`; }, 300);
         };
 
-        const openConsultationModal = () => MODAL.classList.remove('hidden');
-        const closeConsultationModal = () => MODAL.classList.add('hidden');
+        const showLaunchpad = () => { muteAllAudio(); document.getElementById('launchpad-section').style.display = 'flex'; document.getElementById('protocol-content').style.display = 'none'; document.getElementById('gallery-content').style.display = 'none'; window.scrollTo(0, 0); };
+        const showContent = (id) => { muteAllAudio(); document.getElementById('launchpad-section').style.display = 'none'; document.getElementById('protocol-content').style.display = 'none'; document.getElementById('gallery-content').style.display = 'none'; document.getElementById(id).style.display = 'block'; if (id === 'gallery-content') window.loadGallery(); setTimeout(() => document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)), 100); };
+        const scrollToPayment = () => { showContent('protocol-content'); setTimeout(() => { document.getElementById('protocol-details').scrollIntoView({ behavior: 'smooth' }); }, 200); };
+        const scrollToPerformanceBatch = () => { showContent('protocol-content'); setTimeout(() => { document.getElementById('target-performance-batch').scrollIntoView({ behavior: 'smooth' }); }, 200); };
+
+        const openLeadForm = (pkg) => {
+            currentLeadContext = { package: pkg, niche: '', style: '', spend: '' };
+            document.getElementById('lead-modal').classList.remove('hidden');
+            document.getElementById('lead-form-content').classList.remove('hidden');
+            document.getElementById('lead-success').classList.add('hidden');
+            const ng = document.getElementById('niche-grid'); let niches = ['Skincare', 'Fitness', 'Supplements', 'Apparel', 'Tech', 'Food & Bev', 'SaaS', 'Real Estate'];
+            ng.innerHTML = niches.map(n => `<div class="option-tile niche-opt" onclick="selectNiche(this, '${n}')">${n}</div>`).join('');
+            const sg = document.getElementById('style-grid'); let styles = ['Organic / Authenticity', 'POV Action'];
+            if (pkg !== 'Social Hook Pack') styles = [...styles, 'Cinematic Fitness', 'High-Fidelity Studio'];
+            if (pkg === 'Agency Fulfillment') styles = [...styles, 'Professional Multi-Cam', 'Unlimited Custom'];
+            sg.innerHTML = styles.map(s => `<div class="option-tile style-opt" onclick="selectStyle(this, '${s}')">${s}</div>`).join('');
+            resetForm();
+        };
+
+        const closeLeadForm = () => document.getElementById('lead-modal').classList.add('hidden');
+        const openContactModal = () => document.getElementById('contact-modal').classList.remove('hidden');
+        const closeContactModal = () => document.getElementById('contact-modal').classList.add('hidden');
+
+        const selectNiche = (el, val) => { document.querySelectorAll('.niche-opt').forEach(n => n.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.niche = val; };
+        const selectStyle = (el, val) => { document.querySelectorAll('.style-opt').forEach(s => s.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.style = val; };
+        const selectSpend = (el) => { document.querySelectorAll('.spend-opt').forEach(n => n.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.spend = el.innerText; };
+        const nextFormStep = () => { if (currentLeadContext.niche) { document.getElementById('step-1').classList.remove('active'); document.getElementById('step-2').classList.add('active'); } };
+        const goToAdSpend = () => { if (currentLeadContext.style) { document.getElementById('step-2').classList.remove('active'); document.getElementById('step-3').classList.add('active'); } };
+        const resetForm = () => { document.getElementById('step-1').classList.add('active'); document.getElementById('step-2').classList.remove('active'); document.getElementById('step-3').classList.remove('active'); document.getElementById('lead-email').value = ''; };
+
+        const submitLead = async () => {
+            const email = document.getElementById('lead-email').value; if (!email || !currentLeadContext.spend) return;
+            const btn = document.getElementById('submit-lead-btn');
+            btn.disabled = true; btn.innerText = 'Syncing...';
+            const success = await window.saveLeadToFirebase({ ...currentLeadContext, userEmail: email });
+            if (success) { document.getElementById('lead-form-content').classList.add('hidden'); document.getElementById('lead-success').classList.remove('hidden'); } 
+            else { btn.disabled = false; btn.innerText = 'Retry'; }
+        };
 
         const toggleDropdown = (id) => {
             const content = document.getElementById(`dropdown-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-            for (let i = 1; i <= 3; i++) {
-                if (i !== id) {
-                    const oc = document.getElementById(`dropdown-${i}`);
-                    const oi = document.getElementById(`icon-${i}`);
-                    if (oc) oc.classList.remove('open');
-                    if (oi) oi.classList.remove('rotate-180');
-                }
-            }
-            if (content) content.classList.toggle('open');
-            if (icon) icon.classList.toggle('rotate-180');
+            if (content.classList.contains('open')) { content.classList.remove('open'); } 
+            else { document.querySelectorAll('.dropdown-content').forEach(c => c.classList.remove('open')); content.classList.add('open'); }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-
-        const handleScroll = () => {
-            document.querySelectorAll('.reveal-up').forEach(element => observer.observe(element));
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            handleScroll();
-            showLaunchpad();
-        });
-
-        function injectVideoMockup(url, description, loaderFactory) {
-            const videoGrid = document.getElementById('video-grid');
-            const container = document.createElement('div');
-            container.className = 'reveal-up active flex flex-col items-center'; 
-            const mockup = document.createElement('div');
-            mockup.className = 'phone-mockup';
-            const notch = document.createElement('div');
-            notch.className = 'phone-notch';
-            const screen = document.createElement('div');
-            screen.className = 'phone-screen';
-            screen.appendChild(loaderFactory(url, true));
-            mockup.appendChild(notch);
-            mockup.appendChild(screen);
-            const descBox = document.createElement('div');
-            descBox.className = 'asset-description-box';
-            descBox.innerHTML = `<h4 class="text-accent-teal font-bold text-xs uppercase tracking-widest mb-1 opacity-70">IGC Identity</h4><p class="text-white font-medium">${description}</p>`;
-            container.appendChild(mockup);
-            container.appendChild(descBox);
-            videoGrid.appendChild(container);
-        }
+        document.addEventListener('DOMContentLoaded', () => showLaunchpad());
     </script>
 </body>
 </html>
