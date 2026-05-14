@@ -172,7 +172,6 @@
             position: relative;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        /* Specific Hero Phone size adjustment to reduce height footprint */
         .phone-mockup.hero-phone {
             max-width: 230px;
         }
@@ -273,16 +272,16 @@
         @media (max-width: 640px) {
             #launchpad-section { 
                 padding: 1.5rem 1rem; 
-                min-height: 100svh; /* Use SVH for precise mobile fit */
+                min-height: 100svh; 
             }
             .launchpad-hub-container-mobile-adj { padding: 2.5rem 1rem !important; min-height: auto; }
             .header-container-mobile { gap: 1rem !important; justify-content: space-between; }
             .carousel-controls { 
-                gap: 3rem; /* Spread arrows wider on mobile for thumb reach */
+                gap: 3rem; 
                 margin-top: 0.5rem;
             }
             .nav-arrow {
-                width: 54px; /* Larger targets for mobile */
+                width: 54px; 
                 height: 54px;
             }
         }
@@ -362,7 +361,7 @@
                                 <div class="mt-2 mb-4">
                                     <button onclick="scrollToPerformanceBatch()" class="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition flex items-center justify-center space-x-3">
                                         <i data-lucide="trending-up" class="w-5 h-5"></i>
-                                        <span>Get Performance Batch</span>
+                                        <span>Rapid Ad Testing</span>
                                     </button>
                                 </div>
 
@@ -438,60 +437,60 @@
                             </div>
                         </div>
 
-                        <!-- Single Video Tier -->
+                        <!-- Entry Tier (The "Hook" Pack) -->
                         <div class="mb-6 reveal-up">
                             <div class="premium-card overflow-hidden">
                                 <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(1)">
                                     <div class="flex flex-col text-left">
-                                        <span class="text-xl font-semibold text-accent-teal">The Social Hook Pack</span>
-                                        <span class="text-sm text-slate-400">1x 15-Second High-Retention Asset</span>
+                                        <span class="text-xl font-semibold text-accent-teal">The Performance Hook Lab</span>
+                                        <span class="text-sm text-slate-400">3x High-Conversion Hook Variations</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <span class="text-2xl font-bold text-white mr-4">$65</span>
+                                        <span class="text-2xl font-bold text-white mr-4">$450</span>
                                         <i id="icon-1" data-lucide="info" class="w-6 h-6 text-slate-500"></i>
                                     </div>
                                 </button>
                                 <div id="dropdown-1" class="dropdown-content px-8">
                                     <ul class="space-y-4 mb-8">
-                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Single 15s Asset</p><p class="text-sm text-slate-400">Precision hook designed for immediate rapport.</p></div></li>
-                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Natural Timing</p><p class="text-sm text-slate-400">Refined behavioral mapping for authentic human movement.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">3 Strategic Hook Variants</p><p class="text-sm text-slate-400">Engineered to stop the scroll and lower your CPC.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Precision Persona Matching</p><p class="text-sm text-slate-400">AI assets tailored to your specific customer avatar.</p></div></li>
                                     </ul>
-                                    <button onclick="openLeadForm('Social Hook Pack')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
+                                    <button onclick="openLeadForm('Performance Hook Lab')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Performance Batch Tier (UPSELL) -->
+                        <!-- Mid-Tier (Performance Batch / UPSELL) -->
                         <div id="target-performance-batch" class="mb-6 reveal-up">
                             <div class="premium-card overflow-hidden border-2 border-violet-500 shadow-[0_0_30px_rgba(139,92,246,0.2)]">
                                 <div class="bg-violet-500 text-white text-[10px] font-black tracking-widest text-center py-1 uppercase">Top Selling Option</div>
                                 <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(2)">
                                     <div class="flex flex-col text-left">
-                                        <span class="text-xl font-semibold text-violet-400">The Performance Batch</span>
-                                        <span class="text-sm text-slate-400">2x 45-Second worth of High-Trust Content</span>
+                                        <span class="text-xl font-semibold text-violet-400">Rapid Ad Testing</span>
+                                        <span class="text-sm text-slate-400">5x High-Trust Assets for Rapid Ad Testing</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <span class="text-2xl font-bold text-white mr-4">$199</span>
+                                        <span class="text-2xl font-bold text-white mr-4">$1,250</span>
                                         <i id="icon-2" data-lucide="info" class="w-6 h-6 text-violet-500"></i>
                                     </div>
                                 </button>
                                 <div id="dropdown-2" class="dropdown-content px-8">
                                     <ul class="space-y-4 mb-8">
-                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">2x Performance Assets</p><p class="text-sm text-slate-400">Totaling 45s of runtime. Designed for rapid ad-spend testing.</p></div></li>
-                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Advanced Persona Logic</p><p class="text-sm text-slate-400">Exhibits natural micro-expressions and subtle posture shifts.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">5 Unique Performance Assets</p><p class="text-sm text-slate-400">Designed to provide 30 days of high-velocity testing.</p></div></li>
+                                        <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-1"></i> <div><p class="font-bold text-white">Full Funnel Architecture</p><p class="text-sm text-slate-400">Content optimized for Top, Middle, and Bottom of the funnel.</p></div></li>
                                     </ul>
-                                    <button onclick="openLeadForm('Performance Batch')" class="w-full py-4 bg-violet-500 text-white font-black rounded-xl hover:bg-violet-400 transition">GET STARTED</button>
+                                    <button onclick="openLeadForm('Creative Testing Sprint')" class="w-full py-4 bg-violet-500 text-white font-black rounded-xl hover:bg-violet-400 transition">GET STARTED</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Agency Tier -->
+                        <!-- Agency Tier (Growth Partners) -->
                         <div id="target-agency-fulfillment" class="mb-6 reveal-up">
                             <div class="premium-card overflow-hidden">
                                 <button class="w-full p-6 flex justify-between items-center text-left" onclick="toggleDropdown(3)">
                                     <div class="flex flex-col text-left">
-                                        <span class="text-xl font-semibold text-accent-teal">Agency Fullfilment</span>
-                                        <span class="text-sm text-slate-400">High-Volume Retainer & Bulk Assets</span>
+                                        <span class="text-xl font-semibold text-accent-teal">Scale & Growth Retainer</span>
+                                        <span class="text-sm text-slate-400">End-to-End Creative Partner Strategy</span>
                                     </div>
                                     <div class="flex items-center">
                                         <span class="text-sm font-bold text-teal-400 uppercase tracking-widest mr-4">Custom Terms</span>
@@ -499,8 +498,8 @@
                                     </div>
                                 </button>
                                 <div id="dropdown-3" class="dropdown-content px-8">
-                                    <p class="text-slate-400 mb-8 leading-relaxed">For agencies looking to outsource their IGC production. We provide high-realism assets at scale without the overhead of real influencers.</p>
-                                    <button onclick="openLeadForm('Agency Fulfillment')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
+                                    <p class="text-slate-400 mb-8 leading-relaxed">For scaling brands requiring 20+ monthly assets. We act as your internal creative lab, delivering hyper-realistic content that outpaces traditional UGC.</p>
+                                    <button onclick="openLeadForm('Scale & Growth Retainer')" class="w-full py-4 bg-teal-500 text-primary-dark font-black rounded-xl hover:bg-teal-400 transition">GET STARTED</button>
                                 </div>
                             </div>
                         </div>
@@ -555,7 +554,7 @@
                 <div id="lead-success" class="hidden text-center py-10">
                     <div class="w-16 h-16 bg-teal-500/20 text-teal-400 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check-circle" class="w-10 h-10"></i></div>
                     <h4 class="text-2xl font-bold text-white mb-2">Setup Details Received</h4>
-                    <p class="text-slate-400">Our team will reach out to you shortly.</p>
+                    <p class="text-slate-400">The team will reach out to ADTeam@advansells.com shortly.</p>
                 </div>
             </div>
         </div>
@@ -600,10 +599,8 @@
         let user = null;
         let globalLoadingVideoUrl = null;
 
-        // Monitor Auth State properly
         onAuthStateChanged(auth, (u) => {
             user = u;
-            console.log(user ? "User identified: " + user.uid : "Awaiting auth...");
         });
 
         const initAuth = async () => {
@@ -687,28 +684,11 @@
         }
 
         window.saveLeadToFirebase = async (data) => {
-            // FIX: Re-auth if user is missing for some reason during submission
             if (!user) {
-                try {
-                    const cred = await signInAnonymously(auth);
-                    user = cred.user;
-                } catch (e) {
-                    console.error("Auth Failure on Submit:", e);
-                    return false;
-                }
+                try { user = (await signInAnonymously(auth)).user; } catch (e) { return false; }
             }
             if (!user) return false;
-
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'leads'), { 
-                    ...data, 
-                    timestamp: serverTimestamp() 
-                });
-                return true;
-            } catch (e) { 
-                console.error("Firestore Error:", e);
-                return false; 
-            }
+            try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'leads'), { ...data, timestamp: serverTimestamp() }); return true; } catch (e) { return false; }
         };
     </script>
 
@@ -763,8 +743,8 @@
             const ng = document.getElementById('niche-grid'); let niches = ['Skincare', 'Fitness', 'Supplements', 'Apparel', 'Tech', 'Food & Bev', 'SaaS', 'Real Estate'];
             ng.innerHTML = niches.map(n => `<div class="option-tile niche-opt" onclick="selectNiche(this, '${n}')">${n}</div>`).join('');
             const sg = document.getElementById('style-grid'); let styles = ['Organic / Authenticity', 'POV Action'];
-            if (pkg !== 'Social Hook Pack') styles = [...styles, 'Cinematic Fitness', 'High-Fidelity Studio'];
-            if (pkg === 'Agency Fulfillment') styles = [...styles, 'Professional Multi-Cam', 'Unlimited Custom'];
+            if (pkg === 'Creative Testing Sprint') styles = [...styles, 'Cinematic Fitness', 'High-Fidelity Studio'];
+            if (pkg === 'Scale & Growth Retainer') styles = [...styles, 'Professional Multi-Cam', 'Unlimited Custom'];
             sg.innerHTML = styles.map(s => `<div class="option-tile style-opt" onclick="selectStyle(this, '${s}')">${s}</div>`).join('');
             resetForm();
         };
@@ -782,11 +762,9 @@
 
         const submitLead = async () => {
             const email = document.getElementById('lead-email').value; if (!email || !currentLeadContext.spend) return;
-            const btn = document.getElementById('submit-lead-btn');
-            btn.disabled = true; btn.innerText = 'Syncing...';
-            const success = await window.saveLeadToFirebase({ ...currentLeadContext, userEmail: email });
-            if (success) { document.getElementById('lead-form-content').classList.add('hidden'); document.getElementById('lead-success').classList.remove('hidden'); } 
-            else { btn.disabled = false; btn.innerText = 'Retry'; }
+            document.getElementById('submit-lead-btn').disabled = true; document.getElementById('submit-lead-btn').innerText = 'Syncing...';
+            if (await window.saveLeadToFirebase({ ...currentLeadContext, userEmail: email })) { document.getElementById('lead-form-content').classList.add('hidden'); document.getElementById('lead-success').classList.remove('hidden'); } 
+            else { document.getElementById('submit-lead-btn').disabled = false; document.getElementById('submit-lead-btn').innerText = 'Retry'; }
         };
 
         const toggleDropdown = (id) => {
