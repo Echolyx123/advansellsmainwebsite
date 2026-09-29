@@ -88,7 +88,7 @@
             color: var(--accent-teal);
         }
 
-        /* --- Phone Mockup Styles --- */
+        /* --- Phone Mockup Styles (Hero) --- */
         .phone-mockup {
             background: #000;
             border: 6px solid #1e293b;
@@ -138,36 +138,71 @@
             z-index: 10;
         }
 
+        /* --- Compact Gallery Mockup --- */
+        .compact-mockup {
+            background: #000;
+            border: 2px solid #1e293b;
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 180px;
+            margin: 0 auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .compact-mockup:hover {
+            transform: scale(1.04);
+        }
+        .compact-screen {
+            background-color: #000;
+            border-radius: 12px;
+            aspect-ratio: 9/16;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .compact-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 10px;
+            background: #1e293b;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            z-index: 10;
+        }
+        .compact-label-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 6px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            z-index: 30;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .compact-mockup:hover .compact-label-overlay {
+            opacity: 1;
+        }
+        .compact-mockup .volume-toggle {
+            width: 24px;
+            height: 24px;
+            bottom: 6px;
+            right: 6px;
+        }
+
         /* --- Glowing Button Styles --- */
         @keyframes softGlow {
             0% { border-color: var(--accent-teal); box-shadow: 0 0 5px rgba(20, 184, 166, 0.2); }
             50% { border-color: #1e293b; box-shadow: 0 0 15px rgba(20, 184, 166, 0.5); }
             100% { border-color: var(--accent-teal); box-shadow: 0 0 5px rgba(20, 184, 166, 0.2); }
-        }
-
-        .asset-btn-box {
-            margin-top: 1.25rem;
-            width: 100%;
-            max-width: 280px;
-        }
-        .gallery-cta-btn {
-            width: 100%;
-            padding: 0.875rem;
-            background: #0f172a;
-            border: 2px solid var(--accent-teal);
-            border-radius: 0.75rem;
-            color: var(--accent-teal);
-            font-weight: 800;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            animation: softGlow 3s infinite ease-in-out;
-            transition: all 0.3s ease;
-        }
-        .gallery-cta-btn:hover {
-            background: var(--accent-teal);
-            color: var(--primary-dark);
-            transform: scale(1.02);
         }
 
         .gallery-tab {
@@ -246,7 +281,7 @@
             </div>
             
             <div class="flex items-center space-x-3 sm:space-x-6">
-                <button onclick="openLeadForm('Standard Inquiry')" class="inline-flex items-center px-4 py-2 border border-teal-500 text-xs sm:text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300 flex-shrink-0 whitespace-nowrap">
+                <button onclick="openLeadForm('Creative Testing Sprint')" class="inline-flex items-center px-4 py-2 border border-teal-500 text-xs sm:text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300 flex-shrink-0 whitespace-nowrap">
                     <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
                     Start Today
                 </button>
@@ -266,22 +301,22 @@
                 <!-- Left: Copy -->
                 <div class="flex-1 text-center lg:text-left">
                     <div class="inline-block px-3 py-1 mb-6 text-[10px] font-black tracking-[0.2em] text-teal-400 uppercase bg-teal-500/10 border border-teal-500/20 rounded-md">
-                        The Anti-Cheap-AI Guarantee
+                        48-Hour Creative Turns
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white">
-                        The Only AI UGC That Won't Make Your Brand Look Cheap.
+                        High-Velocity AI Creative, Engineered for ROAS.
                     </h1>
                     <p class="text-lg text-slate-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        Most AI content is robotic, legally risky, and destroys trust. We engineer hyper-realistic, commercially secure IGC that looks, moves, and converts like a real human—so you never have to worry about ad rejections or fake-feeling ads again.
+                        Premium brand aesthetics meet aggressive direct-response speed. Replace multi-week shoots with 48-hour creative turns—so your ad account never starves for testing volume again.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <button onclick="document.getElementById('top-seller-anchor').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition flex items-center justify-center space-x-3">
+                        <button onclick="openLeadForm('Creative Testing Sprint')" class="px-8 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition flex items-center justify-center space-x-3">
                             <i data-lucide="trending-up" class="w-5 h-5"></i>
-                            <span>See Packages</span>
+                            <span>Claim Your Creative Audit</span>
                         </button>
                         <button onclick="handleSidebarNav('showcase')" class="px-8 py-4 border border-slate-600 text-slate-300 font-bold rounded-xl hover:border-teal-500 hover:text-teal-400 transition flex items-center justify-center space-x-3">
                             <i data-lucide="play-circle" class="w-5 h-5"></i>
-                            <span>View Realism</span>
+                            <span>See Scale Creatives</span>
                         </button>
                     </div>
                 </div>
@@ -300,19 +335,50 @@
             </div>
         </section>
 
-        <!-- 2. SOCIAL PROOF / MONTAGE SECTION -->
+        <!-- 2. PROBLEM / SOLUTION / MONTAGE SECTION -->
         <section class="py-24 bg-slate-950 border-t border-b border-slate-800 px-6">
-            <div class="max-w-5xl mx-auto text-center reveal-up">
-                <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Don't take our word for it.</h2>
-                <p class="text-slate-400 mb-12 max-w-2xl mx-auto">A rapid-fire look at the realism, pacing, and commercial quality we deliver across Fitness, Fashion, Skincare, and Luxury niches.</p>
-                
-                <div class="relative w-full max-w-3xl mx-auto bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800 aspect-video">
-                    <div id="montage-video-anchor" class="w-full h-full relative bg-slate-900">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+            <div class="max-w-5xl mx-auto">
+
+                <!-- Problem Block -->
+                <div class="text-center mb-16 reveal-up">
+                    <div class="inline-block px-3 py-1 mb-6 text-[10px] font-black tracking-[0.2em] text-red-400 uppercase bg-red-500/10 border border-red-500/20 rounded-md">
+                        The Margin Killer
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6 text-white">Your Creative Pipeline Is Killing Your Margins</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">Single hero shoots fatigue in 14 days. CPAs spike because traditional production can't match the speed of the ad auction. By the time your next asset drops, the algorithm already moved on.</p>
+                </div>
+
+                <!-- Solution Block -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 reveal-up">
+                    <div class="bg-slate-900/50 p-8 rounded-xl border border-slate-800 text-left">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5 text-teal-400"></i></div>
+                            <h3 class="text-lg font-bold text-white">Radical Velocity</h3>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">Test 20 compliant hooks in the time it takes competitors to script one. From brief to live assets in 48 hours—because in the ad auction, the fastest creative wins.</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-8 rounded-xl border border-slate-800 text-left">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center"><i data-lucide="shield" class="w-5 h-5 text-teal-400"></i></div>
+                            <h3 class="text-lg font-bold text-white">Account Safety</h3>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">FTC & ad platform compliance built into every asset. No bans. No rejections. Zero account risk—so you can scale aggressively without fear.</p>
+                    </div>
+                </div>
+
+                <!-- Montage Video -->
+                <div class="text-center reveal-up">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-4 text-white">The Proof Is In The Performance</h2>
+                    <p class="text-slate-400 mb-10 max-w-2xl mx-auto">A rapid-fire look at the realism, pacing, and commercial quality we deliver across Fitness, Fashion, Skincare, and Luxury niches.</p>
+                    <div class="relative w-full max-w-3xl mx-auto bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800 aspect-video">
+                        <div id="montage-video-anchor" class="w-full h-full relative bg-slate-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -320,65 +386,65 @@
         <section id="pricing-section" class="py-24 bg-slate-900 px-6">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16 reveal-up">
-                    <h2 class="text-4xl font-extrabold mb-4 text-white">Simple, Results-Driven Pricing.</h2>
-                    <p class="text-slate-400 max-w-xl mx-auto">No hidden fees. No IP risks. Just high-converting assets ready for your ad account today.</p>
+                    <h2 class="text-4xl font-extrabold mb-4 text-white">Creative That Keeps Up With Your Growth.</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto">Stop waiting weeks for shoots. Every tier delivers studio-quality video ads at speeds traditional production can't match.</p>
                     <div class="inline-block mt-4 px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-lg text-teal-400 font-bold text-sm">
-                        Limited Slots Available - Briefing Required
+                        Limited Production Slots — Audit Required
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
-                    <!-- Tier 1: Hook Lab -->
+                    <!-- Tier 1: Performance Hook Lab -->
                     <div class="premium-card p-8 reveal-up">
                         <div class="mb-6">
-                            <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Entry Pack</span>
+                            <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Performance Hook Lab</span>
                             <div class="mt-2 flex items-baseline gap-1">
                                 <span class="text-4xl font-extrabold text-white">$450</span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">Perfect for testing a new angle.</p>
+                            <p class="text-sm text-slate-400 mt-2">Break through ad fatigue with fresh, attention-grabbing hooks.</p>
                         </div>
                         <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">3 Scroll-Stopping Hooks</span><br><span class="text-sm text-slate-400">Engineered to lower your CPC instantly.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Precision Persona Matching</span><br><span class="text-sm text-slate-400">Tailored exactly to your target customer.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">100% Commercial Clearance</span><br><span class="text-sm text-slate-400">Legally compliant. Zero IP friction.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">3 Scroll-Stopping Hooks</span><br><span class="text-sm text-slate-400">New angles that make people stop scrolling.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Matched To Your Customer</span><br><span class="text-sm text-slate-400">Looks and sounds like your exact audience.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">100% Legally Cleared</span><br><span class="text-sm text-slate-400">Ready to run anywhere. No copyright issues.</span></span></li>
                         </ul>
                         <button onclick="openLeadForm('Performance Hook Lab')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Get Started</button>
                     </div>
 
-                    <!-- Tier 2: Rapid Ad Testing (Highlighted) -->
+                    <!-- Tier 2: Creative Testing Sprint (Highlighted) -->
                     <div id="top-seller-anchor" class="premium-card p-8 border-2 border-violet-500 shadow-[0_0_30px_rgba(139,92,246,0.2)] reveal-up relative">
                         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-violet-500 text-white text-[10px] font-black tracking-widest px-4 py-1 rounded-full uppercase">Top Selling Option</div>
                         <div class="mb-6 mt-2">
-                            <span class="text-sm font-bold text-violet-400 uppercase tracking-widest">Growth Pack</span>
+                            <span class="text-sm font-bold text-violet-400 uppercase tracking-widest">Creative Testing Sprint</span>
                             <div class="mt-2 flex items-baseline gap-1">
                                 <span class="text-4xl font-extrabold text-white">$1,250</span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">For 30 days of high-velocity testing.</p>
+                            <p class="text-sm text-slate-400 mt-2">A full month of creative to find what works—and scale it.</p>
                         </div>
                         <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">5 Unique Performance Assets</span><br><span class="text-sm text-slate-400">Enough volume to find your winning creative.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="target" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Full Funnel Architecture</span><br><span class="text-sm text-slate-400">Top, Middle, and Bottom of funnel covered.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Ad Network Safe</span><br><span class="text-sm text-slate-400">Passes strict Meta/TikTok UGC guidelines.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">5 Complete Video Ads</span><br><span class="text-sm text-slate-400">Covers every stage: awareness, consideration, purchase.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="target" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">48-Hour Turnaround</span><br><span class="text-sm text-slate-400">From brief to live ads in 2 days, not 2 weeks.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Platform Approved</span><br><span class="text-sm text-slate-400">Built to pass Meta, TikTok, and Google ad reviews.</span></span></li>
                         </ul>
                         <button onclick="openLeadForm('Creative Testing Sprint')" class="w-full py-4 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-400 transition shadow-lg">Get Started</button>
                     </div>
 
-                    <!-- Tier 3: Scale & Growth -->
+                    <!-- Tier 3: Scale & Growth Engine -->
                     <div class="premium-card p-8 reveal-up">
                         <div class="mb-6">
-                            <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Agency Pack</span>
+                            <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Scale & Growth Engine</span>
                             <div class="mt-2 flex items-baseline gap-1">
                                 <span class="text-2xl font-extrabold text-white">Custom</span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">End-to-end creative partner.</p>
+                            <p class="text-sm text-slate-400 mt-2">Your creative team for high-volume ad spend.</p>
                         </div>
                         <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-start"><i data-lucide="layers" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">20+ Monthly Assets</span><br><span class="text-sm text-slate-400">We act as your internal creative lab.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="cpu" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Unlimited Custom Styles</span><br><span class="text-sm text-slate-400">Multi-cam, studio, raw organic— you name it.</span></span></li>
-                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Strict IP Compliance</span><br><span class="text-sm text-slate-400">Outpaces traditional UGC safely.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="layers" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">20+ Videos Per Month</span><br><span class="text-sm text-slate-400">A constant stream of fresh ads, on demand.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="cpu" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Any Style You Need</span><br><span class="text-sm text-slate-400">Studio, lifestyle, unboxing, testimonials—all of it.</span></span></li>
+                            <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Zero Account Risk</span><br><span class="text-sm text-slate-400">Every asset is compliant so you scale without fear.</span></span></li>
                         </ul>
-                        <button onclick="openLeadForm('Scale & Growth Retainer')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Contact Us</button>
+                        <button onclick="openLeadForm('Scale & Growth Engine')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Contact Us</button>
                     </div>
 
                 </div>
@@ -397,9 +463,17 @@
     <section id="gallery-content" class="min-h-screen py-24 bg-slate-950" style="display: none;">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <button onclick="handleSidebarNav('home')" class="mb-8 text-slate-500 hover:text-white transition text-sm inline-flex items-center gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home</button>
-            <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 text-white">Realism <span class="text-violet-500">Showcase</span></h2>
-            <div id="gallery-tabs" class="flex flex-wrap justify-center gap-3 mb-16 px-4"></div>
-            <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-center items-start"></div>
+            <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 text-white">Creative <span class="text-violet-500">Arsenal</span></h2>
+            <div id="gallery-tabs" class="flex flex-wrap justify-center gap-3 mb-12 px-4"></div>
+            <div id="video-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 justify-center items-start"></div>
+            <!-- Single Gallery CTA -->
+            <div class="mt-16">
+                <button onclick="openLeadForm('Creative Testing Sprint')" class="px-10 py-5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition text-lg inline-flex items-center gap-3">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                    Lock In Creative Testing
+                </button>
+                <p class="text-slate-500 text-sm mt-4">Limited production slots. Audit required.</p>
+            </div>
         </div>
     </section>
 
@@ -410,38 +484,38 @@
     <div id="lead-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
         <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full mx-4 shadow-2xl border border-teal-500/30 overflow-hidden">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Project Setup</h3>
+                <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Creative Audit</h3>
                 <button onclick="closeLeadForm()" class="text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
             </div>
             <div id="lead-form-content">
                 <!-- Step 1: Product Info -->
                 <div id="step-1" class="form-step active">
-                    <p class="text-slate-400 mb-6 font-medium">Step 1: What are we making content for?</p>
-                    <input type="text" id="lead-product-url" placeholder="Drop your website URL or product name" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition mb-4">
+                    <p class="text-slate-400 mb-6 font-medium">Step 1: Drop your website or product URL for a High-Velocity Creative Audit</p>
+                    <input type="text" id="lead-product-url" placeholder="Your website or product URL" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition mb-4">
                     <button onclick="nextFormStep(1)" class="w-full mt-4 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Continue <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
                 </div>
                 <!-- Step 2: Style -->
                 <div id="step-2" class="form-step">
-                    <p class="text-slate-400 mb-6 font-medium">Step 2: Choose the visual style</p>
+                    <p class="text-slate-400 mb-6 font-medium">Step 2: Select your performance format</p>
                     <div class="grid grid-cols-1 gap-3" id="style-grid"></div>
                     <button onclick="nextFormStep(2)" class="w-full mt-8 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Almost There <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
                 </div>
                 <!-- Step 3: Package & Email -->
                 <div id="step-3" class="form-step">
-                    <p class="text-slate-400 mb-6 font-medium">Step 3: Select your package & submit</p>
+                    <p class="text-slate-400 mb-6 font-medium">Step 3: Lock in your testing tier</p>
                     <div class="space-y-3 mb-6">
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Performance Hook Lab - $450')">Performance Hook Lab <span class="block text-xs font-normal text-slate-400 mt-1">3x Hooks - $450</span></div>
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Creative Testing Sprint - $1,250')">Rapid Ad Testing <span class="block text-xs font-normal text-slate-400 mt-1">5x Assets - $1,250</span></div>
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Scale & Growth Retainer - Custom')">Scale & Growth Retainer <span class="block text-xs font-normal text-slate-400 mt-1">20+ Assets - Custom Terms</span></div>
+                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Performance Hook Lab - $450')">Performance Hook Lab <span class="block text-xs font-normal text-slate-400 mt-1">3x Scroll-Stopping Hooks - $450</span></div>
+                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Creative Testing Sprint - $1,250')">Creative Testing Sprint <span class="block text-xs font-normal text-slate-400 mt-1">5x Complete Video Ads - $1,250</span></div>
+                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Scale & Growth Engine - Custom')">Scale & Growth Engine <span class="block text-xs font-normal text-slate-400 mt-1">20+ Videos Per Month - Custom</span></div>
                     </div>
                     <input type="email" id="lead-email" placeholder="Your Work Email" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition">
-                    <button id="submit-lead-btn" onclick="submitLead()" class="w-full mt-6 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Submit Briefing</button>
+                    <button id="submit-lead-btn" onclick="submitLead()" class="w-full mt-6 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Lock In Creative Testing</button>
                 </div>
             </div>
             <div id="lead-success" class="hidden text-center py-10">
                 <div class="w-16 h-16 bg-teal-500/20 text-teal-400 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check-circle" class="w-10 h-10"></i></div>
-                <h4 class="text-2xl font-bold text-white mb-2">Setup Details Received</h4>
-                <p class="text-slate-400">Our team will reach out shortly.</p>
+                <h4 class="text-2xl font-bold text-white mb-2">Creative Audit Locked In</h4>
+                <p class="text-slate-400">Our team will audit your ad account and deliver your first creative recommendations within 48 hours.</p>
             </div>
         </div>
     </div>
@@ -459,7 +533,7 @@
         </div>
     </div>
 
-    <!-- FIREBASE & CORE FUNCTIONALITY (UNTOUCHED EXCEPT FOR MONTAGE LOADER) -->
+    <!-- FIREBASE & CORE FUNCTIONALITY -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -481,20 +555,12 @@
         let user = null;
         let globalLoadingVideoUrl = null;
 
-        onAuthStateChanged(auth, (u) => {
-            user = u;
-        });
+        onAuthStateChanged(auth, (u) => { user = u; });
 
         const initAuth = async () => {
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
-                    const cred = await signInWithCustomToken(auth, __initial_auth_token); 
-                    user = cred.user; 
-                } 
-                else { 
-                    const cred = await signInAnonymously(auth); 
-                    user = cred.user; 
-                }
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { const cred = await signInWithCustomToken(auth, __initial_auth_token); user = cred.user; } 
+                else { const cred = await signInAnonymously(auth); user = cred.user; }
             } catch (e) { console.error("Initial Auth Failure:", e); }
         };
         initAuth();
@@ -531,68 +597,31 @@
             } catch (e) { document.getElementById('hero-video-anchor').innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`; }
         };
 
-        // NEW: Montage Video Loader
         window.loadMontageVideo = async () => {
             try {
-                const url = await getDownloadURL(ref(storage, 'gallery/A Montage For a Quick View of Our Results.mp4'));
+                const url = await getDownloadURL(ref(storage, 'gallery/rapidlook/A Montage For a Quick View of Our Results.mp4'));
                 const anchor = document.getElementById('montage-video-anchor');
                 anchor.innerHTML = `<video autoplay muted loop playsinline class="w-full h-full object-contain bg-black"><source src="${url}" type="video/mp4"></video>
                 <button onclick="this.previousElementSibling.muted = !this.previousElementSibling.muted; this.innerHTML = this.previousElementSibling.muted ? '<i data-lucide=\"volume-x\" class=\"w-6 h-6 text-white\"></i>' : '<i data-lucide=\"volume-2\" class=\"w-6 h-6 text-white\"></i>'; lucide.createIcons();" class="absolute bottom-4 right-4 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/80 transition"><i data-lucide="volume-x" class="w-6 h-6 text-white"></i></button>`;
                 lucide.createIcons();
-            } catch (e) { 
-                document.getElementById('montage-video-anchor').innerHTML = `<div class="absolute inset-0 flex items-center justify-center text-slate-500">Montage Pending...</div>`; 
-            }
+            } catch (e) { document.getElementById('montage-video-anchor').innerHTML = `<div class="absolute inset-0 flex items-center justify-center text-slate-500">Montage Pending...</div>`; }
         };
 
         window.loadGallery = async (categoryPath = 'gallery/') => {
-            const videoGrid = document.getElementById('video-grid'); 
-            const tabsContainer = document.getElementById('gallery-tabs');
+            const videoGrid = document.getElementById('video-grid'); const tabsContainer = document.getElementById('gallery-tabs');
             videoGrid.innerHTML = '<div class="col-span-full py-20 flex justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div></div>';
             try {
                 const res = await listAll(ref(storage, categoryPath));
-                
-                // Root Level: Generate the main category tabs
                 if (categoryPath === 'gallery/' && tabsContainer.children.length === 0) {
                     createTab('Main Showcase', 'gallery/', true);
-                    res.prefixes.forEach(p => { if (p.name !== 'hero' && p.name !== 'loading') createTab(p.name, `gallery/${p.name}/`); });
+                    res.prefixes.forEach(p => { if (p.name !== 'hero' && p.name !== 'loading' && p.name !== 'rapidlook') createTab(p.name, `gallery/${p.name}/`); });
                 }
-                
-                videoGrid.innerHTML = '';
-                let hasContent = false;
-
-                // 1. Process standalone files in this directory (Videos or single images)
-                for (const item of res.items) { 
-                    hasContent = true;
-                    const url = await getDownloadURL(item); 
-                    const name = item.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' '); 
-                    
-                    if (item.name.match(/\.(jpg|jpeg|png|webp|gif|heic)$/i)) {
-                        injectImageMockup([url], name);
-                    } else {
-                        injectVideoMockup(url, name, createLoadingLayer); 
-                    }
-                }
-
-                // 2. Process subfolders inside the current category as Swipeable Image Carousels
-                if (categoryPath !== 'gallery/') {
-                    for (const subFolder of res.prefixes) {
-                        const subRes = await listAll(subFolder);
-                        if (subRes.items.length > 0) {
-                            hasContent = true;
-                            const urls = await Promise.all(subRes.items.map(item => getDownloadURL(item)));
-                            const name = subFolder.name.replace(/_/g, ' ').replace(/-/g, ' ');
-                            injectImageMockup(urls, name);
-                        }
-                    }
-                }
-
-                if (!hasContent) { 
-                    videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Awaiting fresh generations...</p>'; 
-                }
+                videoGrid.innerHTML = ''; let hasContent = false;
+                for (const item of res.items) { hasContent = true; const url = await getDownloadURL(item); const name = item.name.split('.')[0].replace(/_/g, ' ').replace(/-/g, ' '); if (item.name.match(/\.(jpg|jpeg|png|webp|gif|heic)$/i)) { injectImageMockup([url], name); } else { injectVideoMockup(url, name, createLoadingLayer); } }
+                if (categoryPath !== 'gallery/') { for (const subFolder of res.prefixes) { const subRes = await listAll(subFolder); if (subRes.items.length > 0) { hasContent = true; const urls = await Promise.all(subRes.items.map(item => getDownloadURL(item))); const name = subFolder.name.replace(/_/g, ' ').replace(/-/g, ' '); injectImageMockup(urls, name); } } }
+                if (!hasContent) { videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Awaiting fresh generations...</p>'; }
                 setTimeout(() => lucide.createIcons(), 0);
-            } catch (error) { 
-                videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Error loading assets.</p>'; 
-            }
+            } catch (error) { videoGrid.innerHTML = '<p class="text-slate-500 col-span-full py-20">Error loading assets.</p>'; }
         };
 
         function createTab(name, path, isActive = false) {
@@ -604,66 +633,50 @@
 
         function injectVideoMockup(url, description, loaderFactory) {
             const videoGrid = document.getElementById('video-grid');
-            const container = document.createElement('div'); container.className = 'reveal-up active flex flex-col items-center w-full'; 
-            const mockup = document.createElement('div'); mockup.className = 'phone-mockup';
-            const notch = document.createElement('div'); notch.className = 'phone-notch';
-            const screen = document.createElement('div'); screen.className = 'phone-screen'; screen.appendChild(loaderFactory(url, true));
-            mockup.appendChild(notch); mockup.appendChild(screen);
-            const btnBox = document.createElement('div'); btnBox.className = 'asset-btn-box';
-            btnBox.innerHTML = `<button class="gallery-cta-btn" onclick="handleSidebarNav('pricing')">${description}</button>`;
-            container.appendChild(mockup); container.appendChild(btnBox); videoGrid.appendChild(container);
+            const container = document.createElement('div');
+            container.className = 'reveal-up active flex flex-col items-center w-full';
+            const mockup = document.createElement('div');
+            mockup.className = 'compact-mockup';
+            const notch = document.createElement('div');
+            notch.className = 'compact-notch';
+            const screen = document.createElement('div');
+            screen.className = 'compact-screen';
+            screen.appendChild(loaderFactory(url, true));
+            const labelOverlay = document.createElement('div');
+            labelOverlay.className = 'compact-label-overlay';
+            labelOverlay.innerHTML = `<span class="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">${description}</span>`;
+            mockup.appendChild(notch);
+            mockup.appendChild(screen);
+            mockup.appendChild(labelOverlay);
+            container.appendChild(mockup);
+            videoGrid.appendChild(container);
         }
 
         function injectImageMockup(urls, description) {
             const videoGrid = document.getElementById('video-grid');
-            const container = document.createElement('div'); 
-            container.className = 'reveal-up active flex flex-col items-center w-full'; 
-            
-            const mockup = document.createElement('div'); 
-            mockup.className = 'phone-mockup';
-            
-            const notch = document.createElement('div'); 
-            notch.className = 'phone-notch';
-            
-            const screen = document.createElement('div'); 
-            screen.className = 'phone-screen image-carousel-container'; 
-            screen.style.display = 'flex';
-            screen.style.overflowX = 'auto';
-            screen.style.scrollSnapType = 'x mandatory';
-            
-            urls.forEach(url => {
-                const img = document.createElement('img');
-                img.src = url;
-                img.className = 'w-full h-full object-cover';
-                img.style.flex = '0 0 100%';
-                img.style.scrollSnapAlign = 'center';
-                screen.appendChild(img);
-            });
-            
-            if(urls.length > 1) {
-                const indicator = document.createElement('div');
-                indicator.className = 'absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-full text-[10px] text-white flex items-center shadow-lg border border-white/10 z-30 pointer-events-none';
-                indicator.innerHTML = `<i data-lucide="layers" class="w-3 h-3 mr-1"></i> ${urls.length}`;
-                screen.appendChild(indicator);
-            }
-
-            mockup.appendChild(notch); 
+            const container = document.createElement('div');
+            container.className = 'reveal-up active flex flex-col items-center w-full';
+            const mockup = document.createElement('div');
+            mockup.className = 'compact-mockup';
+            const notch = document.createElement('div');
+            notch.className = 'compact-notch';
+            const screen = document.createElement('div');
+            screen.className = 'compact-screen image-carousel-container';
+            screen.style.display = 'flex'; screen.style.overflowX = 'auto'; screen.style.scrollSnapType = 'x mandatory';
+            urls.forEach(url => { const img = document.createElement('img'); img.src = url; img.className = 'w-full h-full object-cover'; img.style.flex = '0 0 100%'; img.style.scrollSnapAlign = 'center'; screen.appendChild(img); });
+            if(urls.length > 1) { const indicator = document.createElement('div'); indicator.className = 'absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-full text-[10px] text-white flex items-center shadow-lg border border-white/10 z-30 pointer-events-none'; indicator.innerHTML = `<i data-lucide="layers" class="w-3 h-3 mr-1"></i> ${urls.length}`; screen.appendChild(indicator); }
+            const labelOverlay = document.createElement('div');
+            labelOverlay.className = 'compact-label-overlay';
+            labelOverlay.innerHTML = `<span class="text-[9px] font-bold text-white uppercase tracking-wider leading-tight">${description}</span>`;
+            mockup.appendChild(notch);
             mockup.appendChild(screen);
-            
-            const btnBox = document.createElement('div'); 
-            btnBox.className = 'asset-btn-box';
-            btnBox.innerHTML = `<button class="gallery-cta-btn" onclick="handleSidebarNav('pricing')">${description}</button>`;
-            
-            container.appendChild(mockup); 
-            container.appendChild(btnBox); 
+            mockup.appendChild(labelOverlay);
+            container.appendChild(mockup);
             videoGrid.appendChild(container);
         }
 
         window.saveLeadToFirebase = async (data) => {
-            if (!user) {
-                try { user = (await signInAnonymously(auth)).user; } catch (e) { return false; }
-            }
-            if (!user) return false;
+            if (!user) { try { user = (await signInAnonymously(auth)).user; } catch (e) { return false; } } if (!user) return false;
             try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'leads'), { ...data, timestamp: serverTimestamp() }); return true; } catch (e) { return false; }
         };
     </script>
@@ -673,126 +686,50 @@
         let currentLeadContext = {};
         const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
 
-        window.onload = () => { 
-            lucide.createIcons(); 
-            if (window.loadHeroVideo) window.loadHeroVideo(); 
-            if (window.loadMontageVideo) window.loadMontageVideo();
-            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)); 
-        };
+        window.onload = () => { lucide.createIcons(); if (window.loadHeroVideo) window.loadHeroVideo(); if (window.loadMontageVideo) window.loadMontageVideo(); document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)); };
 
         const openSidebar = () => { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.remove('hidden'); };
         const closeSidebar = () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.add('hidden'); };
         
-        // Navigation Routing
-        const showMainPage = () => { 
-            document.getElementById('main-page-content').style.display = 'block'; 
-            document.getElementById('gallery-content').style.display = 'none'; 
-            setTimeout(() => document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)), 100);
-        };
-        
-        const showGalleryPage = () => { 
-            document.getElementById('main-page-content').style.display = 'none'; 
-            document.getElementById('gallery-content').style.display = 'block'; 
-            if (window.loadGallery) window.loadGallery(); 
-            window.scrollTo(0, 0);
-        };
+        const showMainPage = () => { document.getElementById('main-page-content').style.display = 'block'; document.getElementById('gallery-content').style.display = 'none'; setTimeout(() => document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el)), 100); };
+        const showGalleryPage = () => { document.getElementById('main-page-content').style.display = 'none'; document.getElementById('gallery-content').style.display = 'block'; if (window.loadGallery) window.loadGallery(); window.scrollTo(0, 0); };
 
         window.handleSidebarNav = (loc) => {
             closeSidebar();
-            if (loc === 'home') {
-                showMainPage(); 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            else if (loc === 'pricing') {
-                showMainPage(); 
-                setTimeout(() => document.getElementById('top-seller-anchor').scrollIntoView({ behavior: 'smooth' }), 100);
-            }
-            else if (loc === 'showcase') {
-                showGalleryPage();
-            }
+            if (loc === 'home') { showMainPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+            else if (loc === 'pricing') { showMainPage(); setTimeout(() => document.getElementById('top-seller-anchor').scrollIntoView({ behavior: 'smooth' }), 100); }
+            else if (loc === 'showcase') { showGalleryPage(); }
         };
 
-        // Form Logic
         window.openLeadForm = (pkg) => {
             currentLeadContext = { productUrl: '', style: '', package: pkg || '' };
-            document.getElementById('lead-modal').classList.remove('hidden');
-            document.getElementById('lead-form-content').classList.remove('hidden');
-            document.getElementById('lead-success').classList.add('hidden');
-            
-            // Reset steps
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step-1').classList.add('active');
-            document.getElementById('lead-product-url').value = '';
-            document.getElementById('lead-email').value = '';
-            document.querySelectorAll('.option-tile').forEach(t => t.classList.remove('selected'));
-
-            // Populate Styles
-            const sg = document.getElementById('style-grid'); 
-            let styles = ['Organic / Authenticity', 'POV Action', 'Cinematic Fitness', 'High-Fidelity Studio'];
+            document.getElementById('lead-modal').classList.remove('hidden'); document.getElementById('lead-form-content').classList.remove('hidden'); document.getElementById('lead-success').classList.add('hidden');
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById('step-1').classList.add('active');
+            document.getElementById('lead-product-url').value = ''; document.getElementById('lead-email').value = ''; document.querySelectorAll('.option-tile').forEach(t => t.classList.remove('selected'));
+            const sg = document.getElementById('style-grid'); let styles = ['High-Fidelity Studio Pitch', 'Aesthetic UGC', 'POV Unboxing/Action', 'Aggressive Hook Test'];
             sg.innerHTML = styles.map(s => `<div class="option-tile style-opt" onclick="selectStyle(this, '${s}')">${s}</div>`).join('');
-            
-            // Pre-select package if passed
-            if(pkg) {
-                currentLeadContext.package = pkg;
-            }
-            lucide.createIcons();
+            if(pkg) { currentLeadContext.package = pkg; } lucide.createIcons();
         };
 
         window.closeLeadForm = () => { document.getElementById('lead-modal').classList.add('hidden'); };
         window.openContactModal = () => { document.getElementById('contact-modal').classList.remove('hidden'); };
         window.closeContactModal = () => { document.getElementById('contact-modal').classList.add('hidden'); };
 
-        window.selectStyle = (el, style) => {
-            document.querySelectorAll('.style-opt').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
-            currentLeadContext.style = style;
-        };
-
-        window.selectPackage = (el, pkg) => {
-            document.querySelectorAll('.pkg-opt').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
-            currentLeadContext.package = pkg;
-        };
+        window.selectStyle = (el, style) => { document.querySelectorAll('.style-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.style = style; };
+        window.selectPackage = (el, pkg) => { document.querySelectorAll('.pkg-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.package = pkg; };
 
         window.nextFormStep = (currentStep) => {
-            if(currentStep === 1) {
-                const url = document.getElementById('lead-product-url').value.trim();
-                if(!url) { document.getElementById('lead-product-url').style.borderColor = '#ef4444'; return; }
-                document.getElementById('lead-product-url').style.borderColor = '';
-                currentLeadContext.productUrl = url;
-            }
-            if(currentStep === 2) {
-                if(!currentLeadContext.style) { alert('Please select a style.'); return; }
-            }
-            
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-            document.getElementById(`step-${currentStep + 1}`).classList.add('active');
-            lucide.createIcons();
+            if(currentStep === 1) { const url = document.getElementById('lead-product-url').value.trim(); if(!url) { document.getElementById('lead-product-url').style.borderColor = '#ef4444'; return; } document.getElementById('lead-product-url').style.borderColor = ''; currentLeadContext.productUrl = url; }
+            if(currentStep === 2) { if(!currentLeadContext.style) { alert('Please select a style.'); return; } }
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById(`step-${currentStep + 1}`).classList.add('active'); lucide.createIcons();
         };
 
         window.submitLead = async () => {
             const email = document.getElementById('lead-email').value.trim();
-            if(!email || !currentLeadContext.package) { 
-                if(!email) document.getElementById('lead-email').style.borderColor = '#ef4444';
-                if(!currentLeadContext.package) alert('Please select a package.');
-                return; 
-            }
+            if(!email || !currentLeadContext.package) { if(!email) document.getElementById('lead-email').style.borderColor = '#ef4444'; if(!currentLeadContext.package) alert('Please select a package.'); return; }
             document.getElementById('lead-email').style.borderColor = '';
-
-            const success = await window.saveLeadToFirebase({
-                productUrl: currentLeadContext.productUrl,
-                style: currentLeadContext.style,
-                package: currentLeadContext.package,
-                email: email
-            });
-
-            if(success) {
-                document.getElementById('lead-form-content').classList.add('hidden');
-                document.getElementById('lead-success').classList.remove('hidden');
-                lucide.createIcons();
-            } else {
-                alert("There was an error submitting. Please try the email contact method.");
-            }
+            const success = await window.saveLeadToFirebase({ productUrl: currentLeadContext.productUrl, style: currentLeadContext.style, package: currentLeadContext.package, email: email });
+            if(success) { document.getElementById('lead-form-content').classList.add('hidden'); document.getElementById('lead-success').classList.remove('hidden'); lucide.createIcons(); } else { alert("There was an error submitting. Please try the email contact method."); }
         };
     </script>
 </body>
