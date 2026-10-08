@@ -138,6 +138,68 @@
             z-index: 10;
         }
 
+        /* --- Hero Phone Trio --- */
+        .hero-phone-trio {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-phone-center {
+            z-index: 20;
+            position: relative;
+        }
+        .hero-phone-side {
+            z-index: 10;
+            position: relative;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .hero-phone-left {
+            transform: rotate(-8deg) scale(0.82);
+            opacity: 0.5;
+            margin-right: -55px;
+        }
+        .hero-phone-right {
+            transform: rotate(8deg) scale(0.82);
+            opacity: 0.5;
+            margin-left: -55px;
+        }
+        .hero-phone-side:hover {
+            opacity: 0.8;
+        }
+        .hero-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+            width: 36px;
+            height: 36px;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .hero-nav-arrow:hover {
+            background: rgba(20, 184, 166, 0.4);
+            border-color: var(--accent-teal);
+        }
+        .hero-nav-left { left: -20px; }
+        .hero-nav-right { right: -20px; }
+
+        @media (max-width: 639px) {
+            .hero-phone-side {
+                display: none !important;
+            }
+            .hero-nav-left { left: -12px; }
+            .hero-nav-right { right: -12px; }
+        }
+
         /* --- Compact Gallery Mockup --- */
         .compact-mockup {
             background: #000;
@@ -323,16 +385,42 @@
                     </div>
                 </div>
 
-                <!-- Right: Hero Phone -->
-                <div class="flex-shrink-0">
-                    <div class="phone-mockup hero-phone">
-                        <div class="phone-notch"></div>
-                        <div class="phone-screen" id="hero-video-anchor">
-                            <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
-                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+                <!-- Right: Hero Phone Trio -->
+                <div class="flex-shrink-0 relative">
+                    <div class="hero-phone-trio">
+                        <div class="hero-phone-side hero-phone-left" id="hero-phone-left" onclick="cycleHeroPhone(-1)">
+                            <div class="phone-mockup hero-phone">
+                                <div class="phone-notch"></div>
+                                <div class="phone-screen" id="hero-video-left">
+                                    <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
+                                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-500"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-phone-center">
+                            <div class="phone-mockup hero-phone">
+                                <div class="phone-notch"></div>
+                                <div class="phone-screen" id="hero-video-center">
+                                    <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
+                                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-phone-side hero-phone-right" id="hero-phone-right" onclick="cycleHeroPhone(1)">
+                            <div class="phone-mockup hero-phone">
+                                <div class="phone-notch"></div>
+                                <div class="phone-screen" id="hero-video-right">
+                                    <div class="absolute inset-0 flex items-center justify-center bg-slate-800/50">
+                                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-500"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button onclick="cycleHeroPhone(-1)" class="hero-nav-arrow hero-nav-left" id="hero-nav-left"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <button onclick="cycleHeroPhone(1)" class="hero-nav-arrow hero-nav-right" id="hero-nav-right"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                 </div>
             </div>
         </section>
@@ -490,8 +578,8 @@
     <!-- --- MODALS --- -->
 
     <!-- Lead Form -->
-    <div id="lead-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
-        <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full mx-4 shadow-2xl border border-teal-500/30 overflow-hidden">
+    <div id="lead-modal" class="fixed inset-0 z-50 hidden flex items-start sm:items-center justify-center overflow-y-auto modal-overlay py-6 sm:py-0">
+        <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl max-w-lg w-full mx-4 mb-6 shadow-2xl border border-teal-500/30 overflow-hidden">
             <div class="flex justify-between items-start mb-6">
                 <div>
                     <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Creative Audit</h3>
@@ -596,7 +684,7 @@
             } catch (e) { console.error(e); }
         };
 
-        const createLoadingLayer = (targetUrl, isMuted = true) => {
+        const createLoadingLayer = (targetUrl, isMuted = true, showVolumeToggle = true) => {
             const wrapper = document.createElement('div'); wrapper.className = 'video-container-layer';
             const overlay = document.createElement('div'); overlay.className = 'video-loader-overlay';
             if (globalLoadingVideoUrl) { overlay.innerHTML = `<video autoplay muted loop playsinline class="w-full h-full object-cover"><source src="${globalLoadingVideoUrl}" type="video/mp4"></video>`; } 
@@ -607,25 +695,104 @@
             const source = document.createElement('source'); source.src = targetUrl; source.type = 'video/mp4';
             mainVideo.appendChild(source);
             mainVideo.addEventListener('playing', () => { mainVideo.classList.remove('opacity-0'); overlay.classList.add('hidden'); const lv = overlay.querySelector('video'); if(lv){lv.pause();lv.src="";} }, { once: true });
-            const volBtn = document.createElement('button'); volBtn.className = 'volume-toggle'; volBtn.innerHTML = '<i data-lucide="volume-x"></i>';
-            volBtn.onclick = (e) => { e.stopPropagation(); mainVideo.muted = !mainVideo.muted; volBtn.innerHTML = mainVideo.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>'; lucide.createIcons(); };
-            wrapper.appendChild(overlay); wrapper.appendChild(mainVideo); wrapper.appendChild(volBtn);
+            if (showVolumeToggle) {
+                const volBtn = document.createElement('button'); volBtn.className = 'volume-toggle'; volBtn.innerHTML = '<i data-lucide="volume-x"></i>';
+                volBtn.onclick = (e) => { e.stopPropagation(); mainVideo.muted = !mainVideo.muted; volBtn.innerHTML = mainVideo.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>'; lucide.createIcons(); };
+                wrapper.appendChild(overlay); wrapper.appendChild(mainVideo); wrapper.appendChild(volBtn);
+            } else {
+                wrapper.appendChild(overlay); wrapper.appendChild(mainVideo);
+            }
             setTimeout(() => lucide.createIcons(), 0); return wrapper;
         };
+
+        /* --- Hero Phone Trio Logic --- */
+        let heroVideoUrls = [];
+        let heroActiveIndex = 0;
+
+        function loadVideoIntoAnchor(anchorId, url, isMuted, showVolumeToggle = true) {
+            const anchor = document.getElementById(anchorId);
+            if (!anchor) return;
+            anchor.innerHTML = '';
+            anchor.appendChild(createLoadingLayer(url, isMuted, showVolumeToggle));
+        }
+
+        function updateHeroPhoneVideos() {
+            const count = heroVideoUrls.length;
+            const isMobile = window.innerWidth < 640;
+
+            if (count === 0) {
+                const anchor = document.getElementById('hero-video-center');
+                if (anchor) anchor.innerHTML = `<div class="flex items-center justify-center h-full text-slate-500 text-sm">Asset Pending...</div>`;
+                document.getElementById('hero-phone-left').style.display = 'none';
+                document.getElementById('hero-phone-right').style.display = 'none';
+                document.getElementById('hero-nav-left').style.display = 'none';
+                document.getElementById('hero-nav-right').style.display = 'none';
+                return;
+            }
+
+            const centerIdx = heroActiveIndex % count;
+            const leftIdx = (heroActiveIndex - 1 + count) % count;
+            const rightIdx = (heroActiveIndex + 1) % count;
+
+            loadVideoIntoAnchor('hero-video-center', heroVideoUrls[centerIdx], true, true);
+
+            const leftPhone = document.getElementById('hero-phone-left');
+            const rightPhone = document.getElementById('hero-phone-right');
+
+            if (count >= 3 && !isMobile) {
+                leftPhone.style.display = '';
+                loadVideoIntoAnchor('hero-video-left', heroVideoUrls[leftIdx], true, false);
+            } else {
+                leftPhone.style.display = 'none';
+            }
+
+            if (count >= 2 && !isMobile) {
+                rightPhone.style.display = '';
+                loadVideoIntoAnchor('hero-video-right', heroVideoUrls[rightIdx], true, false);
+            } else {
+                rightPhone.style.display = 'none';
+            }
+
+            const navLeft = document.getElementById('hero-nav-left');
+            const navRight = document.getElementById('hero-nav-right');
+            navLeft.style.display = count > 1 ? '' : 'none';
+            navRight.style.display = count > 1 ? '' : 'none';
+        }
 
         window.loadHeroVideo = async () => {
             await fetchLoadingVideo();
             try {
-                const url = await getDownloadURL(ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4'));
-                const anchor = document.getElementById('hero-video-anchor'); anchor.innerHTML = ''; anchor.appendChild(createLoadingLayer(url, true));
-            } catch (e) { document.getElementById('hero-video-anchor').innerHTML = `<div class="flex items-center justify-center h-full text-slate-500">Asset Pending...</div>`; }
+                const res = await listAll(ref(storage, 'gallery/hero/'));
+                const videoItems = res.items.filter(item => item.name.match(/\.(mp4|webm|mov)$/i));
+                if (videoItems.length > 0) {
+                    heroVideoUrls = await Promise.all(videoItems.map(item => getDownloadURL(item)));
+                } else {
+                    try {
+                        const url = await getDownloadURL(ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4'));
+                        heroVideoUrls = [url];
+                    } catch (e2) { heroVideoUrls = []; }
+                }
+            } catch (e) {
+                try {
+                    const url = await getDownloadURL(ref(storage, 'gallery/hero/IGC Digital Content - Built For Scale.mp4'));
+                    heroVideoUrls = [url];
+                } catch (e2) { heroVideoUrls = []; }
+            }
+            heroActiveIndex = 0;
+            updateHeroPhoneVideos();
+        };
+
+        window.cycleHeroPhone = (direction) => {
+            if (heroVideoUrls.length <= 1) return;
+            heroActiveIndex = (heroActiveIndex + direction + heroVideoUrls.length) % heroVideoUrls.length;
+            updateHeroPhoneVideos();
         };
 
         window.loadMontageVideo = async () => {
             try {
                 const url = await getDownloadURL(ref(storage, 'gallery/rapidlook/A Montage For a Quick View of Our Results.mp4'));
                 const anchor = document.getElementById('montage-video-anchor');
-                anchor.innerHTML = `<video autoplay muted loop playsinline class="w-full h-full object-contain bg-black"><source src="${url}" type="video/mp4"></video>
+                anchor.innerHTML = `<video autoplay muted loop playsinline class="w-full h-full object-contain bg-black"><Source src="${url}" type="video/mp4"></video>
                 <button onclick="this.previousElementSibling.muted = !this.previousElementSibling.muted; this.innerHTML = this.previousElementSibling.muted ? '<i data-lucide=\"volume-x\" class=\"w-6 h-6 text-white\"></i>' : '<i data-lucide=\"volume-2\" class=\"w-6 h-6 text-white\"></i>'; lucide.createIcons();" class="absolute bottom-4 right-4 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/80 transition"><i data-lucide="volume-x" class="w-6 h-6 text-white"></i></button>`;
                 lucide.createIcons();
             } catch (e) { document.getElementById('montage-video-anchor').innerHTML = `<div class="absolute inset-0 flex items-center justify-center text-slate-500">Montage Pending...</div>`; }
@@ -740,6 +907,9 @@
             document.getElementById('lead-product-url').style.borderColor = '';
             document.getElementById('lead-email').style.borderColor = '';
 
+            // Scroll modal to top
+            document.getElementById('lead-modal').scrollTop = 0;
+
             const sg = document.getElementById('style-grid');
             let styles = [
                 {name: 'High-Fidelity Studio Pitch', desc: 'Studio-quality shots that build brand trust'},
@@ -781,7 +951,10 @@
                 document.getElementById('url-error').classList.add('hidden');
                 currentLeadContext.productUrl = url;
             }
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById(`step-${currentStep + 1}`).classList.add('active'); lucide.createIcons();
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById(`step-${currentStep + 1}`).classList.add('active');
+            // Scroll modal to top so user sees the beginning of the new step
+            document.getElementById('lead-modal').scrollTop = 0;
+            lucide.createIcons();
         };
 
         window.submitLead = async () => {
