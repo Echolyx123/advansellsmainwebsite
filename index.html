@@ -247,9 +247,7 @@
         .video-loader-overlay.hidden { display: none; }
     </style>
 </head>
-<body>
-
-    <!-- Sidebar Menu -->
+<body>    <!-- Sidebar Menu -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-[90] hidden backdrop-blur-sm" onclick="closeSidebar()"></div>
     <nav id="sidebar">
         <div class="flex justify-between items-center mb-10">
@@ -283,7 +281,7 @@
             <div class="flex items-center space-x-3 sm:space-x-6">
                 <button onclick="openLeadForm('Creative Testing Sprint')" class="inline-flex items-center px-4 py-2 border border-teal-500 text-xs sm:text-sm font-semibold rounded-full text-teal-500 hover:bg-teal-500 hover:text-slate-900 transition duration-300 flex-shrink-0 whitespace-nowrap">
                     <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                    Start Today
+                    Claim Your Audit
                 </button>
             </div>
         </div>
@@ -301,23 +299,27 @@
                 <!-- Left: Copy -->
                 <div class="flex-1 text-center lg:text-left">
                     <div class="inline-block px-3 py-1 mb-6 text-[10px] font-black tracking-[0.2em] text-teal-400 uppercase bg-teal-500/10 border border-teal-500/20 rounded-md">
-                        48-Hour Creative Turns
+                        Studio-Grade. 48-Hour Turns.
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white">
-                        High-Velocity AI Creative, Engineered for ROAS.
+                        Studio-Grade AI Creative, Delivered at Velocity.
                     </h1>
                     <p class="text-lg text-slate-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        Premium brand aesthetics meet aggressive direct-response speed. Replace multi-week shoots with 48-hour creative turns—so your ad account never starves for testing volume again.
+                        Premium brand aesthetics meet aggressive direct-response speed. Replace multi-week shoots with 48-hour creative turns that look like real productions—not cheap AI renders.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <button onclick="openLeadForm('Creative Testing Sprint')" class="px-8 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition flex items-center justify-center space-x-3">
                             <i data-lucide="trending-up" class="w-5 h-5"></i>
-                            <span>Claim Your Creative Audit</span>
+                            <span>Claim Your Audit</span>
                         </button>
                         <button onclick="handleSidebarNav('showcase')" class="px-8 py-4 border border-slate-600 text-slate-300 font-bold rounded-xl hover:border-teal-500 hover:text-teal-400 transition flex items-center justify-center space-x-3">
                             <i data-lucide="play-circle" class="w-5 h-5"></i>
                             <span>See Scale Creatives</span>
                         </button>
+                    </div>
+                    <div class="mt-6 flex items-center justify-center lg:justify-start gap-2 text-amber-400/80 text-sm font-semibold">
+                        <i data-lucide="flame" class="w-4 h-4"></i>
+                        <span>Limited Production Slots</span>
                     </div>
                 </div>
 
@@ -345,17 +347,24 @@
                         The Margin Killer
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold mb-6 text-white">Your Creative Pipeline Is Killing Your Margins</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">Single hero shoots fatigue in 14 days. CPAs spike because traditional production can't match the speed of the ad auction. By the time your next asset drops, the algorithm already moved on.</p>
+                    <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">Single hero shoots fatigue in 14 days. CPAs spike because traditional production can't keep up with the ad auction—and when you do get assets, they either look cheap or took weeks to produce. By the time your next asset drops, the algorithm already moved on.</p>
                 </div>
 
                 <!-- Solution Block -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 reveal-up">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 reveal-up">
                     <div class="bg-slate-900/50 p-8 rounded-xl border border-slate-800 text-left">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5 text-teal-400"></i></div>
                             <h3 class="text-lg font-bold text-white">Radical Velocity</h3>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed">Test 20 compliant hooks in the time it takes competitors to script one. From brief to live assets in 48 hours—because in the ad auction, the fastest creative wins.</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-8 rounded-xl border border-slate-800 text-left">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center"><i data-lucide="sparkles" class="w-5 h-5 text-teal-400"></i></div>
+                            <h3 class="text-lg font-bold text-white">Studio-Grade Quality</h3>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">Every asset looks like a real production—premium aesthetics that protect your brand's perceived value and actually convert. Not a cheap AI render in sight.</p>
                     </div>
                     <div class="bg-slate-900/50 p-8 rounded-xl border border-slate-800 text-left">
                         <div class="flex items-center gap-3 mb-4">
@@ -393,45 +402,45 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
                     
                     <!-- Tier 1: Performance Hook Lab -->
-                    <div class="premium-card p-8 reveal-up">
+                    <div class="premium-card p-5 sm:p-8 reveal-up">
                         <div class="mb-6">
                             <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Performance Hook Lab</span>
                             <div class="mt-2 flex items-baseline gap-1">
                                 <span class="text-4xl font-extrabold text-white">$450</span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">Break through ad fatigue with fresh, attention-grabbing hooks.</p>
+                            <p class="text-sm text-slate-400 mt-2">Break through ad fatigue with studio-quality, attention-grabbing hooks.</p>
                         </div>
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">3 Scroll-Stopping Hooks</span><br><span class="text-sm text-slate-400">New angles that make people stop scrolling.</span></span></li>
                             <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Matched To Your Customer</span><br><span class="text-sm text-slate-400">Looks and sounds like your exact audience.</span></span></li>
                             <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">100% Legally Cleared</span><br><span class="text-sm text-slate-400">Ready to run anywhere. No copyright issues.</span></span></li>
                         </ul>
-                        <button onclick="openLeadForm('Performance Hook Lab')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Get Started</button>
+                        <button onclick="openLeadForm('Performance Hook Lab')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Claim Your Audit</button>
                     </div>
 
                     <!-- Tier 2: Creative Testing Sprint (Highlighted) -->
-                    <div id="top-seller-anchor" class="premium-card p-8 border-2 border-violet-500 shadow-[0_0_30px_rgba(139,92,246,0.2)] reveal-up relative">
+                    <div id="top-seller-anchor" class="premium-card p-5 sm:p-8 border-2 border-violet-500 shadow-[0_0_30px_rgba(139,92,246,0.2)] reveal-up relative">
                         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-violet-500 text-white text-[10px] font-black tracking-widest px-4 py-1 rounded-full uppercase">Top Selling Option</div>
                         <div class="mb-6 mt-2">
                             <span class="text-sm font-bold text-violet-400 uppercase tracking-widest">Creative Testing Sprint</span>
                             <div class="mt-2 flex items-baseline gap-1">
                                 <span class="text-4xl font-extrabold text-white">$1,250</span>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">A full month of creative to find what works—and scale it.</p>
+                            <p class="text-sm text-slate-400 mt-2">A full month of premium creative to find what works—and scale it.</p>
                         </div>
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start"><i data-lucide="zap" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">5 Complete Video Ads</span><br><span class="text-sm text-slate-400">Covers every stage: awareness, consideration, purchase.</span></span></li>
                             <li class="flex items-start"><i data-lucide="target" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">48-Hour Turnaround</span><br><span class="text-sm text-slate-400">From brief to live ads in 2 days, not 2 weeks.</span></span></li>
                             <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-violet-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Platform Approved</span><br><span class="text-sm text-slate-400">Built to pass Meta, TikTok, and Google ad reviews.</span></span></li>
                         </ul>
-                        <button onclick="openLeadForm('Creative Testing Sprint')" class="w-full py-4 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-400 transition shadow-lg">Get Started</button>
+                        <button onclick="openLeadForm('Creative Testing Sprint')" class="w-full py-4 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-400 transition shadow-lg">Claim Your Audit</button>
                     </div>
 
                     <!-- Tier 3: Scale & Growth Engine -->
-                    <div class="premium-card p-8 reveal-up">
+                    <div class="premium-card p-5 sm:p-8 reveal-up">
                         <div class="mb-6">
                             <span class="text-sm font-bold text-slate-400 uppercase tracking-widest">Scale & Growth Engine</span>
                             <div class="mt-2 flex items-baseline gap-1">
@@ -444,7 +453,7 @@
                             <li class="flex items-start"><i data-lucide="cpu" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Any Style You Need</span><br><span class="text-sm text-slate-400">Studio, lifestyle, unboxing, testimonials—all of it.</span></span></li>
                             <li class="flex items-start"><i data-lucide="shield" class="w-5 h-5 text-teal-400 mr-3 mt-0.5 flex-shrink-0"></i> <span class="text-slate-300"><span class="font-bold text-white">Zero Account Risk</span><br><span class="text-sm text-slate-400">Every asset is compliant so you scale without fear.</span></span></li>
                         </ul>
-                        <button onclick="openLeadForm('Scale & Growth Engine')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Contact Us</button>
+                        <button onclick="openLeadForm('Scale & Growth Engine')" class="w-full py-4 bg-slate-800 text-teal-400 font-bold rounded-xl border border-slate-700 hover:bg-teal-500 hover:text-slate-900 hover:border-teal-500 transition">Claim Your Audit</button>
                     </div>
 
                 </div>
@@ -470,7 +479,7 @@
             <div class="mt-16">
                 <button onclick="openLeadForm('Creative Testing Sprint')" class="px-10 py-5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition text-lg inline-flex items-center gap-3">
                     <i data-lucide="zap" class="w-5 h-5"></i>
-                    Lock In Creative Testing
+                    Claim Your Audit
                 </button>
                 <p class="text-slate-500 text-sm mt-4">Limited production slots. Audit required.</p>
             </div>
@@ -483,33 +492,48 @@
     <!-- Lead Form -->
     <div id="lead-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-overlay">
         <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full mx-4 shadow-2xl border border-teal-500/30 overflow-hidden">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Creative Audit</h3>
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-white flex items-center"><i data-lucide="zap" class="w-6 h-6 mr-2 text-teal-400"></i>Creative Audit</h3>
+                    <p class="text-teal-400 text-sm font-semibold mt-1">Free · No Obligation</p>
+                </div>
                 <button onclick="closeLeadForm()" class="text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
             </div>
             <div id="lead-form-content">
                 <!-- Step 1: Product Info -->
                 <div id="step-1" class="form-step active">
-                    <p class="text-slate-400 mb-6 font-medium">Step 1: Drop your website or product URL for a High-Velocity Creative Audit</p>
-                    <input type="text" id="lead-product-url" placeholder="Your website or product URL" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition mb-4">
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Step 1 of 2</p>
+                    <p class="text-slate-400 mb-6 font-medium">Drop your website or product URL for a High-Velocity Creative Audit</p>
+                    <input type="text" id="lead-product-url" placeholder="Your website or product URL" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition mb-1">
+                    <p id="url-error" class="text-red-500 text-sm hidden">Please enter your website or product URL.</p>
                     <button onclick="nextFormStep(1)" class="w-full mt-4 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Continue <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
                 </div>
-                <!-- Step 2: Style -->
+                <!-- Step 2: Style + Package + Email (merged) -->
                 <div id="step-2" class="form-step">
-                    <p class="text-slate-400 mb-6 font-medium">Step 2: Select your performance format</p>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-3">Step 2 of 2</p>
+
+                    <!-- Style Selection -->
+                    <p class="text-slate-400 mb-4 font-medium">Select your performance format</p>
                     <div class="grid grid-cols-1 gap-3" id="style-grid"></div>
-                    <button onclick="nextFormStep(2)" class="w-full mt-8 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Almost There <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i></button>
-                </div>
-                <!-- Step 3: Package & Email -->
-                <div id="step-3" class="form-step">
-                    <p class="text-slate-400 mb-6 font-medium">Step 3: Lock in your testing tier</p>
-                    <div class="space-y-3 mb-6">
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Performance Hook Lab - $450')">Performance Hook Lab <span class="block text-xs font-normal text-slate-400 mt-1">3x Scroll-Stopping Hooks - $450</span></div>
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Creative Testing Sprint - $1,250')">Creative Testing Sprint <span class="block text-xs font-normal text-slate-400 mt-1">5x Complete Video Ads - $1,250</span></div>
-                        <div class="option-tile pkg-opt" onclick="selectPackage(this, 'Scale & Growth Engine - Custom')">Scale & Growth Engine <span class="block text-xs font-normal text-slate-400 mt-1">20+ Videos Per Month - Custom</span></div>
+                    <p id="style-error" class="text-red-500 text-sm mt-2 hidden">Please select a style.</p>
+
+                    <!-- Package Selection -->
+                    <p class="text-slate-400 mb-4 mt-6 font-medium">Lock in your testing tier</p>
+                    <div class="space-y-3 mb-1">
+                        <div class="option-tile pkg-opt" data-pkg-base="Performance Hook Lab" data-pkg-full="Performance Hook Lab - $450" onclick="selectPackage(this, 'Performance Hook Lab - $450')">Performance Hook Lab <span class="block text-xs font-normal text-slate-400 mt-1">3x Scroll-Stopping Hooks - $450</span></div>
+                        <div class="option-tile pkg-opt" data-pkg-base="Creative Testing Sprint" data-pkg-full="Creative Testing Sprint - $1,250" onclick="selectPackage(this, 'Creative Testing Sprint - $1,250')">Creative Testing Sprint <span class="block text-xs font-normal text-slate-400 mt-1">5x Complete Video Ads - $1,250</span></div>
+                        <div class="option-tile pkg-opt" data-pkg-base="Scale & Growth Engine" data-pkg-full="Scale & Growth Engine - Custom" onclick="selectPackage(this, 'Scale & Growth Engine - Custom')">Scale & Growth Engine <span class="block text-xs font-normal text-slate-400 mt-1">20+ Videos Per Month - Custom</span></div>
                     </div>
-                    <input type="email" id="lead-email" placeholder="Your Work Email" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition">
-                    <button id="submit-lead-btn" onclick="submitLead()" class="w-full mt-6 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Lock In Creative Testing</button>
+                    <p id="pkg-error" class="text-red-500 text-sm mt-2 hidden">Please select a testing tier.</p>
+
+                    <!-- Email -->
+                    <input type="email" id="lead-email" placeholder="Your Work Email" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl text-white outline-none focus:border-teal-500 transition mt-6">
+                    <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email address.</p>
+
+                    <!-- General submission error -->
+                    <p id="general-error" class="text-red-500 text-sm mt-2 hidden">Something went wrong. Please try again.</p>
+
+                    <button id="submit-lead-btn" onclick="submitLead()" class="w-full mt-6 py-4 bg-teal-500 text-primary-dark font-bold rounded-xl hover:bg-teal-400 transition flex items-center justify-center">Claim Your Audit</button>
                 </div>
             </div>
             <div id="lead-success" class="hidden text-center py-10">
@@ -706,30 +730,111 @@
             document.getElementById('lead-modal').classList.remove('hidden'); document.getElementById('lead-form-content').classList.remove('hidden'); document.getElementById('lead-success').classList.add('hidden');
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById('step-1').classList.add('active');
             document.getElementById('lead-product-url').value = ''; document.getElementById('lead-email').value = ''; document.querySelectorAll('.option-tile').forEach(t => t.classList.remove('selected'));
-            const sg = document.getElementById('style-grid'); let styles = ['High-Fidelity Studio Pitch', 'Aesthetic UGC', 'POV Unboxing/Action', 'Aggressive Hook Test'];
-            sg.innerHTML = styles.map(s => `<div class="option-tile style-opt" onclick="selectStyle(this, '${s}')">${s}</div>`).join('');
-            if(pkg) { currentLeadContext.package = pkg; } lucide.createIcons();
+
+            // Clear all inline errors
+            document.getElementById('url-error').classList.add('hidden');
+            document.getElementById('style-error').classList.add('hidden');
+            document.getElementById('pkg-error').classList.add('hidden');
+            document.getElementById('email-error').classList.add('hidden');
+            document.getElementById('general-error').classList.add('hidden');
+            document.getElementById('lead-product-url').style.borderColor = '';
+            document.getElementById('lead-email').style.borderColor = '';
+
+            const sg = document.getElementById('style-grid');
+            let styles = [
+                {name: 'High-Fidelity Studio Pitch', desc: 'Studio-quality shots that build brand trust'},
+                {name: 'Aesthetic UGC', desc: 'Native content that feels like your customers made it'},
+                {name: 'POV Unboxing/Action', desc: 'First-person perspective that pulls viewers in'},
+                {name: 'Aggressive Hook Test', desc: 'Bold openings designed to stop the scroll'}
+            ];
+            sg.innerHTML = styles.map(s => `<div class="option-tile style-opt" onclick="selectStyle(this, '${s.name}')">${s.name}<span class="block text-xs font-normal text-slate-400 mt-1">${s.desc}</span></div>`).join('');
+
+            if(pkg) {
+                currentLeadContext.package = pkg;
+                // Visually pre-select the matching package tile
+                document.querySelectorAll('.pkg-opt').forEach(tile => {
+                    if (tile.dataset.pkgBase === pkg) {
+                        tile.classList.add('selected');
+                        currentLeadContext.package = tile.dataset.pkgFull;
+                    }
+                });
+            }
+            lucide.createIcons();
         };
 
         window.closeLeadForm = () => { document.getElementById('lead-modal').classList.add('hidden'); };
         window.openContactModal = () => { document.getElementById('contact-modal').classList.remove('hidden'); };
         window.closeContactModal = () => { document.getElementById('contact-modal').classList.add('hidden'); };
 
-        window.selectStyle = (el, style) => { document.querySelectorAll('.style-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.style = style; };
-        window.selectPackage = (el, pkg) => { document.querySelectorAll('.pkg-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.package = pkg; };
+        window.selectStyle = (el, style) => { document.querySelectorAll('.style-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.style = style; document.getElementById('style-error').classList.add('hidden'); };
+        window.selectPackage = (el, pkg) => { document.querySelectorAll('.pkg-opt').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); currentLeadContext.package = pkg; document.getElementById('pkg-error').classList.add('hidden'); };
 
         window.nextFormStep = (currentStep) => {
-            if(currentStep === 1) { const url = document.getElementById('lead-product-url').value.trim(); if(!url) { document.getElementById('lead-product-url').style.borderColor = '#ef4444'; return; } document.getElementById('lead-product-url').style.borderColor = ''; currentLeadContext.productUrl = url; }
-            if(currentStep === 2) { if(!currentLeadContext.style) { alert('Please select a style.'); return; } }
+            if(currentStep === 1) {
+                const url = document.getElementById('lead-product-url').value.trim();
+                if(!url) {
+                    document.getElementById('lead-product-url').style.borderColor = '#ef4444';
+                    document.getElementById('url-error').classList.remove('hidden');
+                    return;
+                }
+                document.getElementById('lead-product-url').style.borderColor = '';
+                document.getElementById('url-error').classList.add('hidden');
+                currentLeadContext.productUrl = url;
+            }
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active')); document.getElementById(`step-${currentStep + 1}`).classList.add('active'); lucide.createIcons();
         };
 
         window.submitLead = async () => {
-            const email = document.getElementById('lead-email').value.trim();
-            if(!email || !currentLeadContext.package) { if(!email) document.getElementById('lead-email').style.borderColor = '#ef4444'; if(!currentLeadContext.package) alert('Please select a package.'); return; }
+            // Clear all inline errors
+            document.getElementById('style-error').classList.add('hidden');
+            document.getElementById('pkg-error').classList.add('hidden');
+            document.getElementById('email-error').classList.add('hidden');
+            document.getElementById('general-error').classList.add('hidden');
             document.getElementById('lead-email').style.borderColor = '';
-            const success = await window.saveLeadToFirebase({ productUrl: currentLeadContext.productUrl, style: currentLeadContext.style, package: currentLeadContext.package, email: email });
-            if(success) { document.getElementById('lead-form-content').classList.add('hidden'); document.getElementById('lead-success').classList.remove('hidden'); lucide.createIcons(); } else { alert("There was an error submitting. Please try the email contact method."); }
+
+            let hasError = false;
+
+            if (!currentLeadContext.style) {
+                document.getElementById('style-error').classList.remove('hidden');
+                hasError = true;
+            }
+
+            if (!currentLeadContext.package || !currentLeadContext.package.trim()) {
+                document.getElementById('pkg-error').classList.remove('hidden');
+                hasError = true;
+            }
+
+            const emailInput = document.getElementById('lead-email');
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            if (!email || !emailRegex.test(email)) {
+                emailInput.style.borderColor = '#ef4444';
+                document.getElementById('email-error').classList.remove('hidden');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            const submitBtn = document.getElementById('submit-lead-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-slate-900 mx-auto"></div>';
+
+            const success = await window.saveLeadToFirebase({
+                productUrl: currentLeadContext.productUrl,
+                style: currentLeadContext.style,
+                package: currentLeadContext.package,
+                email: email
+            });
+
+            if (success) {
+                document.getElementById('lead-form-content').classList.add('hidden');
+                document.getElementById('lead-success').classList.remove('hidden');
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Claim Your Audit';
+                document.getElementById('general-error').classList.remove('hidden');
+            }
         };
     </script>
 </body>
